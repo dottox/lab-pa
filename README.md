@@ -6,3 +6,4 @@ Para descargar los archivos: `git clone https://github.com/dottox/lab-pa` en la 
 Archivos
 --------------------------
 - `ejercicios-vet` : Ejercicios hechos antes del lab
+- `lab-0` : Archivos del laboratorio 0.
