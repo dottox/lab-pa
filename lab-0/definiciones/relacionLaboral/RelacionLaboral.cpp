@@ -1,9 +1,10 @@
 #include "RelacionLaboral.h"
 
-RelacionLaboral::RelacionLaboral(Empresa* empresa, Empleado* empleado, float sueldo){
+RelacionLaboral::RelacionLaboral(Empresa* empresa, Empleado* empleado, float sueldo, Fecha f){
   this->empleado = empleado;
   this->empresa = empresa;
   this->sueldo = sueldo;
+  this->fechaDesvinculacion = f;
 }
 
 void RelacionLaboral::setSueldo(float sueldo){

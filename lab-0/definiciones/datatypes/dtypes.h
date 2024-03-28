@@ -7,36 +7,114 @@
 using namespace std;
 
 struct Fecha {
-  int dia;
-  int mes;
-  int anio;
+  public:
+    Fecha(int dia = NULL, int mes = NULL, int anio = NULL){
+      this->dia = dia;
+      this->mes = mes;
+      this->anio = anio;
+    }
+
+    int getDia() { return this->dia; }
+
+    int getMes() { return this->mes; }
+
+    int getAnio() { return this->anio; }
+
+  private:
+    int dia;
+    int mes;
+    int anio;
 };
 
-struct Direccion {
-  string calle;
-  int numero;
-  string ciudad;
+struct Direccion{
+  public:
+    Direccion(string calle = "", int numero = 0, string ciudad = ""){
+      this->calle = calle;
+      this->numero = numero;
+      this->ciudad = ciudad;
+    }
+
+    string getCalle() { return this->calle; }
+
+    int getNumero() { return this->numero; }
+
+    string getCiudad() { return this->ciudad; }
+
+  private:
+    string calle;
+    int numero;
+    string ciudad;
 };
- 
-struct DtEmpleado {
-  string ci;
-  string nombre;
-  string apellido;
-  Direccion direccion;
-  float sueldoLiquido;
+
+struct DtEmpleado{
+  public:
+    DtEmpleado(string ci, string nom, string apell, Direccion d){
+      this->ci = ci;
+      this->nombre = nom;
+      this->apellido = apell;
+      this->direccion = d;
+    }
+
+    string getCi() { return this->ci; }
+
+    string getNombre() { return this->nombre; }
+
+    string getApellido() { return this->apellido; }
+
+    Direccion getDireccion() { return this->direccion; }
+
+  private:
+    string ci;
+    string nombre;
+    string apellido;
+    Direccion direccion;
 };
 
 struct DtEmpresa{
-  string id;
-  Direccion direccion;
+  public:
+    virtual string getId() { return this->id; }
+
+    virtual Direccion getDir() { return this->direccion; }
+
+    virtual ~DtEmpresa(){};
+
+  protected:
+    string id;
+    Direccion direccion;
 };
 
-struct DtNacional : public DtEmpresa {
-  string rut;
+struct DtNacional : DtEmpresa {
+  public:
+    DtNacional(string id, Direccion dir, string rut)
+    {
+      this->id = id;
+      this->direccion = dir;
+      this->rut = rut;
+    }
+
+    string getRut() { return this->rut; }
+
+    ~DtNacional(){};
+
+  private:
+    string rut;
 };
 
-struct DtExtranjera : public DtEmpresa {
-  string nombreFantasia;
+struct DtExtranjera : DtEmpresa{
+  public:
+    DtExtranjera(string id, Direccion dir, string nombreFantasia)
+    {
+      this->id = id;
+      this->direccion = dir;
+      this->nombreFantasia = nombreFantasia;
+    }
+
+    string getNombreFantasia() { return this->nombreFantasia; }
+
+    ~DtExtranjera(){};
+
+  private:
+    string nombreFantasia;
 };
 
-#endif 
+#endif

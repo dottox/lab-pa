@@ -80,36 +80,22 @@ class Sistema {
     }
 };
 
-DtNacional* getDtNacional(string id, Direccion direccion, string rut) {
-  DtNacional* nacional = new DtNacional();
-  nacional->id = id;
-  nacional->direccion = direccion;
-  nacional->rut = rut;
-  return nacional;
-}
-
-DtExtranjera* getDtExtranjera(string id, Direccion direccion, string nombreFantasia) {
-  DtExtranjera* extranjera = new DtExtranjera();
-  extranjera->id = id;
-  extranjera->direccion = direccion;
-  extranjera->nombreFantasia = nombreFantasia;
-  return extranjera;
-}
 
 int main() {
 
-  DtNacional* nacional1 = getDtNacional("1", {"Calle 1", 1, "Montevideo"}, "1");
-  DtNacional* nacional2 = getDtNacional("2", {"Calle 2", 2, "Montevideo"}, "2");
-  DtNacional* nacional3 = getDtNacional("3", {"Calle 3", 3, "Montevideo"}, "3");
+  Direccion dir1 = Direccion("Calle 1", 1234, "Montevideo");
+  DtNacional* nacional1 = DtNacional("1", dir1, "1");
+  // DtNacional* nacional2 = DtNacional("2", dir1, "2");
+  // DtNacional* nacional3 = DtNacional("3", dir1, "3");
   
-  DtExtranjera* extranjera1 = getDtExtranjera("2", {"Calle 2", 2, "Montevideo"}, "Empresa 1");
-  DtExtranjera* extranjera2 = getDtExtranjera("3", {"Calle 3", 3, "Montevideo"}, "Empresa 2");
-  DtExtranjera* extranjera3 = getDtExtranjera("4", {"Calle 4", 4, "Montevideo"}, "Empresa 3");
+  // DtExtranjera* extranjera1 = DtExtranjera("2", dir1, "Empresa 1");
+  // DtExtranjera* extranjera2 = DtExtranjera("3", dir1, "Empresa 2");
+  // DtExtranjera* extranjera3 = DtExtranjera("4", dir1, "Empresa 3");
 
-  DtEmpleado* empleado1 = new DtEmpleado{"1", "Juan", "Perez", {"Calle 1", 1, "Montevideo"}, 1000};
-  DtEmpleado* empleado2 = new DtEmpleado{"2", "Pedro", "Gonzalez", {"Calle 2", 2, "Montevideo"}, 2000};
-  DtEmpleado* empleado3 = new DtEmpleado{"3", "Maria", "Rodriguez", {"Calle 3", 3, "Montevideo"}, 3000};
-  DtEmpleado* empleado4 = new DtEmpleado{"4", "Ana", "Lopez", {"Calle 4", 4, "Montevideo"}, 4000};
+  // DtEmpleado* empleado1 = DtEmpleado("1", "Juan", "Perez", dir1, 1000);
+  // DtEmpleado* empleado2 = DtEmpleado("2", "Pedro", "Gonzalez", dir1, 2000);
+  // DtEmpleado* empleado3 = DtEmpleado("3", "Maria", "Rodriguez", dir1, 3000);
+  // DtEmpleado* empleado4 = DtEmpleado("4", "Ana", "Lopez", dir1, 4000);
 
 
   
@@ -117,8 +103,8 @@ int main() {
 
   
   s->agregarEmpresa(nacional1);
-  s->agregarEmpresa(extranjera1);
-  s->agregarEmpresa(extranjera2);
+  // s->agregarEmpresa(extranjera1);
+  // s->agregarEmpresa(extranjera2);
 
   cout << "Hola Mundo! c:" << endl;
 

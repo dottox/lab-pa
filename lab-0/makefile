@@ -9,13 +9,13 @@ Empresa.o:
 	g++ -c "definiciones/empresa/Empresa.cpp"
 
 EmpresaNacional.o: Empresa.o
-	g++ -c "definiciones/EmpresaNacional/EmpresaNacional.cpp"
+	g++ -c "definiciones/empresaNacional/EmpresaNacional.cpp"
 	
 EmpresaExtranjera.o: Empresa.o
-	g++ -c "definiciones/EmpresaExtranjera/EmpresaExtranjera.cpp"
+	g++ -c "definiciones/empresaExtranjera/EmpresaExtranjera.cpp"
 
 RelacionLaboral.o: Empresa.o Empleado.o 
-	g++ -c "definiciones/RelacionLaboral/RelacionLaboral.cpp"	
+	g++ -c "definiciones/relacionLaboral/RelacionLaboral.cpp"	
 
 main.o: 
 	g++ -c "main.cpp"
@@ -24,7 +24,7 @@ clean:
 	rm -f Empleado.o RelacionLaboral.o Empresa.o EmpresaNacional.o EmpresaExtranjera.o main.o programa
 
 run:
-	MinGW32-make clean
-	MinGW32-make
+	make clean
+	make
 	clear
 	./programa

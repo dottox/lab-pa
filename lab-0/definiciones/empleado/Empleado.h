@@ -21,15 +21,14 @@ class Empleado {
     string getCi();
     Direccion getDireccion();
     
+     //DESTRUCTORES
+    ~Empleado();
 
   private:
     string ci;
     string nombre;
     string apellido;
     Direccion direccion;
-
-    //DESTRUCTORES
-    ~Empleado();
   };
 
 #endif
