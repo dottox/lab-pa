@@ -1,38 +1,35 @@
 #ifndef EMPLEADO_H
 #define EMPLEADO_H
 
-#include <iostream>
-using namespace std;
-
-#include "../datatypes/Datatype.h"
-
+#include "../datatypes/dtypes.h"
 
 class Empleado {
-    public:
+  public:
 
-      // CONSTRUCTOR
-      Empleado(string, string, string, Direccion);
+    // CONSTRUCTOR
+    Empleado(string, string, string, Direccion);
 
-      // SETTERS 
-      void setNombre(string);
-      void setApellido(string);
-      void setCi(string);
-      void setDireccion(Direccion);
+    // SETTERS 
+    void setNombre(string);
+    void setApellido(string);
+    void setCi(string);
+    void setDireccion(Direccion);
 
-      // GETTERS 
-      string getNombre();
-      string getApellido();
-      string getCi();
-      string getDireccion();
-      
+    // GETTERS 
+    string getNombre();
+    string getApellido();
+    string getCi();
+    Direccion getDireccion();
+    
 
-    private:
-      string ci;
-      string nombre;
-      string apellido;
-      Direccion direccion;
+  private:
+    string ci;
+    string nombre;
+    string apellido;
+    Direccion direccion;
 
-      //DESTRUCTORES
-      ~Empleado();
-}
+    //DESTRUCTORES
+    ~Empleado();
+  };
+
 #endif

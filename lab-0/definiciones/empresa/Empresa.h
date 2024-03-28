@@ -1,18 +1,27 @@
 #ifndef EMPRESA_H
 #define EMPRESA_H
 
-#include <iostream>
-#include <string>
-#include <cstdlib>
-using namespace std;
+#include "../datatypes/dtypes.h"
 
-#include "../datatypes/Datatype.h"
+class Empleado;
 
 class Empresa {
-  private:
-    string id;
-    direccion Direccion;
-}
+    public:
+        Empresa(string,Direccion);
 
+        // SETTERS
+        void setDireccion(Direccion);
+
+        // GETTERS
+        string getId();
+        Direccion getDireccion();
+        virtual float getDescuento() = 0;
+
+        virtual ~Empresa();
+
+    protected:
+        string id;
+        Direccion direccion;
+};
 
 #endif

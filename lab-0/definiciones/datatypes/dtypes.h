@@ -26,17 +26,17 @@ struct DtEmpleado {
   float sueldoLiquido;
 };
 
-struct DtEmpresa {
+struct DtEmpresa{
   string id;
   Direccion direccion;
 };
 
-struct DtNacional {
+struct DtNacional : public DtEmpresa {
   string rut;
 };
 
-struct DtExtranjera {
+struct DtExtranjera : public DtEmpresa {
   string nombreFantasia;
 };
 
-#endif
+#endif 

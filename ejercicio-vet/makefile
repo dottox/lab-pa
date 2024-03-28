@@ -26,3 +26,4 @@ run:
 	make
 	cls
 	./programa
+
