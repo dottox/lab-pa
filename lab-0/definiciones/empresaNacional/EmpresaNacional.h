@@ -3,7 +3,7 @@
 
 #include "../empresa/Empresa.h"
 
-class EmpresaNacional : protected Empresa {
+class EmpresaNacional : public Empresa {
   public:
     // CONSTRUCTOR
     EmpresaNacional(string, Direccion, string); // id, direccion, rut

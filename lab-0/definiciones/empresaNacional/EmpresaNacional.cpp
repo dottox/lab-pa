@@ -16,6 +16,4 @@ float EmpresaNacional::getDescuento(){
   return 0.35;
 }
 
-EmpresaNacional::~EmpresaNacional(){
-  delete this;
-}
+EmpresaNacional::~EmpresaNacional() {}

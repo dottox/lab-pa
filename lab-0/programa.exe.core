@@ -1,0 +1,23 @@
+[main] programa 1038 (0) exception: trapped!
+[main] programa 1038 (0) exception: code 0xC0000005 at 0x61053592
+[main] programa 1038 (0) exception: ax 0x0 bx 0xA0E1698 cx 0x61062B50 dx 0xA0E2000
+[main] programa 1038 (0) exception: si 0xA0E1B50 di 0x610626A0 bp 0x247FB54 sp 0x247FB4C
+[main] programa 1038 (0) exception: exception is: STATUS_ACCESS_VIOLATION
+[main] programa 1038 (0) stack: Stack trace:
+[main] programa 1038 (0) stack: frame 0: sp = 0x247F4D0, pc = 0x6100A2C3
+[main] programa 1038 (0) stack: frame 1: sp = 0x247F50C, pc = 0x770891D2
+[main] programa 1038 (0) stack: frame 2: sp = 0x247F530, pc = 0x770891A4
+[main] programa 1038 (0) stack: frame 3: sp = 0x247F5FC, pc = 0x77068DB6
+[main] programa 1038 (0) stack: frame 4: sp = 0x247FB54, pc = 0x4033FC
+[main] programa 1038 (0) stack: frame 5: sp = 0x247FB68, pc = 0x41BA2A
+[main] programa 1038 (0) stack: frame 6: sp = 0x247FB88, pc = 0x41B840
+[main] programa 1038 (0) stack: frame 7: sp = 0x247FBB4, pc = 0x41C46B
+[main] programa 1038 (0) stack: frame 8: sp = 0x247FBC4, pc = 0x41AAB4
+[main] programa 1038 (0) stack: frame 9: sp = 0x247FBD8, pc = 0x4198E7
+[main] programa 1038 (0) stack: frame 10: sp = 0x247FC74, pc = 0x41C3AD
+[main] programa 1038 (0) stack: frame 11: sp = 0x247FC8C, pc = 0x402B37
+[main] programa 1038 (0) stack: frame 12: sp = 0x247FDCC, pc = 0x4031C0
+[main] programa 1038 (0) stack: frame 13: sp = 0x247FEF4, pc = 0x61004402
+[main] programa 1038 (0) stack: frame 14: sp = 0x247FF3C, pc = 0x61004420
+[main] programa 1038 (0) stack: frame 15: sp = 0x247FF48, pc = 0x418186
+[main] programa 1038 (0) stack: End of stack trace (more stack frames may be present)

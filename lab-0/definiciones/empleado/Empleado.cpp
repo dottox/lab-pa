@@ -10,38 +10,20 @@ Empleado::Empleado(string ci, string nom, string apell, Direccion d)
   this->direccion = d;
 }
 
-void Empleado::setCi(string ci){
-  this->ci = ci;
-}
+void Empleado::setCi(string ci) { this->ci = ci; }
 
-void Empleado::setNombre(string nom){
-  this->nombre = nom;
-}
+void Empleado::setNombre(string nom) { this->nombre = nom; }
 
-void Empleado::setApellido(string apell){
-  this->apellido = apell;
-}
+void Empleado::setApellido(string apell) { this->apellido = apell; }
 
-void Empleado::setDireccion(Direccion d){
-  this->direccion = d;
-}
+void Empleado::setDireccion(Direccion d) { this->direccion = d; }
 
-string Empleado::getNombre(){
-  return this->nombre;
-}
+string Empleado::getNombre() { return this->nombre; }
 
-string Empleado::getApellido(){
-  return this->apellido;
-}
+string Empleado::getApellido() { return this->apellido; }
 
-string Empleado::getCi(){
-  return this->ci;
-}
+string Empleado::getCi() { return this->ci; }
 
-Direccion Empleado::getDireccion(){
-  return this->direccion;
-}
+Direccion Empleado::getDireccion() { return this->direccion; }
 
-Empleado::~Empleado(){
-  delete this;
-}
+Empleado::~Empleado() {}

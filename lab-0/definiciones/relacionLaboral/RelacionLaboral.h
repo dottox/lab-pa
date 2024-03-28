@@ -24,6 +24,9 @@ class RelacionLaboral{
     string getIdEmpresa();
     string getCiEmpleado();
 
+    // DESTRUCTORES
+    ~RelacionLaboral();
+
   private:
     Empresa* empresa;
     Empleado* empleado;

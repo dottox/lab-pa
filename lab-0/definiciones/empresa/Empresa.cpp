@@ -18,6 +18,4 @@ string Empresa::getId(){
     return this->id;
 }
 
-Empresa::~Empresa(){
-    delete this;
-}
+Empresa::~Empresa() {}

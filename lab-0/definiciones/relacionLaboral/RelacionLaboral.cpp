@@ -30,3 +30,5 @@ string RelacionLaboral::getCiEmpleado(){
 Fecha RelacionLaboral::getFechaDesvinculacion(){
   return this->fechaDesvinculacion;
 };
+
+RelacionLaboral::~RelacionLaboral() {};
