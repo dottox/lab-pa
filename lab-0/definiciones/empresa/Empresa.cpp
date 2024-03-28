@@ -14,6 +14,10 @@ Direccion Empresa::getDireccion(){
     return this->direccion;
 }
 
+string Empresa::getId(){
+    return this->id;
+}
+
 Empresa::~Empresa(){
     delete this;
 }

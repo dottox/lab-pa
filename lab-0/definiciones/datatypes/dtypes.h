@@ -8,7 +8,7 @@ using namespace std;
 
 struct Fecha {
   public:
-    Fecha(int dia = NULL, int mes = NULL, int anio = NULL){
+    Fecha(int dia = 0, int mes = 0, int anio = 0){
       this->dia = dia;
       this->mes = mes;
       this->anio = anio;
@@ -74,7 +74,9 @@ struct DtEmpresa{
   public:
     virtual string getId() { return this->id; }
 
-    virtual Direccion getDir() { return this->direccion; }
+    virtual Direccion getDir() { 
+      return this->direccion;
+    }
 
     virtual ~DtEmpresa(){};
 

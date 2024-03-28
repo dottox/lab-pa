@@ -8,11 +8,11 @@
 class Empleado;
 class Empresa;
 
-class RelacionLaboral {
+class RelacionLaboral{
 
   public:
     // CONSTRUCTOR
-    RelacionLaboral(Empresa*, Empleado*, float); // Empresa, Empleado, sueldo
+    RelacionLaboral(Empresa*, Empleado*, float, Fecha); // Empresa, Empleado, sueldo
     
     // SETTERS 
     void setSueldo(float);
