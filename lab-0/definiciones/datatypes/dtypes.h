@@ -10,14 +10,6 @@ using namespace std;
 struct Fecha{
   public:
     Fecha(int dia = 0, int mes = 0, int anio = 0){
-      // Para las fechas en caso de recibir dd > 31 o dd < 1 o mm > 12 o mm < 1 o aaaa < 1900, se debe levantar la excepcion std::invalid_argument.
-      if ((dia < 1 || dia > 31) || (mes < 1 || mes > 12) || (anio < 1900) || (mes == 2 && dia > 29)){
-        if (dia != 0 && mes != 0 && anio != 0) {
-          delete this;
-          
-          throw std::invalid_argument("Esta fecha no es valida.");
-        }
-      }
       this->dia = dia;
       this->mes = mes;
       this->anio = anio;
@@ -38,9 +30,6 @@ struct Fecha{
 struct Direccion{
 public:
   Direccion(string calle = "", int numero = 0, string ciudad = "") {
-    if ((calle == "") || ( ciudad == "")) {
-      throw invalid_argument("Esta direccion no es valida.");
-    }
     this->calle = calle;
     this->numero = numero;
     this->ciudad = ciudad;

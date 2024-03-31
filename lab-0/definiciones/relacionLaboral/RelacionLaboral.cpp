@@ -16,7 +16,7 @@ void RelacionLaboral::setFechaDesvinculacion(Fecha fecha){
 }
 
 float RelacionLaboral::getSueldoLiquido(){
-  return (this->sueldo * this->empresa->getDescuento());
+  return (this->sueldo * (1 - this->empresa->getDescuento()));
 };              
 
 string RelacionLaboral::getIdEmpresa(){

@@ -212,7 +212,7 @@ class Sistema {
       if (buscarEmpleado(ciEmpleado) == NULL) {
         throw std::invalid_argument("El empleado no existe");
       }
-
+      
       // Lista a devolver.
       DtEmpresa** empresas = new DtEmpresa*[cantEmpres];
 
@@ -285,30 +285,49 @@ class Sistema {
 };
 
 
+
+Direccion newDireccion(string calle, int num, string ciu) {
+  if ((calle == "") || (ciu == "")) {      
+    throw invalid_argument("Esta direccion no es valida.");
+  }
+  return Direccion(calle, num, ciu);
+}
+
+Fecha newFecha(int dia, int mes, int anio) {
+  // Para las fechas en caso de recibir dd > 31 o dd < 1 o mm > 12 o mm < 1 o aaaa < 1900, se debe levantar la excepcion std::invalid_argument.
+  if ((dia < 1 || dia > 31) || (mes < 1 || mes > 12) || (anio < 1900) || (mes == 2 && dia > 29)){
+    if (dia != 0 && mes != 0 && anio != 0) {
+      throw std::invalid_argument("Esta fecha no es valida.");
+    }
+  }
+  
+  return Fecha(dia, mes, anio);
+}
+
+
+
 int main() {
 
+  Direccion dir1 = newDireccion("Calle 1", 1234, "Montevideo");
+  Direccion dir2 = newDireccion("Calle 321", 1234, "Nueva York");
 
-  Direccion dir1 = Direccion("Calle 1", 1234, "Montevideo");
-  Direccion dir2 = Direccion("Calle 321", 1234, "Nueva York");
+  Fecha fecha1 = newFecha(8, 2, 2003); // <-- Viejo arrugado
+  Fecha fecha2 = newFecha(1, 4, 2003); // <-- El del medio q nadie lo co
+  Fecha fecha3 = newFecha(28, 9, 2004); // <-- El mas pendejo
 
   DtNacional* nacional1 = new DtNacional("1", dir1, "214789"); // <- Primera muerte
   DtNacional* nacional2 = new DtNacional("2", dir1, "03213219");
   DtNacional* nacional3 = new DtNacional("3", dir1, "413432432");
 
-  
   DtExtranjera* extranjera1 = new DtExtranjera("4", dir2, "COCA COLA");
   DtExtranjera* extranjera2 = new DtExtranjera("5", dir1, "MC DONALDS");
   DtExtranjera* extranjera3 = new DtExtranjera("6", dir1, "HAMBURGUESA KING");
-
-
 
   Sistema* s = new Sistema();
   s->agregarEmpleado("1", "Juan", "Perez", dir1);
   s->agregarEmpleado("2", "Pedro", "Gonzalez", dir1);
   s->agregarEmpleado("3", "Maria", "Rodriguez", dir1);
   s->agregarEmpleado("4", "Ana", "Lopez", dir1);
-  
-  cout << "franco puto";
 
   s->agregarEmpresa(nacional1);
   s->agregarEmpresa(nacional2);
@@ -317,12 +336,24 @@ int main() {
   s->agregarEmpresa(extranjera2);
   s->agregarEmpresa(extranjera3);
 
-  cout << "hamburguesa" << endl;
+  s->agregarRelacionLaboral("1", "1", 1123.513);
+  s->agregarRelacionLaboral("2", "2", 420.6987);
+  s->agregarRelacionLaboral("3", "3", 45000);
+  s->agregarRelacionLaboral("4", "3", 125000);
+  s->agregarRelacionLaboral("4", "5", 6000);
 
-  s->mostrarInfo(1);
-  s->mostrarInfo(2);
-  s->mostrarInfo(3);
 
-  cout << "ho123qlaaaaa" << endl;
   
+  try {
+    s->agregarRelacionLaboral("1", "1", 1123.513);
+  } catch (std::exception& e) {
+      std::cerr << "Se ha producido una excepción: " << e.what() << std::endl;
+  }
+
+  s->finalizarRelacionLaboral("1", "1", fecha1);
+  s->agregarRelacionLaboral("1", "1", 1123.513);
+
+  // s->mostrarInfo(1);
+  // s->mostrarInfo(2);
+  // s->mostrarInfo(3);  
 }
