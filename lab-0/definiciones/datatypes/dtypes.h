@@ -4,11 +4,20 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <stdexcept>
 using namespace std;
 
-struct Fecha {
+struct Fecha{
   public:
     Fecha(int dia = 0, int mes = 0, int anio = 0){
+      // Para las fechas en caso de recibir dd > 31 o dd < 1 o mm > 12 o mm < 1 o aaaa < 1900, se debe levantar la excepcion std::invalid_argument.
+      if ((dia < 1 || dia > 31) || (mes < 1 || mes > 12) || (anio < 1900) || (mes == 2 && dia > 29)){
+        if (dia != 0 && mes != 0 && anio != 0) {
+          delete this;
+          
+          throw std::invalid_argument("Esta fecha no es valida.");
+        }
+      }
       this->dia = dia;
       this->mes = mes;
       this->anio = anio;
@@ -27,96 +36,104 @@ struct Fecha {
 };
 
 struct Direccion{
-  public:
-    Direccion(string calle = "", int numero = 0, string ciudad = ""){
-      this->calle = calle;
-      this->numero = numero;
-      this->ciudad = ciudad;
+public:
+  Direccion(string calle = "", int numero = 0, string ciudad = "") {
+    if ((calle == "") || ( ciudad == "")) {
+      throw invalid_argument("Esta direccion no es valida.");
     }
+    this->calle = calle;
+    this->numero = numero;
+    this->ciudad = ciudad;
+  }
 
-    string getCalle() { return this->calle; }
+  string getCalle() { return this->calle; }
 
-    int getNumero() { return this->numero; }
+  int getNumero() { return this->numero; }
 
-    string getCiudad() { return this->ciudad; }
+  string getCiudad() { return this->ciudad; }
 
-  private:
-    string calle;
-    int numero;
-    string ciudad;
+private:
+  string calle;
+  int numero;
+  string ciudad;
 };
 
 struct DtEmpleado{
-  public:
-    DtEmpleado(string ci, string nom, string apell, Direccion d){
-      this->ci = ci;
-      this->nombre = nom;
-      this->apellido = apell;
-      this->direccion = d;
-    }
+public:
+  DtEmpleado(string ci, string nom, string apell, Direccion d)
+  {
+    this->ci = ci;
+    this->nombre = nom;
+    this->apellido = apell;
+    this->direccion = d;
+  }
 
-    string getCi() { return this->ci; }
+  string getCi() { return this->ci; }
 
-    string getNombre() { return this->nombre; }
+  string getNombre() { return this->nombre; }
 
-    string getApellido() { return this->apellido; }
+  string getApellido() { return this->apellido; }
 
-    Direccion getDireccion() { return this->direccion; }
+  Direccion getDireccion() { return this->direccion; }
 
-  private:
-    string ci;
-    string nombre;
-    string apellido;
-    Direccion direccion;
+private:
+  string ci;
+  string nombre;
+  string apellido;
+  Direccion direccion;
 };
 
-struct DtEmpresa{
-  public:
-    virtual string getId() { return this->id; }
+struct DtEmpresa
+{
+public:
+  virtual string getId() { return this->id; }
 
-    virtual Direccion getDir() { 
-      return this->direccion;
-    }
+  virtual Direccion getDir()
+  {
+    return this->direccion;
+  }
 
-    virtual ~DtEmpresa(){};
+  virtual ~DtEmpresa(){};
 
-  protected:
-    string id;
-    Direccion direccion;
+protected:
+  string id;
+  Direccion direccion;
 };
 
-struct DtNacional : DtEmpresa {
-  public:
-    DtNacional(string id, Direccion dir, string rut)
-    {
-      this->id = id;
-      this->direccion = dir;
-      this->rut = rut;
-    }
+struct DtNacional : DtEmpresa
+{
+public:
+  DtNacional(string id, Direccion dir, string rut)
+  {
+    this->id = id;
+    this->direccion = dir;
+    this->rut = rut;
+  }
 
-    string getRut() { return this->rut; }
+  string getRut() { return this->rut; }
 
-    ~DtNacional(){};
+  ~DtNacional(){};
 
-  private:
-    string rut;
+private:
+  string rut;
 };
 
-struct DtExtranjera : DtEmpresa{
-  public:
-    DtExtranjera(string id, Direccion dir, string nombreFantasia)
-    {
-      this->id = id;
-      this->direccion = dir;
-      this->nombreFantasia = nombreFantasia;
-    }
+struct DtExtranjera : DtEmpresa
+{
+public:
+  DtExtranjera(string id, Direccion dir, string nombreFantasia)
+  {
+    this->id = id;
+    this->direccion = dir;
+    this->nombreFantasia = nombreFantasia;
+  }
 
-    string getNombreFantasia() { return this->nombreFantasia; }
+  string getNombreFantasia() { return this->nombreFantasia; }
 
-    ~DtExtranjera(){};
+  ~DtExtranjera(){};
 
-  private:
-    string nombreFantasia;
+private:
+  string nombreFantasia;
 };
 
 #endif

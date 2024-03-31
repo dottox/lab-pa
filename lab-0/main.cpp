@@ -6,7 +6,7 @@
 // empresa en el sistema. En caso de ya existir, levanta una excepción 
 // std::invalid_argument.
 
-// c) DtEmpleado** listarEmpleados(int & cantEmpleados)Retorna 
+// c) DtEmpleado** listarEmpleados(int &cantEmpleados)Retorna 
 // un arreglo de DtEmpleado* con todos los empleados del sistema. El largo 
 // del arreglo de empleados está dado por el parámetro cantEmpleados.
 
@@ -64,7 +64,62 @@ class Sistema {
       delete[] relacionesLaborales;
     }
 
+    // --- FUNCIONES AUXILIARES ---
+
+    // Devuelve al empleado si existe, NULL en caso contrario.
+    Empleado* buscarEmpleado(string ci) {
+      for (int i = 0; i < cantEmpleados; i++) {
+        if (empleados[i]->getCi() == ci) {
+          return empleados[i];
+        }
+      }
+      return NULL;
+    }
+
+    // Devuelve a la empresa si existe, NULL en caso contrario.
+    Empresa* buscarEmpresa(string id) {
+      for (int i = 0; i < cantEmpresas; i++) {
+        if (empresas[i]->getId() == id) {
+          return empresas[i];
+        }
+      }
+      return NULL;
+    }
+
+    // Devuelve la relación laboral si existe, NULL en caso contrario.
+    RelacionLaboral* buscarRelacionLaboral(string ciEmpleado, string idEmpresa) {
+      for (int i = 0; i < cantRelacionesLaborales; i++) {
+        if (relacionesLaborales[i]->getCiEmpleado() == ciEmpleado && relacionesLaborales[i]->getIdEmpresa() == idEmpresa) {
+          return relacionesLaborales[i];
+        }
+      }
+      return NULL;
+    }
+
+    // Devuelve true si el sistema está lleno de empleados.
+    bool empleadosIsFull() {
+      return cantEmpleados >= MAX_EMPLEADOS;
+    }
+    
+    // Devuelve true si el sistema está lleno de empresas.
+    bool empresasIsFull() {
+      return cantEmpresas >= MAX_EMPRESAS;
+    }
+
+    // Devuelve true si el sistema está lleno de relaciones laborales.
+    bool relacionesLaboralesIsFull() {
+      return cantRelacionesLaborales >= MAX_RELACIONES_LABORALES;
+    }
+
+    // ----------------------------
+   
+    // Crea un nuevo empleado en el sistema. 
+    // En caso de ya existir, levanta la excepción std::invalid_argument.
     void agregarEmpresa(DtEmpresa* emp) {
+       if (buscarEmpresa(emp->getId()) != NULL) {
+        throw std::invalid_argument("La empresa ya existe");
+      }
+
       if (DtNacional* nacional = dynamic_cast<DtNacional*>(emp)) { // Es una empresa nacional
         EmpresaNacional* e = new EmpresaNacional(nacional->getId(), nacional->getDir(), nacional->getRut());
         this->empresas[cantEmpresas++] = e;
@@ -72,46 +127,159 @@ class Sistema {
         EmpresaExtranjera* e = new EmpresaExtranjera(extranjera->getId(), extranjera->getDir(), extranjera->getNombreFantasia());
         this->empresas[cantEmpresas++] = e;
       }
-
       delete emp;
     }
 
-    void agregarEmpleado(DtEmpleado* emp) {
-      Empleado* e = new Empleado(emp->getCi(), emp->getNombre(), emp->getApellido(), emp->getDireccion());
+    // Crea una nueva empresa en el sistema. 
+    // En caso de ya existir, levanta una excepción std::invalid_argument.
+    void agregarEmpleado(string ci, string nombre, string apellido, Direccion dir) {
+      if (buscarEmpleado(ci) != NULL) {
+        throw std::invalid_argument("El empleado ya existe");
+      }
+      Empleado* e = new Empleado(ci, nombre, apellido, dir);
       empleados[cantEmpleados++] = e;
-
-      delete emp;
     }
 
+    // Retorna un arreglo de DtEmpleado* con todos los empleados del sistema.
+    // El largo del arreglo de empleados está dado por el parámetro cantEmpleados.
+    DtEmpleado** listarEmpleados(int cantEmpleados) {
+      DtEmpleado** empleados = new DtEmpleado*[cantEmpleados];
+      for (int i = 0; i < cantEmpleados; i++) {
+        Empleado* e = this->empleados[i];
+        empleados[i] = new DtEmpleado(e->getCi(), e->getNombre(), e->getApellido(), e->getDireccion());
+      }
+      return empleados;
+    }
+
+    // Vincula un empleado con una empresa.
+    // Si la empresa ya está dentro de las empresas que el empleado ha trabajado
+    // o trabaja se levanta una excepción std::invalid_argument.
     void agregarRelacionLaboral(string ciEmpleado, string idEmpresa, float sueldo) {
-      //e->agregarRelacionLaboral(emp, sueldo);
+      // 1. Si empleado existe
+      if (buscarEmpleado(ciEmpleado) == NULL) {
+        throw std::invalid_argument("El empleado no existe");
+      }
+
+      // 2. Si empresa existe
+      if (buscarEmpresa(idEmpresa) == NULL) {
+        throw std::invalid_argument("La empresa no existe");
+      }
+
+      // 3. Si el empleado no trabaja ya en la empresa
+      if (buscarRelacionLaboral(ciEmpleado, idEmpresa) != NULL) {
+        throw std::invalid_argument("El empleado ya trabaja o trabajo en la empresa");
+      }
+
+      // 4. Si rel lab no está lleno
+      if (relacionesLaboralesIsFull()) {
+        throw std::invalid_argument("No se pueden agregar mas relaciones laborales");
+      }
+
+      // Endpoint: Agregar la relacion laboral
+      Empleado* empleado = buscarEmpleado(ciEmpleado);
+      Empresa* empresa = buscarEmpresa(idEmpresa);
+      Fecha f = Fecha(0, 0, 0);
+      RelacionLaboral* rl = new RelacionLaboral(empresa, empleado, sueldo, f);
+      relacionesLaborales[cantRelacionesLaborales++] = rl;
     }
     
     void finalizarRelacionLaboral(string ciEmpleado, string idEmpresa, Fecha desvinculacion) {
-      //
-    }
-
-    void listarEmpleados(int cantEmpleados) {
-      Empleado** empleados = new Empleado*[cantEmpleados];
-      for (int i = 0; i < cantEmpleados; i++) {
-        cout << "Empleado: " << empleados[i]->getNombre() << " " << empleados[i]->getApellido() << " c:" << endl;
+      // 1. Si empleado existe
+      if (buscarEmpleado(ciEmpleado) == NULL) {
+        throw std::invalid_argument("El empleado no existe");
       }
+
+      // 2. Si empresa existe
+      if (buscarEmpresa(idEmpresa) == NULL) {
+        throw std::invalid_argument("La empresa no existe");
+      }
+
+      // 3. Si el empleado trabaja en la empresa
+      RelacionLaboral* rl = buscarRelacionLaboral(ciEmpleado, idEmpresa);
+      if (rl == NULL) {
+        throw std::invalid_argument("El empleado no ha trabajado en la empresa");
+      }
+
+      // Endpoint: Actualizar la fecha de desvinculacion
+      rl->setFechaDesvinculacion(desvinculacion);
+      return;
     }
 
-    DtEmpresa** obtenerInfoEmpresaPorEmpleado(string ciEmpleado, int cantEmpresas) {
-      cout << "incoming";
+  // Retorna un arreglo con las empresas donde trabaja activamente el empleado. 
+  // El largo del arreglo de empresas está dado por el parámetro cantEmpresas.
+      DtEmpresa** obtenerInfoEmpresaPorEmpleado(string ciEmpleado, int & cantEmpres) {
+       // 1. Si empleado existe.
+      if (buscarEmpleado(ciEmpleado) == NULL) {
+        throw std::invalid_argument("El empleado no existe");
+      }
+
+      // Lista a devolver.
+      DtEmpresa** empresas = new DtEmpresa*[cantEmpres];
+
+      int x = 0;
+      // Iterar sobre las relaciones laborales y obtener las empresas.
+      for (int i = 0; i < cantRelacionesLaborales; i++) {
+        if (x >= cantEmpres) {
+          break;
+        }
+
+        // Si la relacion laboral es del empleado.
+        RelacionLaboral* rl = relacionesLaborales[i];
+        if (rl->getCiEmpleado() == ciEmpleado) {
+
+          Fecha aux = rl->getFechaDesvinculacion();
+          // Si la relación ya terminó, pasamos a la siguiente relacion laboral.
+          if (aux.getDia() != 0 && aux.getMes() != 0 && aux.getAnio() != 0) {
+            continue;
+          }
+
+          // Agregar la empresa a la lista.
+          string IdEmpresa = rl->getIdEmpresa();
+          Empresa* e = buscarEmpresa(IdEmpresa);
+          if (EmpresaNacional* nacional = dynamic_cast<EmpresaNacional*>(e)) { // Es una empresa nacional
+            empresas[x++] = new DtNacional(nacional->getId(), nacional->getDireccion(), nacional->getRut());
+          } else if (EmpresaExtranjera* extranjera = dynamic_cast<EmpresaExtranjera*>(e)) { // Es una empresa extranjera
+            empresas[x++] = new DtExtranjera(extranjera->getId(), extranjera->getDireccion(), extranjera->getNombreFantasia());
+          }
+        }
+      }
+
     }
     
-    void mostrarInfoEmpresa(){
-      for (int i = 0; i < cantEmpresas; i++) {
-        cout << "------------------------------------------------------------------------------------" << endl;
-        cout << "ID: " << empresas[i]->getId() << endl;
-        if (EmpresaNacional* nacional = dynamic_cast<EmpresaNacional*>(empresas[i])) { // Es una empresa nacional
-            cout << "RUT: " << nacional->getRut() << endl;
-        } else if (EmpresaExtranjera* extranjera = dynamic_cast<EmpresaExtranjera*>(empresas[i])) { // Es una empresa extranjera
-            cout << "Nombre: " << extranjera->getNombreFantasia() << endl;
-        }
-        cout << "Direccion: " << empresas[i]->getDireccion().getCalle() << " " << empresas[i]->getDireccion().getNumero() << " " << empresas[i]->getDireccion().getCiudad() << endl;
+    // Para mostrar empresas: i = 1
+    // Para mostrar empleados: i = 2
+    // Para mostrar rel. lab.: i = 3
+    void mostrarInfo(int i){
+
+      switch (i) {
+        case 1:
+          for (int i = 0; i < cantEmpresas; i++) {
+            cout << "------------------------------------------------------------------------------------" << endl;
+            cout << "ID: " << empresas[i]->getId() << endl;
+            if (EmpresaNacional* nacional = dynamic_cast<EmpresaNacional*>(empresas[i])) { // Es una empresa nacional
+                cout << "RUT: " << nacional->getRut() << endl;
+            } else if (EmpresaExtranjera* extranjera = dynamic_cast<EmpresaExtranjera*>(empresas[i])) { // Es una empresa extranjera
+                cout << "Nombre: " << extranjera->getNombreFantasia() << endl;
+            }
+           
+          }
+          break;
+        case 2:
+          for (int i = 0; i < cantEmpleados; i++) {
+            cout << "------------------------------------------------------------------------------------" << endl;
+            cout << "CI: " << empleados[i]->getCi() << endl;
+            cout << "Nombre: " << empleados[i]->getNombre() << " " << empleados[i]->getApellido() << endl;
+            cout << "Direccion: " << empleados[i]->getDireccion().getCalle() << " " << empleados[i]->getDireccion().getNumero() << " " << empleados[i]->getDireccion().getCiudad() << endl;
+          }
+          break;
+        case 3:
+          for (int i = 0; i < cantRelacionesLaborales; i++) {
+            cout << "------------------------------------------------------------------------------------" << endl;
+            cout << "CI: " << relacionesLaborales[i]->getCiEmpleado() << endl;
+            cout << "ID: " << relacionesLaborales[i]->getIdEmpresa() << endl;
+            cout << "Sueldo: " << relacionesLaborales[i]->getSueldoLiquido() << endl;
+          }
+          break;
       }
     }
 };
@@ -119,27 +287,29 @@ class Sistema {
 
 int main() {
 
+
   Direccion dir1 = Direccion("Calle 1", 1234, "Montevideo");
   Direccion dir2 = Direccion("Calle 321", 1234, "Nueva York");
-  DtNacional* nacional1 = new DtNacional("1", dir1, "214789");
+
+  DtNacional* nacional1 = new DtNacional("1", dir1, "214789"); // <- Primera muerte
   DtNacional* nacional2 = new DtNacional("2", dir1, "03213219");
   DtNacional* nacional3 = new DtNacional("3", dir1, "413432432");
+
   
   DtExtranjera* extranjera1 = new DtExtranjera("4", dir2, "COCA COLA");
   DtExtranjera* extranjera2 = new DtExtranjera("5", dir1, "MC DONALDS");
   DtExtranjera* extranjera3 = new DtExtranjera("6", dir1, "HAMBURGUESA KING");
 
-  DtEmpleado* empleado1 =  new DtEmpleado("1", "Juan", "Perez", dir1);
-  DtEmpleado* empleado2 = new DtEmpleado("2", "Pedro", "Gonzalez", dir1);
-  DtEmpleado* empleado3 = new DtEmpleado("3", "Maria", "Rodriguez", dir1);
-  DtEmpleado* empleado4 = new DtEmpleado("4", "Ana", "Lopez", dir1);
-  
+
+
   Sistema* s = new Sistema();
-  s->agregarEmpleado(empleado1);
-  s->agregarEmpleado(empleado2);
-  s->agregarEmpleado(empleado3);
-  s->agregarEmpleado(empleado4);
+  s->agregarEmpleado("1", "Juan", "Perez", dir1);
+  s->agregarEmpleado("2", "Pedro", "Gonzalez", dir1);
+  s->agregarEmpleado("3", "Maria", "Rodriguez", dir1);
+  s->agregarEmpleado("4", "Ana", "Lopez", dir1);
   
+  cout << "franco puto";
+
   s->agregarEmpresa(nacional1);
   s->agregarEmpresa(nacional2);
   s->agregarEmpresa(nacional3);
@@ -147,6 +317,12 @@ int main() {
   s->agregarEmpresa(extranjera2);
   s->agregarEmpresa(extranjera3);
 
-  s->mostrarInfoEmpresa();
+  cout << "hamburguesa" << endl;
 
+  s->mostrarInfo(1);
+  s->mostrarInfo(2);
+  s->mostrarInfo(3);
+
+  cout << "ho123qlaaaaa" << endl;
+  
 }
