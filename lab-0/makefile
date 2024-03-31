@@ -21,7 +21,7 @@ main.o:
 	g++ -c "main.cpp"
 
 clean:
-	del -f Empleado.o RelacionLaboral.o Empresa.o EmpresaNacional.o EmpresaExtranjera.o main.o programa
+	rm -f Empleado.o RelacionLaboral.o Empresa.o EmpresaNacional.o EmpresaExtranjera.o main.o programa
 
 run:
 	make clean
