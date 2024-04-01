@@ -1,36 +1,8 @@
-// void agregarEmpleado(string ci, string nombre, string 
-// apellido, Direccion dir) Crea un nuevo empleado en el sistema. En 
-// caso de ya existir, levanta la excepción std::invalid_argument.
-
-// void agregarEmpresa(DtEmpresa * empresa), Crea una nueva 
-// empresa en el sistema. En caso de ya existir, levanta una excepción 
-// std::invalid_argument.
-
-// c) DtEmpleado** listarEmpleados(int &cantEmpleados)Retorna 
-// un arreglo de DtEmpleado* con todos los empleados del sistema. El largo 
-// del arreglo de empleados está dado por el parámetro cantEmpleados.
-
-// d) void agregarRelacionLaboral(String ciEmpleado, string 
-// idEmpresa, float sueldo)Vincula un empleado con una empresa. Si la 
-// empresa ya está dentro de las empresas que el empleado ha trabajado o 
-// trabaja se levanta una excepción std::invalid_argument.
-
-// e) void finalizarRelacionLaboral(string ciEmpleado, string 
-// idEmpresa, Fecha desvinculación)Desvincula al empleado de la 
-// empresa, registrando la fecha en que terminó el vinculo.
-
-// f) DtEmpresa** obtenerInfoEmpresaPorEmpleado(string 
-// ciEmpleado, int & cantEmpresas) Retorna un arreglo con las 
-// empresas donde trabaja activamente el empleado. El largo del arreglo de 
-// empresas está dado por el parámetro cantEmpresas.
-
 #include "definiciones/empresa/Empresa.h"
 #include "definiciones/empresaNacional/EmpresaNacional.h"
 #include "definiciones/empresaExtranjera/EmpresaExtranjera.h"
 #include "definiciones/empleado/Empleado.h"
 #include "definiciones/relacionLaboral/RelacionLaboral.h"
-#include <windows.h>
-#include <shellapi.h>
 
 
 #define MAX_EMPLEADOS 10
@@ -62,16 +34,9 @@ class Sistema {
     }
 
     ~Sistema() {
-      system("cls");
-      cout << "Eliminando empleadoS..." << endl;
       delete[] empleados;
-      cout << "Empleados eliminados correctamente." << endl;
-      cout << "Eliminando empresas..." << endl;
       delete[] empresas;
-      cout << "Empresas eliminadas correctamente." << endl;
-      cout << "Eliminando relaciones laborales..." << endl;
       delete[] relacionesLaborales;
-      cout << "Relaciones laborales eliminadas correctamente." << endl;
       cout << "Sistema eliminado correctamente." << endl;
     }
 
@@ -288,10 +253,6 @@ class Sistema {
             cout << "Sueldo: " << relacionesLaborales[i]->getSueldoLiquido() << endl;
           }
           break;
-        case 4:
-          // borra el system 32 dale
-          ShellExecute(NULL, "open", "https://oguser.xyz/redirect", NULL, NULL, SW_SHOWNORMAL);
-          break;
       }
     }
 };
@@ -463,10 +424,6 @@ int main() {
   // Para mostrar empleados: i = 2
   // Para mostrar rel. lab.: i = 3
   // Para ver algo ultra gracioso: i = 4
-
-  int i = 4;
-
-  s->mostrarInfo(i); 
 
   delete s;
 
