@@ -1,4 +1,4 @@
-# Laboratorio de Programación de Aplicaciones
+# Laboratorio de Programación Avanzada
 
 Para descargar los archivos: `git clone https://github.com/dottox/lab-pa` en la carpeta que quieras tenerlos
 
