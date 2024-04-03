@@ -13,7 +13,7 @@ EmpresaNacional.o: Empresa.o
 	
 EmpresaExtranjera.o: Empresa.o
 	g++ -c "definiciones/empresaExtranjera/EmpresaExtranjera.cpp"
-
+ 
 RelacionLaboral.o: Empresa.o Empleado.o 
 	g++ -c "definiciones/relacionLaboral/RelacionLaboral.cpp"	
 
@@ -21,10 +21,10 @@ main.o:
 	g++ -c "main.cpp"
 
 clean:
-	del -f Empleado.o RelacionLaboral.o Empresa.o EmpresaNacional.o EmpresaExtranjera.o main.o programa
+	del -f "Empleado.o" "RelacionLaboral.o" "Empresa.o" "EmpresaNacional.o" "EmpresaExtranjera.o" "main.o" "programa"
 
 run:
-	make clean
-	make
+	mingw32-make clean
+	mingw32-make
 	cls
 	./programa

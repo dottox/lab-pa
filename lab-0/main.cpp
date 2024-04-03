@@ -187,7 +187,8 @@ class Sistema {
       
       // 2. Coommprpbar que cantEmpres sea mayor a 0 y menor a cantEmpresas
       if (cantEmpres <= 0 || cantEmpres > cantEmpresas) {
-        throw invalid_argument("El valor de '" + to_string(cantEmpres) + "' no es valido");      }
+        throw invalid_argument("El valor de '" + to_string(cantEmpres) + "' no es valido");
+      }
       // Lista a devolver.
       DtEmpresa** empresas = new DtEmpresa*[cantEmpres];
 
@@ -384,33 +385,47 @@ void TestCases(Sistema* &s) {
 }
 
 
+ostream& operator<<(ostream& os, DtEmpresa* emp) {
+  if (DtNacional* nacional = dynamic_cast<DtNacional*>(emp)) { // Es una empresa nacional
+    nacional->print();
+  } else if (DtExtranjera* extranjera = dynamic_cast<DtExtranjera*>(emp)) { // Es una empresa extranjera
+    extranjera->print();
+  }
+  return os;
+}
+
+
 int main() {
 
-  Sistema* s = new Sistema(); // <- Sistema God
+  Sistema* s = new Sistema();
 
-  TestCases(s);
-  // Direccion dir1 = newDireccion("Calle 1", 1234, "Montevideo");
-  // Direccion dir2 = newDireccion("Calle 321", 1234, "Nueva York");
-  
-  
-  // Fecha fecha1 = newFecha(8, 2, 2003); // <-- Viejo arrugado
-  // Fecha fecha2 = newFecha(1, 4, 2003); // <-- El del medio q nadie lo co
-  // Fecha fecha3 = newFecha(28, 9, 2004); // <-- El mas pendejo
+  // Para todos los throw exceptions.
+  // TestCases(s);
 
-  // DtNacional* nacional1 = new DtNacional("1", dir1, "214789"); // <- Primera muerte
-  // DtNacional* nacional2 = new DtNacional("2", dir1, "03213219");
-  // DtNacional* nacional3 = new DtNacional("3", dir1, "413432432");
 
-  // DtExtranjera* extranjera1 = new DtExtranjera("4", dir2, "COCA COLA");
-  // DtExtranjera* extranjera2 = new DtExtranjera("5", dir1, "MC DONALDS");
-  // DtExtranjera* extranjera3 = new DtExtranjera("6", dir1, "HAMBURGUESA KING");
+  Direccion dir1 = newDireccion("Calle 1", 1234, "Montevideo");
+  Direccion dir2 = newDireccion("Calle 2", 4321, "Montevideo");
 
+  DtNacional* nacional1 = new DtNacional("1", dir1, "214789");
+
+  DtNacional* nacional2 = new DtNacional("2", dir1, "03213219");
+  DtNacional* nacional3 = new DtNacional("3", dir1, "413432432");
+
+  DtExtranjera* extranjera1 = new DtExtranjera("4", dir2, "COCA COLA");
+  DtExtranjera* extranjera2 = new DtExtranjera("5", dir1, "MC DONALDS");
+  DtExtranjera* extranjera3 = new DtExtranjera("6", dir1, "HAMBURGUESA KING");
+
+  cout << nacional1 << endl;
+  cout << nacional2 << endl;
+  cout << nacional3 << endl;
+  cout << extranjera1 << endl;
+  cout << extranjera2 << endl;
+  cout << extranjera3 << endl;
 
   // s->agregarEmpleado("1", "Juan", "Perez", dir1);
   // s->agregarEmpleado("2", "Pedro", "Gonzalez", dir1);
   // s->agregarEmpleado("3", "Maria", "Rodriguez", dir1);
   // s->agregarEmpleado("4", "Ana", "Lopez", dir1);
-
 
   // s->agregarRelacionLaboral("1", "1", 1123.513);
   // s->agregarRelacionLaboral("2", "2", 420.6987);
@@ -420,10 +435,11 @@ int main() {
 
 
 
+
   // Para mostrar empresas: i = 1
   // Para mostrar empleados: i = 2
   // Para mostrar rel. lab.: i = 3
-  // Para ver algo ultra gracioso: i = 4
+  // mostrarInfo(1);
 
   delete s;
 

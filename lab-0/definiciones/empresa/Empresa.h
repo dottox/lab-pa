@@ -17,6 +17,8 @@ class Empresa {
         Direccion getDireccion();
         virtual float getDescuento() = 0;
 
+
+
         virtual ~Empresa();
 
     protected:

@@ -77,10 +77,9 @@ struct DtEmpresa
 public:
   virtual string getId() { return this->id; }
 
-  virtual Direccion getDir()
-  {
-    return this->direccion;
-  }
+  virtual Direccion getDir() { return this->direccion; }
+
+  virtual void print() = 0;
 
   virtual ~DtEmpresa(){};
 
@@ -101,6 +100,12 @@ public:
 
   string getRut() { return this->rut; }
 
+  void print() {
+    cout << "ID: " << this->id << endl;
+    cout << "Direccion: " << this->direccion.getCalle() << " " << this->direccion.getNumero() << ", " << this->direccion.getCiudad() << endl;
+    cout << "RUT: " << this->rut << endl;
+  }
+
   ~DtNacional(){};
 
 private:
@@ -118,6 +123,13 @@ public:
   }
 
   string getNombreFantasia() { return this->nombreFantasia; }
+
+  
+  void print() {
+    cout << "ID: " << this->id << endl;
+    cout << "Direccion: " << this->direccion.getCalle() << " " << this->direccion.getNumero() << ", " << this->direccion.getCiudad() << endl;
+    cout << "Nombre Fantasia: " << this->nombreFantasia << endl;
+  }
 
   ~DtExtranjera(){};
 
