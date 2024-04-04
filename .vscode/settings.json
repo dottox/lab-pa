@@ -5,5 +5,6 @@
     "exception": "cpp",
     "new": "cpp",
     "stdexcept": "cpp"
-  }
+  },
+  "cmake.configureOnOpen": true
 }

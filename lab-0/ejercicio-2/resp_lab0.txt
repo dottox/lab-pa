@@ -1,0 +1,15 @@
+1. ¿Cuáles son las dependencias circulares que fueron necesarias solucionar para que
+el programa compile?
+
+En este caso, en cada clase nosotros llamamos a las otras dos clases, por lo que habría que avisarle
+al programa de antemano que esa clase si existe, esto se hace mediante una forward declaration.
+
+
+2. ¿Qué es forward declaration?
+
+La forward declaration te permite declarar un identificador antes de que este sea definido.
+Esto significa que el compilador ya está informado acerca de esa clase, función o variable
+antes de que sea realmente usada en el código.
+Para realizar una forward declaration hay que solamente declarar el identificador sin definirlo.
+Ej: int x;
+    class Persona;
