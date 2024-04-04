@@ -20,10 +20,10 @@ main.o:
 	g++ -c main.cpp
 
 clean:
-	rm -f Animal.o Gato.o Perro.o Persona.o Veterinaria.o main.o programa
+	del -f Animal.o Gato.o Perro.o Persona.o Veterinaria.o main.o programa
 run:
-	make clean
-	make
+	mingw32-make clean
+	mingw32-make
 	cls
 	./programa
 
