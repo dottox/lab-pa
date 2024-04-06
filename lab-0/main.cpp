@@ -73,7 +73,7 @@ class Sistema {
       if (buscarEmpresa(idEmpresa) == NULL) {
         throw invalid_argument("La empresa con id '" + idEmpresa + "' no existe");
       }
-      
+
       for (int i = 0; i < cantRelacionesLaborales; i++) {
         if (relacionesLaborales[i]->getCiEmpleado() == ciEmpleado && relacionesLaborales[i]->getIdEmpresa() == idEmpresa) {
           return relacionesLaborales[i];
@@ -102,9 +102,17 @@ class Sistema {
     // Crea un nuevo empleado en el sistema. 
     // En caso de ya existir, levanta la excepción std::invalid_argument.
     void agregarEmpresa(DtEmpresa* emp) {
+      
+      // 1. Si esa empresa ya existe
       if (buscarEmpresa(emp->getId()) != NULL) {
         throw invalid_argument("La empresa ya existe");
       }
+
+      // 2. Si el sistema está lleno de empresas
+      if (empresasIsFull()) {
+        throw invalid_argument("No se pueden agregar mas empresas");
+      }
+
       if (DtNacional* nacional = dynamic_cast<DtNacional*>(emp)) { // Es una empresa nacional
         EmpresaNacional* e = new EmpresaNacional(nacional->getId(), nacional->getDir(), nacional->getRut());
         this->empresas[cantEmpresas++] = e;
@@ -118,9 +126,17 @@ class Sistema {
     // Crea una nueva empresa en el sistema. 
     // En caso de ya existir, levanta una excepción std::invalid_argument.
     void agregarEmpleado(string ci, string nombre, string apellido, Direccion dir) {
+
+      // 1. Si ya existe el empleado
       if (buscarEmpleado(ci) != NULL) {
         throw invalid_argument("El empleado '" + ci + "' ya existe");
       }
+
+      // 2. Si el sistema está lleno de empleados
+      if (empleadosIsFull()) {
+        throw invalid_argument("No se pueden agregar mas empleados");
+      }
+
       Empleado* e = new Empleado(ci, nombre, apellido, dir);
       empleados[cantEmpleados++] = e;
     }
@@ -224,6 +240,7 @@ class Sistema {
 
     }
     
+    // Funcion para debugear.
     void mostrarInfo(int i){
       switch (i) {
         case 1:
@@ -387,9 +404,9 @@ void TestCases(Sistema* &s) {
 
 ostream& operator<<(ostream& os, DtEmpresa* emp) {
   if (DtNacional* nacional = dynamic_cast<DtNacional*>(emp)) { // Es una empresa nacional
-    nacional->print();
+    os << nacional->print();
   } else if (DtExtranjera* extranjera = dynamic_cast<DtExtranjera*>(emp)) { // Es una empresa extranjera
-    extranjera->print();
+    os << extranjera->print();
   }
   return os;
 }
@@ -415,12 +432,12 @@ int main() {
   DtExtranjera* extranjera2 = new DtExtranjera("5", dir1, "MC DONALDS");
   DtExtranjera* extranjera3 = new DtExtranjera("6", dir1, "HAMBURGUESA KING");
 
-  cout << nacional1 << endl;
-  cout << nacional2 << endl;
-  cout << nacional3 << endl;
-  cout << extranjera1 << endl;
-  cout << extranjera2 << endl;
-  cout << extranjera3 << endl;
+  cout << nacional1 << endl << endl;
+  cout << nacional2 << endl << endl;
+  cout << nacional3 << endl << endl;
+  cout << extranjera1 << endl << endl;
+  cout << extranjera2 << endl << endl;
+  cout << extranjera3 << endl << endl;
 
   // s->agregarEmpleado("1", "Juan", "Perez", dir1);
   // s->agregarEmpleado("2", "Pedro", "Gonzalez", dir1);
