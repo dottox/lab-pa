@@ -1,29 +1,9 @@
-class aType;
-class bType;
-class cType;
-
-class aType {
-  public:
-    bType *b;
-    cType *c;
-};
-
-class bType {
-  public:
-    aType *a;
-    cType *c;
-};
-
-class cType {
-  public:
-    aType *a;
-    bType *b;
-};
-
+#include "a.h"
+#include "b.h"
+#include "c.h"
 
 int main() {
-  aType a;
-  bType b;
-  cType c;
-  return 0;
+  A a;
+  B b;
+  C c;
 }
