@@ -11,6 +11,7 @@ Archivos 📁
   - `definiciones` : Todas las clases y datatypes.
   - `ejercicio-2` : Respuesta a las preguntas del PDF del laboratorio 0.
 - `lab-1` : Archivos del laboratorio 1.
+- `lab-2` : Archivos del laboratorio 2.
 
 Puntos a tener en cuenta ❕
 --------------------------
