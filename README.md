@@ -1,6 +1,8 @@
 #  Laboratorio de Programación Avanzada ⌨️
 
-⬇️ Para descargar los archivos: `git clone https://github.com/dottox/lab-pa` en la carpeta que quieras tenerlos
+⬇️  Para descargar los archivos: `git clone https://github.com/dottox/lab-pa` en la carpeta que quieras tenerlos
+
+👤 Miembros del grupo: dottox, zarsu, goncho09 y mateo (sin github)
 
 Archivos 📁
 --------------------------
@@ -8,7 +10,7 @@ Archivos 📁
 - `lab-0` : Archivos del laboratorio 0.
   - `definiciones` : Todas las clases y datatypes.
   - `ejercicio-2` : Respuesta a las preguntas del PDF del laboratorio 0.
-
+- `lab-1` : Archivos del laboratorio 1.
 
 Puntos a tener en cuenta ❕
 --------------------------
