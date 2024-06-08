@@ -1,7 +1,7 @@
 #include "Fecha.cpp"
 #include "Hora.cpp"
 
-struct Direccion 
+struct DtMensaje
 {
   private:
     Fecha fecha;
@@ -9,7 +9,7 @@ struct Direccion
     string texto;
 
   public:
-    Mensaje(Fecha f, Hora h, string t)
+    DtMensaje(Fecha f, Hora h, string t)
     {
       this->fecha = f;
       this->hora = h;

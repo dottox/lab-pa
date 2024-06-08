@@ -1,10 +1,10 @@
-struct Hora {
+struct DtHora {
   private:
     int hora;
     int minuto;
 
   public:
-    Hora(int h, int m)
+    DtHora(int h, int m)
     {
       this->hora = h;
       this->minuto = m;

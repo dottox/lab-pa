@@ -1,6 +1,6 @@
 #include <string>
 
-struct Direccion 
+struct DtDireccion 
 {
   private:
     string calle;
@@ -8,7 +8,7 @@ struct Direccion
     int nro;
 
   public:
-    Direccion(string ca, string ci, int n)
+    DtDireccion(string ca, string ci, int n)
     {
       this->calle = ca;
       this->ciudad = ci;
