@@ -1,6 +1,6 @@
 #include "DtInfoCasa.h"
 
-DtInfoCasa::DtInfoCasa(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, float mtsCuadradosVerdes, string tipo, float precio)
+DtInfoCasa::DtInfoCasa(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, string tipo, float precio, float mtsCuadradosVerdes)
 {
   this->codigo = codigo;
   this->cantAmbientes = cantAmbientes;
@@ -10,9 +10,9 @@ DtInfoCasa::DtInfoCasa(int codigo, int cantAmbientes, int cantDormitorios, int c
   this->direccion = direccion;
   this->mtsCuadradosEdificados = mtsCuadradosEdificados;
   this->mtsCuadradosTotales = mtsCuadradosTotales;
-  this->mtsCuadradosVerdes = mtsCuadradosVerdes;
   this->tipo = tipo;
   this->precio = precio;
+  this->mtsCuadradosVerdes = mtsCuadradosVerdes;
 }
 
 int DtInfoCasa::getCodigo()

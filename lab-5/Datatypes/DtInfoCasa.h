@@ -13,12 +13,12 @@ struct DtInfoCasa {
     DtDireccion direccion;
     float mtsCuadradosEdificados;
     float mtsCuadradosTotales;
-    float mtsCuadradosVerdes;
     string tipo;
     float precio;
+    float mtsCuadradosVerdes;
 
   public:
-    DtInfoCasa(int, int, int, int, bool, DtDireccion, float, float, float, string, float);
+    DtInfoCasa(int, int, int, int, bool, DtDireccion, float, float, string, float, float);
 
     int getCodigo();
     int getCantAmbientes();

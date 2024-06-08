@@ -15,17 +15,15 @@ struct DtInfoApartamento {
     DtDireccion direccion;
     float mtsCuadradosEdificados;
     float mtsCuadradosTotales;
-    float mtsCuadradosVerdes;
     string tipo;
     float precio;
 
   public:
-    DtInfoApartamento(int, int, int, int, bool, DtDireccion, float, float, float, string, float);
+    DtInfoApartamento(int, int, int, int, bool, DtDireccion, float, float, string, float);
     int getCodigo();
     int getCantAmbientes();
     int getCantDormitorios();
     int getCantBanios();
-    float getMtsCuadradosVerdes();
     float getMtsCuadradosEdificados();
     float getMtsCuadradosTotales();
     string getTipo();

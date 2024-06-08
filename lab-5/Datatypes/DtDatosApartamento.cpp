@@ -1,6 +1,6 @@
 #include "DtDatosApartamento.h"
 
-DtDatosApartamento::DtDatosApartamento(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, float mtsCuadradosVerdes, string tipo, float precio) {
+DtDatosApartamento::DtDatosApartamento(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, string tipo, float precio) {
   this->codigo = codigo;
   this->cantAmbientes = cantAmbientes;
   this->cantDormitorios = cantDormitorios;
@@ -9,7 +9,6 @@ DtDatosApartamento::DtDatosApartamento(int codigo, int cantAmbientes, int cantDo
   this->direccion = direccion;
   this->mtsCuadradosEdificados = mtsCuadradosEdificados;
   this->mtsCuadradosTotales = mtsCuadradosTotales;
-  this->mtsCuadradosVerdes = mtsCuadradosVerdes;
   this->tipo = tipo;
   this->precio = precio;
 }

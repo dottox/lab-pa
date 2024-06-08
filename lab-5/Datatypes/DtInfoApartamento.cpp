@@ -1,6 +1,6 @@
 #include "DtInfoApartamento.h"
 
-DtInfoApartamento::DtInfoApartamento(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, float mtsCuadradosVerdes, string tipo, float precio) {
+DtInfoApartamento::DtInfoApartamento(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, string tipo, float precio) {
   this->codigo = codigo;
   this->cantAmbientes = cantAmbientes;
   this->cantDormitorios = cantDormitorios;
@@ -9,7 +9,6 @@ DtInfoApartamento::DtInfoApartamento(int codigo, int cantAmbientes, int cantDorm
   this->direccion = direccion;
   this->mtsCuadradosEdificados = mtsCuadradosEdificados;
   this->mtsCuadradosTotales = mtsCuadradosTotales;
-  this->mtsCuadradosVerdes = mtsCuadradosVerdes;
   this->tipo = tipo;
   this->precio = precio;
 }
@@ -28,10 +27,6 @@ int DtInfoApartamento::getCantDormitorios() {
 
 int DtInfoApartamento::getCantBanios() {
   return this->cantBanios;
-}
-
-float DtInfoApartamento::getMtsCuadradosVerdes() {
-  return this->mtsCuadradosVerdes;
 }
 
 float DtInfoApartamento::getMtsCuadradosEdificados() {

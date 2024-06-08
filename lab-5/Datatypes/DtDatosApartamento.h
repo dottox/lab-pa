@@ -14,12 +14,11 @@ struct DtDatosApartamento
     DtDireccion direccion;
     float mtsCuadradosEdificados;
     float mtsCuadradosTotales;
-    float mtsCuadradosVerdes;
     string tipo;
     float precio;
 
   public:
-    DtDatosApartamento(int, int, int, int, bool, DtDireccion, float, float, float, string, float);
+    DtDatosApartamento(int, int, int, int, bool, DtDireccion, float, float, string, float);
 
     int getCodigo();
     int getCantAmbientes();
