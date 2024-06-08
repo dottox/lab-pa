@@ -1,39 +1,9 @@
-#include "DtDirecion.cpp"
+#include "DtDatosCasa.h"
 
-struct DtInfoCasa {
-  private:
-    int codigo;
-    int cantAmbientes;
-    int cantDOrmitorios;
-    int cantBanios;
-    bool garaje;
-    DtDireccion direccion;
-    float mtsCuadradosEdificados;
-    float mtsCuadradosTotales;
-    float mtsCuadradosVerdes;
-    string tipo;
-    float precio;
-
-  public:
-    DtInfoCasa(int, int, int, int, bool, DtDireccion, float, float, float, string, float);
-
-    int getCodigo();
-    int getCantAmbientes();
-    int getCantDormitorios();
-    int getCantBanios();
-    float getMtsCuadradosEdificados();
-    float getMtsCuadradosTotales();
-    float getMtsCuadradosVerdes();
-    string getTipo();
-    float getPrecio();
-    DtDireccion getDireccion();
-    bool getGaraje();
-};
-
-DtDatosCasa::DtDatosCasa(int codigo, int cantAmbientes, int cantDOrmitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, float mtsCuadradosVerdes, string tipo, float precio) {
+DtDatosCasa::DtDatosCasa(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, float mtsCuadradosVerdes, string tipo, float precio) {
   this->codigo = codigo;
   this->cantAmbientes = cantAmbientes;
-  this->cantDOrmitorios = cantDOrmitorios;
+  this->cantDormitorios = cantDormitorios;
   this->cantBanios = cantBanios;
   this->garaje = garaje;
   this->direccion = direccion;
@@ -53,7 +23,7 @@ int DtDatosCasa::getCantAmbientes() {
 }
 
 int DtDatosCasa::getCantDormitorios() {
-  return this->cantDOrmitorios;
+  return this->cantDormitorios;
 }
 
 int DtDatosCasa::getCantBanios() {
