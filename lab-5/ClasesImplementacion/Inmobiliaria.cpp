@@ -14,7 +14,7 @@ void Inmobiliaria::addPropiedad(Propiedad* propiedad)
 
 ICollection* Inmobiliaria::getPropiedades()
 {
-  return this->propiedades;
+  // Debería retornar una lista de DtPropiedades.
 }
 
 DtDireccion Inmobiliaria::getDireccion()
