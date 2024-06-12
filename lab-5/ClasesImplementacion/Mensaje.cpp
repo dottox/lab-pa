@@ -9,3 +9,7 @@ Mensaje::Mensaje(DtFecha fecha, DtHora hora, string texto) {
 DtMensaje Mensaje::getMensaje() {
   return DtMensaje(this->fecha, this->hora, this->texto);
 }
+
+Mensaje::~Mensaje()
+{
+}

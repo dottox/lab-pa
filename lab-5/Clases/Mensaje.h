@@ -1,14 +1,17 @@
 #ifndef MENSAJE_H
 #define MENSAJE_H
 
-#include "../Datatypes/DtFecha.cpp"
-#include "../Datatypes/DtHora.cpp"
-#include "../Datatypes/DtMensaje.cpp"
+#include "../Datatypes/DtFecha.h"
+#include "../Datatypes/DtHora.h"
+#include "../Datatypes/DtMensaje.h"
+
+#include <string>
+using namespace std;
 
 class Mensaje {
   private:
     DtFecha fecha;
-    DtFecha hora;
+    DtHora hora;
     string texto;
   
   public:

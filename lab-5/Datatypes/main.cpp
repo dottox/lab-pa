@@ -15,6 +15,7 @@ using namespace std;
 #include "DtInfoCasa.h"
 #include "DtMensaje.h"
 #include "DtZona.h"
+#include "../Clases/Mensaje.h"
 
 
 int main() {
@@ -29,6 +30,12 @@ int main() {
   DtInfoCasa ic(8, 9, 10, 11, true, d, 15, 16, "ala", 18, 19);
   DtDatosApartamento da(8, 9, 10, 11, true, d, 14, 15, "ala", 18);
   DtDatosCasa dc(8, 9, 10, 11, true, d, 15, 16, "ala", 18, 19);
+
+  Mensaje* m2 = new Mensaje(f, h, "Banana");
+
+  // Print m2 attribs
+  cout << "Texto: " << m2->getMensaje().getTexto() << endl;
+  cout << "AFecha: " << m2->getMensaje().getFecha().getDia() << "/" << m2->getMensaje().getFecha().getMes() << "/" << m2->getMensaje().getFecha().getAnio() << endl;
   
   cout << "Fecha: " << f.getDia() << "/" << f.getMes() << "/" << f.getAnio() << endl;
   cout << "Hora: " << h.getHora() << ":" << h.getMinuto() << endl;

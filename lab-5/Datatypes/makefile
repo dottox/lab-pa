@@ -1,5 +1,5 @@
-all: DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfoApartamento.o DtInfoCasa.o DtDatosApartamento.o DtDatosCasa.o main.o
-	g++ DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfoApartamento.o DtInfoCasa.o DtDatosApartamento.o DtDatosCasa.o main.o -o programa
+all: DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfoApartamento.o DtInfoCasa.o DtDatosApartamento.o DtDatosCasa.o main.o Mensaje.o
+	g++ DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfoApartamento.o DtInfoCasa.o DtDatosApartamento.o DtDatosCasa.o main.o Mensaje.o -o programa
 
 DtFecha.o:
 	g++ -c DtFecha.cpp
@@ -35,14 +35,17 @@ DtDatosCasa.o: DtDireccion.o
 	g++ -c DtDatosCasa.cpp
 
 
-main.o: DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfoApartamento.o DtInfoCasa.o DtDatosApartamento.o DtDatosCasa.o
+Mensaje.o: DtMensaje.o
+	g++ -c ../ClasesImplementacion/Mensaje.cpp
+
+main.o: DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfoApartamento.o DtInfoCasa.o DtDatosApartamento.o DtDatosCasa.o Mensaje.o
 	g++ -c main.cpp
 
 cleanPrograma:
 	rm -f programa
 
 clean:
-	rm -f DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfoApartamento.o DtInfoCasa.o DtDatosApartamento.o DtDatosCasa.o main.o
+	rm *.o
 
 run:
 	make cleanPrograma
