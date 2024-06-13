@@ -5,10 +5,12 @@
 #include "../Datatypes/DtHora.h"
 #include "../Datatypes/DtMensaje.h"
 
+#include "../ICollection/interfaces/ICollection.h"
+
 #include <string>
 using namespace std;
 
-class Mensaje {
+class Mensaje : public ICollectible {
   private:
     DtFecha fecha;
     DtHora hora;

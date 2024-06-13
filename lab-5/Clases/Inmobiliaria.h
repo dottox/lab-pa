@@ -4,7 +4,14 @@
 #include "Usuario.h"
 
 #include "../Datatypes/DtDireccion.h"
+#include "../Datatypes/DtFecha.h"
+
 #include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/ICollectible.h"
+
+class Propiedad : public ICollectible {
+
+};
 
 class Inmobiliaria : public Usuario {
   private:
@@ -13,7 +20,7 @@ class Inmobiliaria : public Usuario {
   
   public:
     // Constructor
-    Inmobiliaria(string, string, DtFecha);
+    Inmobiliaria(string, string, DtDireccion);
 
     // Otros
     void addPropiedad(Propiedad*);

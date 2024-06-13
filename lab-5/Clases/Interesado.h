@@ -15,7 +15,7 @@ class Interesado : public Usuario {
     DtFecha fechaNacimiento;
   
   public:
-    Interesado(string, string, DtFecha);
+    Interesado(string, string, string, string, DtFecha);
     ~Interesado();
 };
 
