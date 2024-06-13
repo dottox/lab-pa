@@ -11,43 +11,24 @@ int main() {
 }
 
 void pruebaChat() {
-  cout << "a" << endl;
-
   DtDireccion direccion("Uruguay", "asdasd", 1234);
-
-  cout << "a1.01" << endl;
-
-
   DtFecha fecha(1, 1, 2000);
-
-  cout << "a1.1" << endl;
-
   Inmobiliaria* inmobiliaria = new Inmobiliaria("asd", "asd", direccion);
-
-  cout << "a1.2" << endl;
-
   Interesado* interesado = new Interesado("asd", "asd", "asd", "asd", fecha);
-
-  cout << "a1.3" << endl;
-
   Chat* chat = new Chat(inmobiliaria, interesado);
-
-  cout << "a2" << endl;
-
 
   ICollectible* mensaje = chat->createMensaje("Hola, ¿cómo estás?", "Pablo");
   ICollectible* mensaje2 = chat->createMensaje("Bien, gracias. ¿Y tú?", "Manuel");
-  ICollectible* mensaje3 = chat->createMensaje("También bien, gracias.", "Juan");
-
-  cout << "a3" << endl;
+  ICollectible* mensaje3 = chat->createMensaje("3También bien, gracias.", "Juan");
+  ICollectible* mensaje4 = chat->createMensaje("4También bien, gracias.", "Juan2");
+  ICollectible* mensaje5 = chat->createMensaje("5También bien, gracias.", "Juan3");
+  ICollectible* mensaje6 = chat->createMensaje("6También bien, gracias.", "Juan4");
+  ICollectible* mensaje7 = chat->createMensaje("7También bien, gracias.", "Juan5");
 
 
   chat->addMensaje(mensaje);
   chat->addMensaje(mensaje2);
   chat->addMensaje(mensaje3);
-
-  cout << "ai" << endl;
-
 
   ICollection* mensajes = chat->getMensajes();
   IIterator* it = mensajes->getIterator();
@@ -63,19 +44,39 @@ void pruebaChat() {
   cout << "aia2" << endl;
 
   chat->addMensaje(mensaje);
+  chat->addMensaje(mensaje5);
+  chat->addMensaje(mensaje3);
+  chat->addMensaje(mensaje2);
+  chat->addMensaje(mensaje4);
+  chat->addMensaje(mensaje7);
+  chat->addMensaje(mensaje6);
   cout << "aia3" << endl;
 
+  ICollection* msg = chat->seleccionarConversacion();
 
-  ICollection* msg = chat->getMensajes();
+  cout << msg->getSize() << endl;
   cout << "aia4" << endl;
   it = msg->getIterator();
   while (it->hasCurrent()) {
-
     dtmensaje = dynamic_cast<DtMensaje*>(it->getCurrent());
     cout << dtmensaje->getTexto() << endl;
     it->next();
   }
 
+  delete chat;
+  delete inmobiliaria;
+  delete interesado;
+  delete mensaje;
+  delete mensaje2;
+  delete mensaje3;
+  delete mensaje4;
+  delete mensaje5;
+  delete mensaje6;
+  delete mensaje7;
+  delete mensajes;
+  delete msg;
+  delete it;
+  
 
 }
 
