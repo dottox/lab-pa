@@ -8,7 +8,7 @@ using namespace std;
 
 struct DtDatos 
 {
-  private:
+  protected:
     int codigo;
     int cantAmbientes;
     int cantDormitorios;
@@ -21,7 +21,7 @@ struct DtDatos
     float precio;
     
   protected:
-    virtual DtDatos(int, int, int, int, bool, DtDireccion, float, float, string, float);
+    DtDatos(int, int, int, int, bool, DtDireccion, float, float, string, float);
 
   public:
     virtual int getCodigo() = 0;
