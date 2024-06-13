@@ -5,7 +5,7 @@
 #include "../Datatypes/DtHora.h"
 #include "../Datatypes/DtMensaje.h"
 
-#include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/ICollectible.h"
 
 #include <string>
 using namespace std;
@@ -15,10 +15,11 @@ class Mensaje : public ICollectible {
     DtFecha fecha;
     DtHora hora;
     string texto;
+    string emisor;
   
   public:
-    Mensaje(DtFecha, DtHora, string);
-    DtMensaje getMensaje();
+    Mensaje(DtFecha, DtHora, string, string);
+    DtMensaje* getMensaje();
     ~Mensaje();
 };
 

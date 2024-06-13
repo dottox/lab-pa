@@ -5,18 +5,19 @@
 
 #include "Inmobiliaria.h"
 #include "Interesado.h"
+#include "Mensaje.h"
 
-#include "../ICollection/interfaces/ICollection.h"
+#include "../ICollection/interfaces/ICollectible.h"
 
 #include <string>
+#include <vector>
 using namespace std;
 
-class Chat : public ICollection {
+class Chat : public ICollectible {
   private:
     ICollection* mensajes;
     Inmobiliaria* inmobiliaria;
     Interesado* interesado;
-    int cantMensajes;
   
   public:
     Chat(Inmobiliaria*, Interesado*);
@@ -32,6 +33,8 @@ class Chat : public ICollection {
 
     // Otros
     void addMensaje(ICollectible*);
+    Mensaje* createMensaje(string, string);
+    void deleteMensajes();
 
     // Destructor
     ~Chat();

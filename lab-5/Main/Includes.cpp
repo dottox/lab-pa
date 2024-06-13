@@ -26,3 +26,11 @@
 #include "../Datatypes/DtDatos.h"
 #include "../Datatypes/DtDatosApartamento.h"
 #include "../Datatypes/DtDatosCasa.h"
+
+
+// Clases
+#include "../Clases/Mensaje.h"
+#include "../Clases/Chat.h"
+#include "../Clases/Usuario.h"
+#include "../Clases/Interesado.h"
+#include "../Clases/Inmobiliaria.h"

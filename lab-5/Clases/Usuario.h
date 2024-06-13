@@ -10,12 +10,14 @@ class Usuario : public ICollectible {
   private:
     string email;
     string contrasenia;
-  
-  public:
+
+  protected:
     Usuario(string, string);
+
+  public:
     bool validar(string);
     string getEmail(string);
-    ~Usuario();
+    virtual ~Usuario();
 };
 
 #endif

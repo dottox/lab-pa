@@ -6,6 +6,7 @@ struct DtFecha {
     int dia;
     int mes;
     int anio;
+    DtFecha getFechaActual();
 
   public:
     DtFecha();
@@ -13,6 +14,7 @@ struct DtFecha {
     int getDia();
     int getMes();
     int getAnio();
+
 };
 
 #endif

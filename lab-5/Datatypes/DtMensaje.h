@@ -4,10 +4,12 @@
 #include "DtFecha.h"
 #include "DtHora.h"
 
+#include "../ICollection/interfaces/ICollectible.h"
+
 #include <string>
 using namespace std;
 
-struct DtMensaje
+struct DtMensaje : public ICollectible
 {
   private:
     DtFecha fecha;

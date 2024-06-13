@@ -1,0 +1,3 @@
+13/06 En Mensaje:
+  Se agregó un string de emisor.
+  Este string guardará el email del usuario que emite el mensaje.

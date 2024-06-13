@@ -1,5 +1,5 @@
 all: main.o
-	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o Includes.o main.o -o programa
+	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o Includes.o Mensaje.o Chat.o Usuario.o Inmobiliaria.o Interesado.o main.o -o programa
 
 # INICIO COMPILACIÓN DE ICOLLECTION #
 
@@ -78,7 +78,26 @@ DtDatosCasa.o: DtDireccion.o
 
 # FIN COMPILACIÓN DE DATATYPES #
 
-Includes.o: ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o
+# INICIO COMPILACIÓN CLASES #
+
+Mensaje.o:
+	g++ -c ../ClasesImplementacion/Mensaje.cpp
+
+Chat.o: Mensaje.o
+	g++ -c ../ClasesImplementacion/Chat.cpp
+
+Usuario.o: ICollectible.o
+	g++ -c ../ClasesImplementacion/Usuario.cpp
+
+Interesado.o: DtFecha.o Usuario.o
+	g++ -c ../ClasesImplementacion/Interesado.cpp
+
+Inmobiliaria.o: Usuario.o DtDireccion.o DtFecha.o ICollectible.o ICollection.o
+	g++ -c ../ClasesImplementacion/Inmobiliaria.cpp
+
+# FIN COMPILACIÓN CLASES #
+
+Includes.o: ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o Mensaje.o Chat.o Usuario.o Inmobiliaria.o Interesado.o
 	g++ -c Includes.cpp
 
 main.o: Includes.o
