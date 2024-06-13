@@ -2,8 +2,8 @@
 #include "interfaces/OrderedKey.h"
 
 
-#ifndef _INTEGER_H
-#define	_INTEGER_H
+#ifndef INTEGER_H
+#define	INTEGER_H
 
 // datatype para representar un entero
 class Integer: public ICollectible, public OrderedKey
