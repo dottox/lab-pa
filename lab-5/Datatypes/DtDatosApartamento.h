@@ -2,21 +2,13 @@
 #define DTDATOSAPARTAMENTO_H
 
 #include "DtDireccion.h"
+#include "DtDatos.h"
 
-struct DtDatosApartamento 
+#include <string>
+using namespace std;
+
+struct DtDatosApartamento : public DtDatos
 {
-  private:
-    int codigo;
-    int cantAmbientes;
-    int cantDormitorios;
-    int cantBanios;
-    bool garaje;
-    DtDireccion direccion;
-    float mtsCuadradosEdificados;
-    float mtsCuadradosTotales;
-    string tipo;
-    float precio;
-
   public:
     DtDatosApartamento(int, int, int, int, bool, DtDireccion, float, float, string, float);
 
