@@ -1,6 +1,7 @@
 #include "interfaces/ICollectible.h"
 #include "interfaces/OrderedKey.h"
 
+#include <string>
 /**
  *  Implementación simple del datatype String que hereda tanto de ICollectible
  *  como de HashedKey

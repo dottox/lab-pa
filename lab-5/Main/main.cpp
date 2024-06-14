@@ -5,9 +5,88 @@ using namespace std;
 
 void pruebaChat();
 void pruebaList();
+void pruebaPropiedad();
 
 int main() {
-  pruebaChat();
+  cout << "Sin ninguna prueba" << endl; 
+}
+
+void pruebaPropiedad() {
+  DtDireccion direccion("Uruguay", "asdasd", 1234);
+
+  cout << "aia" << endl;
+  Inmobiliaria* inmobiliaria = new Inmobiliaria("asd", "asd", direccion);
+  Interesado* interesado = new Interesado("asd", "asd", "asd", "asd", DtFecha(1, 1, 2000));
+  
+  
+  Propiedad* propiedad = new Propiedad(1, 2, 3, 4, true, direccion, 5, 6, "asd", 7, inmobiliaria);
+
+  cout << propiedad->getCodigo() << endl;
+  cout << propiedad->getCantAmbientes() << endl;
+  cout << propiedad->getCantDormitorios() << endl;
+  cout << propiedad->getCantBanios() << endl;
+  cout << propiedad->getGaraje() << endl;
+  cout << propiedad->getDireccion().getCiudad() << endl;
+  cout << propiedad->getDireccion().getCalle() << endl;
+  cout << propiedad->getDireccion().getNumero() << endl;
+  cout << propiedad->getMtsCuadradosEdificados() << endl;
+  cout << propiedad->getMtsCuadradosTotales() << endl;
+  cout << propiedad->getTipo() << endl;
+  cout << propiedad->getPrecio() << endl;
+  cout << "aia2" << endl;
+
+
+  Interesado* interesado2 = new Interesado("h@gmail.com", "asd", "asd", "asd", DtFecha(1, 1, 2000));
+  Interesado* interesado3 = new Interesado("g@outlook.com", "asd", "asd", "asd", DtFecha(1, 1, 2000));
+  Interesado* interesado4 = new Interesado("jk@live.com", "asd", "asd", "asd", DtFecha(1, 1, 2000));
+
+  //Crear chat
+  ICollectible* chat = propiedad->createChat(interesado2);
+  ICollectible* chat2 = propiedad->createChat(interesado3);
+  ICollectible* chat3 = propiedad->createChat(interesado4);
+  cout << "aia3" << endl;
+
+  //Agregar chat a propiedad
+  propiedad->addChat(chat);
+  propiedad->addChat(chat2);
+  propiedad->addChat(chat3);
+
+  cout << "aia4" << endl;
+  propiedad->setChatActual(interesado2->getEmail());
+  cout << "aia4.1" << endl;
+
+  if (propiedad->getChatActual() != NULL) {
+    propiedad->getChatActual()->addMensaje(propiedad->getChatActual()->createMensaje("Hola, ¿cómo estás?", "Pablo"));
+    propiedad->getChatActual()->addMensaje(propiedad->getChatActual()->createMensaje("Bien, gracias. ¿Y tú?", "Manuel"));
+  }
+
+  cout << "aia5" << endl;
+
+  DtInfo* info = propiedad->getInfoPropiedad("h@gmail.com");
+  DtInfo* info2 = propiedad->getInfoPropiedad("g@outlook.com");
+  DtInfo* info3 = propiedad->getInfoPropiedad("jk@live.com");
+
+  cout << info->getCodigo() << endl;
+  cout << info->getDireccion().getCiudad() << endl;
+  cout << info->getDireccion().getCalle() << endl;
+  cout << info->getDireccion().getNumero() << endl;
+  cout << info->getCantMensajes() << endl;
+
+  cout << info2->getCodigo() << endl;
+  cout << info2->getDireccion().getCiudad() << endl;
+  cout << info2->getDireccion().getCalle() << endl;
+  cout << info2->getDireccion().getNumero() << endl;
+  cout << info2->getCantMensajes() << endl;
+
+  cout << info3->getCodigo() << endl;
+  cout << info3->getDireccion().getCiudad() << endl;
+  cout << info3->getDireccion().getCalle() << endl;
+  cout << info3->getDireccion().getNumero() << endl;
+  cout << info3->getCantMensajes() << endl;
+
+
+  delete propiedad;
+
 }
 
 void pruebaChat() {
@@ -45,9 +124,7 @@ void pruebaChat() {
     it->next();
   }
 
-  cout << "aia" << endl;
   chat->deleteMensajes();
-  cout << "aia2" << endl;
 
   chat->addMensaje(mensaje);
   chat->addMensaje(mensaje5);
@@ -56,12 +133,10 @@ void pruebaChat() {
   chat->addMensaje(mensaje4);
   chat->addMensaje(mensaje7);
   chat->addMensaje(mensaje6);
-  cout << "aia3" << endl;
 
   ICollection* msg = chat->seleccionarConversacion();
 
   cout << msg->getSize() << endl;
-  cout << "aia4" << endl;
   it = msg->getIterator();
   while (it->hasCurrent()) {
     dtmensaje = dynamic_cast<DtMensaje*>(it->getCurrent());

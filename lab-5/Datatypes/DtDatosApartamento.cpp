@@ -64,3 +64,5 @@ DtDireccion DtDatosApartamento::getDireccion() {
 bool DtDatosApartamento::getGaraje() {
   return this->garaje;
 }
+
+DtDatosApartamento::~DtDatosApartamento() { }

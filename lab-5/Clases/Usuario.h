@@ -16,7 +16,7 @@ class Usuario : public ICollectible {
 
   public:
     // Getters
-    string getEmail(string);
+    string getEmail();
 
     // Setters
     void setContrasenia(string);

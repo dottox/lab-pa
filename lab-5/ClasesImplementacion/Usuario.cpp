@@ -11,7 +11,7 @@ bool Usuario::validar(string contrasenia)
   return this->contrasenia == contrasenia;
 }
 
-string Usuario::getEmail(string email)
+string Usuario::getEmail()
 {
   return this->email;
 }

@@ -8,7 +8,7 @@ DtDireccion::DtDireccion(string calle, string ciudad, int nro)
 {
   this->calle = calle;
   this->ciudad = ciudad;
-  this->nro = nro;
+  this->numero = nro;
 }
 
 string DtDireccion::getCalle() {
@@ -19,7 +19,10 @@ string DtDireccion::getCiudad() {
   return this->ciudad;
 }
 
-int DtDireccion::getNro() {
-  return this->nro;
+int DtDireccion::getNumero() {
+  return this->numero;
 }
 
+DtDireccion::~DtDireccion()
+{
+}

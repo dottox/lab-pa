@@ -17,3 +17,6 @@ int DtEdificio::getCantPisos() {
 float DtEdificio::getGastosComunes() {
   return this->gastosComunes;
 }
+
+DtEdificio::~DtEdificio() {
+}

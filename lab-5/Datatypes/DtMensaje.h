@@ -17,10 +17,16 @@ struct DtMensaje : public ICollectible
     string texto;
 
   public:
+    // Constructor
     DtMensaje(DtFecha, DtHora, string);
+    
+    // Getters
     DtFecha getFecha();
     DtHora getHora();
     string getTexto();
+    
+    // Destructor
+    ~DtMensaje();
 };
 
 #endif

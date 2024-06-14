@@ -1,5 +1,5 @@
 all: main.o
-	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o Includes.o Mensaje.o Chat.o Usuario.o Inmobiliaria.o Interesado.o main.o -o programa
+	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtInfo.o DtDatosApartamento.o DtDatosCasa.o Includes.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o  main.o -o programa
 
 # INICIO COMPILACIÓN DE ICOLLECTION #
 
@@ -67,6 +67,9 @@ DtDireccion.o:
 DtMensaje.o: DtHora.o DtFecha.o
 	g++ -c ../Datatypes/DtMensaje.cpp
 
+DtInfo.o: DtDireccion.o
+	g++ -c ../Datatypes/DtInfo.cpp
+
 DtDatos.o: DtDireccion.o
 	g++ -c ../Datatypes/DtDatos.cpp
 
@@ -95,9 +98,15 @@ Interesado.o: DtFecha.o Usuario.o
 Inmobiliaria.o: Usuario.o DtDireccion.o DtFecha.o ICollectible.o ICollection.o
 	g++ -c ../ClasesImplementacion/Inmobiliaria.cpp
 
+Administrador.o: Usuario.o
+	g++ -c ../ClasesImplementacion/Administrador.cpp
+
+Propiedad.o: Inmobiliaria.o Chat.o ICollectible.o ICollection.o DtDireccion.o DtInfo.o
+	g++ -c ../ClasesImplementacion/Propiedad.cpp
+
 # FIN COMPILACIÓN CLASES #
 
-Includes.o: ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o Mensaje.o Chat.o Usuario.o Inmobiliaria.o Interesado.o
+Includes.o: ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfo.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o
 	g++ -c Includes.cpp
 
 main.o: Includes.o

@@ -34,6 +34,8 @@ struct DtDatos
     virtual float getPrecio() = 0;
     virtual DtDireccion getDireccion() = 0;
     virtual bool getGaraje() = 0;
+
+    virtual ~DtDatos();
 };
 
 #endif

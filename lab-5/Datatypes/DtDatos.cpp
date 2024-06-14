@@ -13,3 +13,7 @@ DtDatos::DtDatos(int, int, int, int, bool, DtDireccion, float, float, string, fl
   this->tipo = tipo;
   this->precio = precio;
 }
+
+DtDatos::~DtDatos()
+{
+}

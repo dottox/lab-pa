@@ -38,3 +38,7 @@ DtFecha DtFecha::getFechaActual() {
 
   return DtFecha(day, month, year);
 }
+
+DtFecha::~DtFecha()
+{
+}

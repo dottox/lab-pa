@@ -13,6 +13,12 @@
 #include <vector>
 using namespace std;
 
+class Inmobiliaria;
+class Interesado;
+class Mensaje;
+class ICollectible;
+class ICollection;
+
 class Chat : public ICollectible {
   private:
     ICollection* mensajes;

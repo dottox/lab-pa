@@ -12,3 +12,6 @@ int DtZona::getCodigo() {
 string DtZona::getNombre() {
   return this->nombre;
 }
+
+DtZona::~DtZona() {
+}

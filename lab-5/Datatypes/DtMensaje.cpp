@@ -17,3 +17,6 @@ DtHora DtMensaje::getHora() {
 string DtMensaje::getTexto() {
   return this->texto;
 }
+
+DtMensaje::~DtMensaje() {
+}

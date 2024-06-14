@@ -16,6 +16,8 @@ struct DtEdificio
     string getNombre();
     int getCantPisos();
     float getGastosComunes();
+
+    ~DtEdificio();
 };
 
 #endif

@@ -31,3 +31,7 @@ DtHora DtHora::getHoraActual() {
   
   return DtHora(hour, min);
 }
+
+DtHora::~DtHora()
+{
+}

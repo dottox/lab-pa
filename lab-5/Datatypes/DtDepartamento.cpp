@@ -12,3 +12,6 @@ int DtDepartamento::getCodigo() {
 string DtDepartamento::getNombre() {
   return this->nombre;
 }
+
+DtDepartamento::~DtDepartamento() {
+}

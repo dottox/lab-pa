@@ -9,14 +9,16 @@ struct DtDireccion
   private:
     string calle;
     string ciudad;
-    int nro;
+    int numero;
 
   public:
     DtDireccion();
     DtDireccion(string, string, int);
     string getCalle();
     string getCiudad();
-    int getNro();
+    int getNumero();
+
+    ~DtDireccion();
 };
 
 #endif

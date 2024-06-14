@@ -2,6 +2,7 @@
 #define INMOBILIARIA_H
 
 #include "Usuario.h"
+#include "Propiedad.h"
 
 #include "../Datatypes/DtDireccion.h"
 #include "../Datatypes/DtFecha.h"
@@ -9,9 +10,7 @@
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/ICollectible.h"
 
-class Propiedad : public ICollectible {
-
-};
+class Propiedad;
 
 class Inmobiliaria : public Usuario {
   private:

@@ -13,6 +13,7 @@ struct DtHora {
     int getHora();
     int getMinuto();
 
+    ~DtHora();
 };
 
 #endif

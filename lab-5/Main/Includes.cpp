@@ -24,6 +24,7 @@
 #include "../Datatypes/DtDireccion.h"
 #include "../Datatypes/DtMensaje.h"
 #include "../Datatypes/DtDatos.h"
+#include "../Datatypes/DtInfo.h"
 #include "../Datatypes/DtDatosApartamento.h"
 #include "../Datatypes/DtDatosCasa.h"
 
@@ -34,3 +35,5 @@
 #include "../Clases/Usuario.h"
 #include "../Clases/Interesado.h"
 #include "../Clases/Inmobiliaria.h"
+#include "../Clases/Administrador.h"
+#include "../Clases/Propiedad.h"

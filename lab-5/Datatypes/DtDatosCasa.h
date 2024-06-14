@@ -26,6 +26,8 @@ struct DtDatosCasa : DtDatos
     float getPrecio();
     DtDireccion getDireccion();
     bool getGaraje();
+
+    ~DtDatosCasa();
 };
 
 #endif

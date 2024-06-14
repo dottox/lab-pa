@@ -15,6 +15,7 @@ struct DtFecha {
     int getMes();
     int getAnio();
 
+    ~DtFecha();
 };
 
 #endif

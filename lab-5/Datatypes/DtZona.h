@@ -13,6 +13,8 @@ struct DtZona {
     DtZona(int, string);
     int getCodigo();
     string getNombre();
+
+    ~DtZona();
 };
 
 #endif

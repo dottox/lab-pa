@@ -14,6 +14,8 @@ struct DtDepartamento
     DtDepartamento(char, string);
     int getCodigo();
     string getNombre();
+
+    ~DtDepartamento();
 };
 
 #endif
