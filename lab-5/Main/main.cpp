@@ -8,7 +8,8 @@ void pruebaList();
 void pruebaPropiedad();
 
 int main() {
-  cout << "Sin ninguna prueba" << endl; 
+  pruebaChat();
+  //cout << "Sin ninguna prueba" << endl; 
 }
 
 void pruebaPropiedad() {
