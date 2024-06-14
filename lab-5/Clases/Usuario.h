@@ -15,8 +15,19 @@ class Usuario : public ICollectible {
     Usuario(string, string);
 
   public:
-    bool validar(string);
+    // Getters
     string getEmail(string);
+
+    // Setters
+    void setContrasenia(string);
+
+    // Otros
+    virtual string getTipoUsuario() = 0;
+    
+    // Funciones de los casos de usos
+    bool validar(string);
+
+    // Destructor
     virtual ~Usuario();
 };
 

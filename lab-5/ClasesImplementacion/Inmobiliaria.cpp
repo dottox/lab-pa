@@ -12,6 +12,11 @@ void Inmobiliaria::addPropiedad(Propiedad* propiedad)
   this->propiedades->add(propiedad);
 }
 
+string Inmobiliaria::getTipoUsuario()
+{
+  return "Inmobiliaria";
+}
+
 ICollection* Inmobiliaria::getPropiedades()
 {
   // Debería retornar una lista de DtPropiedades.

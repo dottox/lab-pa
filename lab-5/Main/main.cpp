@@ -17,6 +17,12 @@ void pruebaChat() {
   Interesado* interesado = new Interesado("asd", "asd", "asd", "asd", fecha);
   Chat* chat = new Chat(inmobiliaria, interesado);
 
+  Usuario* usuarioinm = dynamic_cast<Usuario*>(inmobiliaria);
+  Usuario* usuarioint = dynamic_cast<Usuario*>(interesado);
+
+  cout << usuarioinm->getTipoUsuario() << endl;
+  cout << usuarioint->getTipoUsuario() << endl;
+
   ICollectible* mensaje = chat->createMensaje("Hola, ¿cómo estás?", "Pablo");
   ICollectible* mensaje2 = chat->createMensaje("Bien, gracias. ¿Y tú?", "Manuel");
   ICollectible* mensaje3 = chat->createMensaje("3También bien, gracias.", "Juan");
@@ -76,7 +82,7 @@ void pruebaChat() {
   delete mensajes;
   delete msg;
   delete it;
-  
+
 
 }
 

@@ -36,6 +36,9 @@ class Chat : public ICollectible {
     Mensaje* createMensaje(string, string);
     void deleteMensajes();
 
+    // Funciones de los casos de uso
+    ICollection* seleccionarConversacion();
+
     // Destructor
     ~Chat();
 };

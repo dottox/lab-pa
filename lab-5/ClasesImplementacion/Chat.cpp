@@ -85,6 +85,37 @@ void Chat::deleteMensajes()
   delete it;
 }
 
+// Selecciona los últimos 5 mensajes. Si hay menos de 5 mensajes, devuelve todos los mensajes.
+ICollection* Chat::seleccionarConversacion()
+{
+  ICollection* ret = new List();
+  IIterator* it = this->mensajes->getIterator();
+
+  int cantMensajes = this->mensajes->getSize();
+
+  if (cantMensajes <= 5) {
+    while (it->hasCurrent()) {
+      Mensaje* mensaje = dynamic_cast<Mensaje*>(it->getCurrent());
+      ret->add(mensaje->getMensaje());
+      it->next();
+    }
+  }
+  else {
+    for (int i = 0; i < cantMensajes - 5; i++) {
+      it->next();
+    }
+
+    while (it->hasCurrent()) {
+      Mensaje* mensaje = dynamic_cast<Mensaje*>(it->getCurrent());
+      ret->add(mensaje->getMensaje());
+      it->next();
+    }
+  }
+
+  delete it;
+  return ret;
+}
+
 // Destructor de la clase Chat
 Chat::~Chat()
 {

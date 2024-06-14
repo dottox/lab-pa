@@ -15,6 +15,7 @@ class Interesado : public Usuario {
     DtFecha fechaNacimiento;
   
   public:
+    string getTipoUsuario();
     Interesado(string, string, string, string, DtFecha);
     ~Interesado();
 };

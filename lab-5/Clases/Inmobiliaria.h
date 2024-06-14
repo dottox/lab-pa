@@ -24,6 +24,7 @@ class Inmobiliaria : public Usuario {
 
     // Otros
     void addPropiedad(Propiedad*);
+    string getTipoUsuario();
 
     // Getters
     ICollection* getPropiedades();
