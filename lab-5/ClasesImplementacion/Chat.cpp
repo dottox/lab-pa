@@ -76,13 +76,8 @@ void Chat::deleteMensajes()
     return;
   }
 
-  IIterator* it = this->mensajes->getIterator();
-  while (it->hasCurrent())
-  {
-    this->mensajes->remove(it->getCurrent());
-    it = this->mensajes->getIterator();
-  }
-  delete it;
+  delete this->mensajes;
+  this->mensajes = new List();
 }
 
 // Selecciona los últimos 5 mensajes. Si hay menos de 5 mensajes, devuelve todos los mensajes.
