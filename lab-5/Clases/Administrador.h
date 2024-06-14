@@ -11,7 +11,7 @@ class Administrador : public Usuario {
   public:
     Administrador(string, string);
     string getTipoUsuario();
-    ~Interesado();
+    ~Administrador();
 };
 
 #endif
