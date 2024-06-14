@@ -24,6 +24,7 @@ class Inmobiliaria : public Usuario {
 
     // Otros
     void addPropiedad(Propiedad*);
+    void removePropiedad(Propiedad*);
     string getTipoUsuario();
 
     // Getters

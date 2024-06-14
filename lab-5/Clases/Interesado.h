@@ -4,6 +4,7 @@
 #include "Usuario.h"
 
 #include "../Datatypes/DtFecha.h"
+#include "../ICollection/interfaces/ICollection.h"
 
 #include <string>
 using namespace std;
@@ -15,8 +16,8 @@ class Interesado : public Usuario {
     DtFecha fechaNacimiento;
   
   public:
-    string getTipoUsuario();
     Interesado(string, string, string, string, DtFecha);
+    string getTipoUsuario();
     ~Interesado();
 };
 
