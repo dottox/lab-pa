@@ -19,21 +19,19 @@ struct DtDatos
     float mtsCuadradosTotales;
     string tipo;
     float precio;
-    
-  protected:
     DtDatos(int, int, int, int, bool, DtDireccion, float, float, string, float);
 
   public:
-    virtual int getCodigo() = 0;
-    virtual int getCantAmbientes() = 0;
-    virtual int getCantDormitorios() = 0;
-    virtual int getCantBanios() = 0;
-    virtual float getMtsCuadradosEdificados() = 0;
-    virtual float getMtsCuadradosTotales() = 0;
-    virtual string getTipo() = 0;
-    virtual float getPrecio() = 0;
-    virtual DtDireccion getDireccion() = 0;
-    virtual bool getGaraje() = 0;
+    virtual int getCodigo();
+    virtual int getCantAmbientes();
+    virtual int getCantDormitorios();
+    virtual int getCantBanios();
+    virtual float getMtsCuadradosEdificados();
+    virtual float getMtsCuadradosTotales();
+    virtual string getTipo();
+    virtual float getPrecio();
+    virtual DtDireccion getDireccion();
+    virtual bool getGaraje();
 
     virtual ~DtDatos();
 };

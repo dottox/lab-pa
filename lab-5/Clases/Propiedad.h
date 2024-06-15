@@ -16,6 +16,11 @@ using namespace std;
 class Inmobiliaria;
 class Chat;
 class Interesado;
+class IDictionary;
+class ICollectible;
+struct DtDireccion;
+struct DtInfo;
+
 
 class Propiedad : public ICollectible {
   private:

@@ -6,6 +6,8 @@
 #include <string>
 using namespace std;
 
+class ICollectible;
+
 class Usuario : public ICollectible {
   private:
     string email;
@@ -16,16 +18,16 @@ class Usuario : public ICollectible {
 
   public:
     // Getters
-    string getEmail();
+    virtual string getEmail();
 
     // Setters
-    void setContrasenia(string);
+    virtual void setContrasenia(string);
 
     // Otros
     virtual string getTipoUsuario() = 0;
     
     // Funciones de los casos de usos
-    bool validar(string);
+    virtual bool validar(string);
 
     // Destructor
     virtual ~Usuario();

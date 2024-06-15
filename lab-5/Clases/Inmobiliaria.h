@@ -10,7 +10,10 @@
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/ICollectible.h"
 
+
 class Propiedad;
+struct DtDireccion;
+class ICollection;
 
 class Inmobiliaria : public Usuario {
   private:

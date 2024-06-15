@@ -28,48 +28,8 @@ DtDatosCasa::DtDatosCasa(
   this->mtsCuadradosVerdes = mtsCuadradosVerdes;
 }
 
-int DtDatosCasa::getCodigo() {
-  return this->codigo;
-}
-
-int DtDatosCasa::getCantAmbientes() {
-  return this->cantAmbientes;
-}
-
-int DtDatosCasa::getCantDormitorios() {
-  return this->cantDormitorios;
-}
-
-int DtDatosCasa::getCantBanios() {
-  return this->cantBanios;
-}
-
-float DtDatosCasa::getMtsCuadradosEdificados() {
-  return this->mtsCuadradosEdificados;
-}
-
-float DtDatosCasa::getMtsCuadradosTotales() {
-  return this->mtsCuadradosTotales;
-}
-
 float DtDatosCasa::getMtsCuadradosVerdes() {
   return this->mtsCuadradosVerdes;
-}
-
-string DtDatosCasa::getTipo() {
-  return this->tipo;
-}
-
-float DtDatosCasa::getPrecio() {
-  return this->precio;
-}
-
-DtDireccion DtDatosCasa::getDireccion() {
-  return this->direccion;
-}
-
-bool DtDatosCasa::getGaraje() {
-  return this->garaje;
 }
 
 DtDatosCasa::~DtDatosCasa() {

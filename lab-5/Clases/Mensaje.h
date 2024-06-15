@@ -19,7 +19,7 @@ class Mensaje : public ICollectible {
   
   public:
     Mensaje(DtFecha, DtHora, string, string);
-    DtMensaje* getMensaje();
+    DtMensaje getMensaje();
     ~Mensaje();
 };
 
