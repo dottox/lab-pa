@@ -9,6 +9,8 @@ void pruebaPropiedad();
 
 int main() {
   pruebaChat();
+  pruebaList();
+  pruebaPropiedad();
   //cout << "Sin ninguna prueba" << endl; 
 }
 
@@ -27,9 +29,9 @@ void pruebaPropiedad() {
   cout << propiedad->getCantDormitorios() << endl;
   cout << propiedad->getCantBanios() << endl;
   cout << propiedad->getGaraje() << endl;
-  cout << propiedad->getDireccion().getCiudad() << endl;
-  cout << propiedad->getDireccion().getCalle() << endl;
-  cout << propiedad->getDireccion().getNumero() << endl;
+  cout << propiedad->getDireccion()->getCiudad() << endl;
+  cout << propiedad->getDireccion()->getCalle() << endl;
+  cout << propiedad->getDireccion()->getNumero() << endl;
   cout << propiedad->getMtsCuadradosEdificados() << endl;
   cout << propiedad->getMtsCuadradosTotales() << endl;
   cout << propiedad->getTipo() << endl;
@@ -85,7 +87,14 @@ void pruebaPropiedad() {
   cout << info3->getDireccion().getNumero() << endl;
   cout << info3->getCantMensajes() << endl;
 
-
+  delete inmobiliaria;
+  delete interesado;
+  delete interesado2;
+  delete interesado3;
+  delete interesado4;
+  delete info;
+  delete info2;
+  delete info3;
   delete propiedad;
 
 }
@@ -186,7 +195,9 @@ void pruebaList() {
     it->next();
   }
 
+  
   delete myList;
   delete myInt;
   delete myString;
+  delete it;
 }
