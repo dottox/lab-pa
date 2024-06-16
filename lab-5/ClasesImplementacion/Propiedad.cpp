@@ -48,9 +48,9 @@ bool Propiedad::getGaraje()
     return this->garaje;
 }
 
-DtDireccion* Propiedad::getDireccion()
+DtDireccion Propiedad::getDireccion()
 {
-    return new DtDireccion(this->direccion);
+    return DtDireccion(this->direccion);
 }
 
 float Propiedad::getMtsCuadradosEdificados()
@@ -148,7 +148,7 @@ Chat *Propiedad::createChat(Interesado *interesado)
     return new Chat(this->inmobiliaria, interesado);
 }
 
-DtInfo* Propiedad::getInfoPropiedad(string email)
+DtInfo Propiedad::getInfoPropiedad(string email)
 {
     const char* e = email.c_str();
     IKey* key = new String(e);
@@ -156,9 +156,9 @@ DtInfo* Propiedad::getInfoPropiedad(string email)
     Chat* chat = dynamic_cast<Chat*>(c);
     delete key;
     if (chat == NULL) {
-        return nullptr;
+        return DtInfo(this->codigo, 0, this->direccion);
     }
-    return new DtInfo(this->codigo, chat->getMensajes()->getSize(), this->direccion);
+    return DtInfo(this->codigo, chat->getMensajes()->getSize(), this->direccion);
 }
 
 void Propiedad::setChatActual(string email)

@@ -29,9 +29,9 @@ void pruebaPropiedad() {
   cout << propiedad->getCantDormitorios() << endl;
   cout << propiedad->getCantBanios() << endl;
   cout << propiedad->getGaraje() << endl;
-  cout << propiedad->getDireccion()->getCiudad() << endl;
-  cout << propiedad->getDireccion()->getCalle() << endl;
-  cout << propiedad->getDireccion()->getNumero() << endl;
+  cout << propiedad->getDireccion().getCiudad() << endl;
+  cout << propiedad->getDireccion().getCalle() << endl;
+  cout << propiedad->getDireccion().getNumero() << endl;
   cout << propiedad->getMtsCuadradosEdificados() << endl;
   cout << propiedad->getMtsCuadradosTotales() << endl;
   cout << propiedad->getTipo() << endl;
@@ -65,36 +65,33 @@ void pruebaPropiedad() {
 
   cout << "aia5" << endl;
 
-  DtInfo* info = propiedad->getInfoPropiedad("h@gmail.com");
-  DtInfo* info2 = propiedad->getInfoPropiedad("g@outlook.com");
-  DtInfo* info3 = propiedad->getInfoPropiedad("jk@live.com");
+  DtInfo info = propiedad->getInfoPropiedad("h@gmail.com");
+  DtInfo info2 = propiedad->getInfoPropiedad("g@outlook.com");
+  DtInfo info3 = propiedad->getInfoPropiedad("jk@live.com");
 
-  cout << info->getCodigo() << endl;
-  cout << info->getDireccion().getCiudad() << endl;
-  cout << info->getDireccion().getCalle() << endl;
-  cout << info->getDireccion().getNumero() << endl;
-  cout << info->getCantMensajes() << endl;
+  cout << info.getCodigo() << endl;
+  cout << info.getDireccion().getCiudad() << endl;
+  cout << info.getDireccion().getCalle() << endl;
+  cout << info.getDireccion().getNumero() << endl;
+  cout << info.getCantMensajes() << endl;
 
-  cout << info2->getCodigo() << endl;
-  cout << info2->getDireccion().getCiudad() << endl;
-  cout << info2->getDireccion().getCalle() << endl;
-  cout << info2->getDireccion().getNumero() << endl;
-  cout << info2->getCantMensajes() << endl;
+  cout << info2.getCodigo() << endl;
+  cout << info2.getDireccion().getCiudad() << endl;
+  cout << info2.getDireccion().getCalle() << endl;
+  cout << info2.getDireccion().getNumero() << endl;
+  cout << info2.getCantMensajes() << endl;
 
-  cout << info3->getCodigo() << endl;
-  cout << info3->getDireccion().getCiudad() << endl;
-  cout << info3->getDireccion().getCalle() << endl;
-  cout << info3->getDireccion().getNumero() << endl;
-  cout << info3->getCantMensajes() << endl;
+  cout << info3.getCodigo() << endl;
+  cout << info3.getDireccion().getCiudad() << endl;
+  cout << info3.getDireccion().getCalle() << endl;
+  cout << info3.getDireccion().getNumero() << endl;
+  cout << info3.getCantMensajes() << endl;
 
   delete inmobiliaria;
   delete interesado;
   delete interesado2;
   delete interesado3;
   delete interesado4;
-  delete info;
-  delete info2;
-  delete info3;
   delete propiedad;
 
 }
@@ -112,6 +109,7 @@ void pruebaChat() {
   cout << usuarioinm->getTipoUsuario() << endl;
   cout << usuarioint->getTipoUsuario() << endl;
 
+  cout << "aia" << endl;
   ICollectible* mensaje = chat->createMensaje("Hola, ¿cómo estás?", "Pablo");
   ICollectible* mensaje2 = chat->createMensaje("Bien, gracias. ¿Y tú?", "Manuel");
   ICollectible* mensaje3 = chat->createMensaje("3También bien, gracias.", "Juan");
@@ -120,19 +118,27 @@ void pruebaChat() {
   ICollectible* mensaje6 = chat->createMensaje("6También bien, gracias.", "Juan4");
   ICollectible* mensaje7 = chat->createMensaje("7También bien, gracias.", "Juan5");
 
+  cout << "aia2" << endl;
 
   chat->addMensaje(mensaje);
   chat->addMensaje(mensaje2);
   chat->addMensaje(mensaje3);
 
+  cout << "aia3" << endl;
+
   ICollection* mensajes = chat->getMensajes();
   IIterator* it = mensajes->getIterator();
   DtMensaje* dtmensaje;
   while (it->hasCurrent()) {
+    cout << "aia3.1" << endl;
+
     dtmensaje = dynamic_cast<DtMensaje*>(it->getCurrent());
+    cout << "aia3.2" << endl;
     cout << dtmensaje->getTexto() << endl;
     it->next();
+
   }
+  cout << "aia4" << endl;
 
   chat->deleteMensajes();
 
@@ -148,11 +154,21 @@ void pruebaChat() {
 
   cout << msg->getSize() << endl;
   it = msg->getIterator();
+  cout << "aia5" << endl;
+
   while (it->hasCurrent()) {
+    cout << "aia5.1" << endl;
+
     dtmensaje = dynamic_cast<DtMensaje*>(it->getCurrent());
+    cout << "aia5.1.1" << endl;
+
     cout << dtmensaje->getTexto() << endl;
     it->next();
+    cout << "aia5.2" << endl;
+
   }
+  cout << "aia6" << endl;
+
 
   delete chat;
   delete inmobiliaria;

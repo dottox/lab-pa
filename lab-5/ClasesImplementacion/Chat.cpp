@@ -21,8 +21,8 @@ ICollection* Chat::getMensajes()
   IIterator* it = this->mensajes->getIterator();
   while (it->hasCurrent())
   {
-    Mensaje* mensaje = dynamic_cast<Mensaje*>(it->getCurrent());
-    ret->add(mensaje->getMensaje());
+    DtMensaje* msg = extractDtMensajeFromCollectible(it->getCurrent());
+    ret->add(msg);
     it->next();
   }
   delete it;
@@ -90,8 +90,8 @@ ICollection* Chat::seleccionarConversacion()
 
   if (cantMensajes <= 5) {
     while (it->hasCurrent()) {
-      Mensaje* mensaje = dynamic_cast<Mensaje*>(it->getCurrent());
-      ret->add(mensaje->getMensaje());
+      DtMensaje* msg = extractDtMensajeFromCollectible(it->getCurrent());
+      ret->add(msg);
       it->next();
     }
   }
@@ -101,14 +101,19 @@ ICollection* Chat::seleccionarConversacion()
     }
 
     while (it->hasCurrent()) {
-      Mensaje* mensaje = dynamic_cast<Mensaje*>(it->getCurrent());
-      ret->add(mensaje->getMensaje());
+      DtMensaje* msg = extractDtMensajeFromCollectible(it->getCurrent());
+      ret->add(msg);
       it->next();
     }
   }
 
   delete it;
   return ret;
+}
+
+DtMensaje* Chat::extractDtMensajeFromCollectible(ICollectible* mensajeCollectible) {
+  Mensaje* mensaje = dynamic_cast<Mensaje*>(mensajeCollectible);
+  return new DtMensaje(mensaje->getMensaje().getFecha(), mensaje->getMensaje().getHora(), mensaje->getMensaje().getTexto(), mensaje->getMensaje().getEmisor());
 }
 
 // Destructor de la clase Chat

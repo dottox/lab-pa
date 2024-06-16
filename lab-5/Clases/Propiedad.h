@@ -39,9 +39,9 @@ class Propiedad : public ICollectible {
     string tipo;
     float precio;
     
-    Propiedad(int, int, int, int, bool, DtDireccion, float, float, string, float, Inmobiliaria*);
 
   public:
+    Propiedad(int, int, int, int, bool, DtDireccion, float, float, string, float, Inmobiliaria*);
     
     // Getters
     virtual int getCodigo();
@@ -49,7 +49,7 @@ class Propiedad : public ICollectible {
     virtual int getCantDormitorios();
     virtual int getCantBanios();
     virtual bool getGaraje();
-    virtual DtDireccion* getDireccion();
+    virtual DtDireccion getDireccion();
     virtual float getMtsCuadradosEdificados();
     virtual float getMtsCuadradosTotales();
     virtual string getTipo();
@@ -74,7 +74,7 @@ class Propiedad : public ICollectible {
 
     // Otros
     virtual Chat* createChat(Interesado*);
-    virtual DtInfo* getInfoPropiedad(string);
+    virtual DtInfo getInfoPropiedad(string);
     virtual void setChatActual(string);
     virtual void addChat(ICollectible*);
 

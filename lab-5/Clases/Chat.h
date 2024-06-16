@@ -24,6 +24,8 @@ class Chat : public ICollectible {
     ICollection* mensajes;
     Inmobiliaria* inmobiliaria;
     Interesado* interesado;
+
+    DtMensaje* extractDtMensajeFromCollectible(ICollectible*);
   
   public:
     Chat(Inmobiliaria*, Interesado*);

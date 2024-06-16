@@ -32,7 +32,7 @@ class Inmobiliaria : public Usuario {
 
     // Getters
     ICollection* getPropiedades();
-    DtDireccion* getDireccion();
+    DtDireccion getDireccion();
 
     // Setters
     void setDireccion(DtDireccion);
