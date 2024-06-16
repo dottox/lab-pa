@@ -9,6 +9,9 @@
 #include <string>
 using namespace std;
 
+class Usuario;
+struct DtFecha;
+
 class Interesado : public Usuario {
   private:
     string nombre;

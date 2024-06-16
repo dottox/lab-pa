@@ -11,9 +11,10 @@
 #include "../ICollection/interfaces/ICollectible.h"
 
 
+class Usuario;
 class Propiedad;
-struct DtDireccion;
 class ICollection;
+struct DtDireccion;
 
 class Inmobiliaria : public Usuario {
   private:

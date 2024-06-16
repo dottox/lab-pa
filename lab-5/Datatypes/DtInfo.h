@@ -5,6 +5,9 @@
 
 #include "../ICollection/interfaces/ICollectible.h"
 
+struct ICollectible;
+struct DtDireccion;
+
 struct DtInfo : public ICollectible
 {
   private:

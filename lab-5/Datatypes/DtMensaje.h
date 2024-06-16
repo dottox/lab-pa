@@ -9,6 +9,10 @@
 #include <string>
 using namespace std;
 
+struct ICollectible;
+struct DtFecha;
+struct DtHora;
+
 struct DtMensaje : public ICollectible
 {
   private:

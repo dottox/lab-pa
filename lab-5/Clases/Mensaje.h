@@ -10,6 +10,11 @@
 #include <string>
 using namespace std;
 
+struct DtFecha;
+struct DtHora;
+struct DtMensaje;
+struct ICollectible;
+
 class Mensaje : public ICollectible {
   private:
     DtFecha fecha;

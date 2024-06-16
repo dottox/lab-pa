@@ -6,6 +6,8 @@
 #include <string>
 using namespace std;
 
+struct DtDireccion;
+
 struct DtDatos 
 {
   protected:
