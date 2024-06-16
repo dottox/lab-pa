@@ -2,12 +2,15 @@
 #define APARTAMENTO_H
 
 #include "Propiedad.h"
+#include "Inmobiliaria.h"
+#include "../Datatypes/DtDatosApartamento.h"
 
 class Propiedad;
+struct DtDatosApartamento;
 
 class Apartamento : public Propiedad {
   public:
-    Apartamento(DtDatosApartamento*);
+    Apartamento(DtDatosApartamento, Inmobiliaria*);
     
     ~Apartamento();
 };

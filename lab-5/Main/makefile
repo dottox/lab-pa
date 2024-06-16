@@ -1,5 +1,5 @@
 all: main.o
-	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtInfo.o DtDatosApartamento.o DtDatosCasa.o Includes.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o  main.o -o programa
+	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtInfo.o DtDatosApartamento.o DtDatosCasa.o Includes.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o main.o -o programa
 
 # INICIO COMPILACIÓN DE ICOLLECTION #
 
@@ -104,9 +104,16 @@ Administrador.o: Usuario.o
 Propiedad.o: Inmobiliaria.o Chat.o ICollectible.o ICollection.o DtDireccion.o DtInfo.o
 	g++ -c ../ClasesImplementacion/Propiedad.cpp
 
+Apartamento.o: Propiedad.o DtDatosApartamento.o
+	g++ -c ../ClasesImplementacion/Apartamento.cpp
+	
+Casa.o: Propiedad.o DtDatosCasa.o
+	g++ -c ../ClasesImplementacion/Casa.cpp
+
+
 # FIN COMPILACIÓN CLASES #
 
-Includes.o: ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfo.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o
+Includes.o: ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfo.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o
 	g++ -c Includes.cpp
 
 main.o: Includes.o

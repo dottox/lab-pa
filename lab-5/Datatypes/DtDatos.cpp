@@ -1,6 +1,6 @@
 #include "DtDatos.h"
 
-DtDatos::DtDatos(int, int, int, int, bool, DtDireccion, float, float, string, float)
+DtDatos::DtDatos(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, string tipo, float precio)
 {
   this->codigo = codigo;
   this->cantAmbientes = cantAmbientes;

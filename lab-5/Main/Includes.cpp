@@ -37,3 +37,5 @@
 #include "../Clases/Inmobiliaria.h"
 #include "../Clases/Administrador.h"
 #include "../Clases/Propiedad.h"
+#include "../Clases/Apartamento.h"
+#include "../Clases/Casa.h"

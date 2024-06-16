@@ -1,6 +1,9 @@
 #include "Includes.cpp"
 #include <iostream>
 
+#include "../Clases/Apartamento.h"
+#include "../Clases/Casa.h"
+
 using namespace std;
 
 void pruebaChat();
@@ -20,23 +23,44 @@ void pruebaPropiedad() {
   cout << "aia" << endl;
   Inmobiliaria* inmobiliaria = new Inmobiliaria("asd", "asd", direccion);
   Interesado* interesado = new Interesado("asd", "asd", "asd", "asd", DtFecha(1, 1, 2000));
-  
-  
-  Propiedad* propiedad = new Propiedad(1, 2, 3, 4, true, direccion, 5, 6, "asd", 7, inmobiliaria);
 
-  cout << propiedad->getCodigo() << endl;
-  cout << propiedad->getCantAmbientes() << endl;
-  cout << propiedad->getCantDormitorios() << endl;
-  cout << propiedad->getCantBanios() << endl;
-  cout << propiedad->getGaraje() << endl;
-  cout << propiedad->getDireccion().getCiudad() << endl;
-  cout << propiedad->getDireccion().getCalle() << endl;
-  cout << propiedad->getDireccion().getNumero() << endl;
-  cout << propiedad->getMtsCuadradosEdificados() << endl;
-  cout << propiedad->getMtsCuadradosTotales() << endl;
-  cout << propiedad->getTipo() << endl;
-  cout << propiedad->getPrecio() << endl;
+
+  DtDatosApartamento dtdatosapartamento = DtDatosApartamento(1, 2, 3, 4, true, direccion, 5, 6, "asd", 7);
+  Apartamento* apartamento = new Apartamento(dtdatosapartamento, inmobiliaria);
+
+  DtDatosCasa dtdatoscasa = DtDatosCasa(1, 2, 3, 4, true, direccion, 5, 6, "asd", 7, 8);
+  Casa* casa = new Casa(dtdatoscasa, inmobiliaria);
+
+  cout << "DtDato cod: " << dtdatosapartamento.getCodigo() << endl;
+  cout << "DtDato ambientes: " << dtdatosapartamento.getCantAmbientes() << endl;
+  cout << "DtDato: " << dtdatosapartamento.getCantDormitorios() << endl;
+  cout << apartamento->getCodigo() << endl;
+  cout << apartamento->getCantAmbientes() << endl;
+  cout << apartamento->getCantDormitorios() << endl;
+  cout << apartamento->getCantBanios() << endl;
+  cout << apartamento->getGaraje() << endl;
+  cout << apartamento->getDireccion().getCiudad() << endl;
+  cout << apartamento->getDireccion().getCalle() << endl;
+  cout << apartamento->getDireccion().getNumero() << endl;
+  cout << apartamento->getMtsCuadradosEdificados() << endl;
+  cout << apartamento->getMtsCuadradosTotales() << endl;
+  cout << apartamento->getTipo() << endl;
+  cout << apartamento->getPrecio() << endl;
   cout << "aia2" << endl;
+
+
+  cout << casa->getCodigo() << endl;
+  cout << casa->getCantAmbientes() << endl;
+  cout << casa->getCantDormitorios() << endl;
+  cout << casa->getCantBanios() << endl;
+  cout << casa->getGaraje() << endl;
+  cout << casa->getDireccion().getCiudad() << endl;
+  cout << casa->getDireccion().getCalle() << endl;
+  cout << casa->getDireccion().getNumero() << endl;
+  cout << casa->getMtsCuadradosEdificados() << endl;
+  cout << casa->getMtsCuadradosTotales() << endl;
+  cout << casa->getTipo() << endl;
+  cout << casa->getPrecio() << endl;
 
 
   Interesado* interesado2 = new Interesado("h@gmail.com", "asd", "asd", "asd", DtFecha(1, 1, 2000));
@@ -44,30 +68,38 @@ void pruebaPropiedad() {
   Interesado* interesado4 = new Interesado("jk@live.com", "asd", "asd", "asd", DtFecha(1, 1, 2000));
 
   //Crear chat
-  ICollectible* chat = propiedad->createChat(interesado2);
-  ICollectible* chat2 = propiedad->createChat(interesado3);
-  ICollectible* chat3 = propiedad->createChat(interesado4);
+  ICollectible* chat = apartamento->createChat(interesado2);
+  ICollectible* chat2 = apartamento->createChat(interesado3);
+  ICollectible* chat3 = apartamento->createChat(interesado4);
+
+  ICollectible* chat4 = casa->createChat(interesado2);
+  ICollectible* chat5 = casa->createChat(interesado3);
+  ICollectible* chat6 = casa->createChat(interesado4);
   cout << "aia3" << endl;
 
   //Agregar chat a propiedad
-  propiedad->addChat(chat);
-  propiedad->addChat(chat2);
-  propiedad->addChat(chat3);
+  apartamento->addChat(chat);
+  apartamento->addChat(chat2);
+  apartamento->addChat(chat3);
+
+  casa->addChat(chat4);
+  casa->addChat(chat5);
+  casa->addChat(chat6);
 
   cout << "aia4" << endl;
-  propiedad->setChatActual(interesado2->getEmail());
+  apartamento->setChatActual(interesado2->getEmail());
   cout << "aia4.1" << endl;
 
-  if (propiedad->getChatActual() != NULL) {
-    propiedad->getChatActual()->addMensaje(propiedad->getChatActual()->createMensaje("Hola, ¿cómo estás?", "Pablo"));
-    propiedad->getChatActual()->addMensaje(propiedad->getChatActual()->createMensaje("Bien, gracias. ¿Y tú?", "Manuel"));
+  if (apartamento->getChatActual() != NULL) {
+    apartamento->getChatActual()->addMensaje(apartamento->getChatActual()->createMensaje("Hola, ¿cómo estás?", "Pablo"));
+    apartamento->getChatActual()->addMensaje(apartamento->getChatActual()->createMensaje("Bien, gracias. ¿Y tú?", "Manuel"));
   }
 
   cout << "aia5" << endl;
 
-  DtInfo info = propiedad->getInfoPropiedad("h@gmail.com");
-  DtInfo info2 = propiedad->getInfoPropiedad("g@outlook.com");
-  DtInfo info3 = propiedad->getInfoPropiedad("jk@live.com");
+  DtInfo info = apartamento->getInfoPropiedad("h@gmail.com");
+  DtInfo info2 = apartamento->getInfoPropiedad("g@outlook.com");
+  DtInfo info3 = apartamento->getInfoPropiedad("jk@live.com");
 
   cout << info.getCodigo() << endl;
   cout << info.getDireccion().getCiudad() << endl;
@@ -92,7 +124,8 @@ void pruebaPropiedad() {
   delete interesado2;
   delete interesado3;
   delete interesado4;
-  delete propiedad;
+  delete apartamento;
+  delete casa;
 
 }
 

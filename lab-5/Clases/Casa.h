@@ -2,25 +2,21 @@
 #define CASA_H
 
 #include "Propiedad.h"
+#include "Inmobiliaria.h"
+#include "../Datatypes/DtDatosCasa.h"
 
 class Propiedad;
+struct DtDatosCasa;
 
 class Casa : public Propiedad {
   private:
     float mtsCuadradosVerdes;
 
   public:
-    Casa(DtDatosCasa*);
+    Casa(DtDatosCasa, Inmobiliaria*);
     
     // Getters
     float getMtsCuadradosVerdes();
-
-    
-    // Otros
-    virtual Chat* createChat(Interesado*);
-    virtual DtInfo* getInfoPropiedad(string);
-    virtual void setChatActual(string);
-    virtual void addChat(ICollectible*);
 
     // Destructor
     ~Casa();
