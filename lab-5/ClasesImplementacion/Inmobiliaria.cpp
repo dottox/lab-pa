@@ -23,9 +23,9 @@ ICollection* Inmobiliaria::getPropiedades()
   return this->propiedades;
 }
 
-DtDireccion Inmobiliaria::getDireccion()
+DtDireccion* Inmobiliaria::getDireccion()
 {
-  return this->direccion;
+  return new DtDireccion(this->direccion);
 }
 
 void Inmobiliaria::setDireccion(DtDireccion direccion)

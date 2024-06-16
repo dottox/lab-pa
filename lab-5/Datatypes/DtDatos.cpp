@@ -50,6 +50,10 @@ DtDireccion DtDatos::getDireccion() {
   return this->direccion;
 }
 
+bool DtDatos::getGaraje() {
+  return this->garaje;
+}
+
 DtDatos::~DtDatos()
 {
 }

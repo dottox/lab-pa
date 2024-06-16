@@ -48,7 +48,7 @@ class Propiedad : public ICollectible {
     int getCantDormitorios();
     int getCantBanios();
     bool getGaraje();
-    DtDireccion getDireccion();
+    DtDireccion* getDireccion();
     float getMtsCuadradosEdificados();
     float getMtsCuadradosTotales();
     string getTipo();

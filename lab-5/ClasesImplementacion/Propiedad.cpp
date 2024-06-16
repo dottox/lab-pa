@@ -48,9 +48,9 @@ bool Propiedad::getGaraje()
     return this->garaje;
 }
 
-DtDireccion Propiedad::getDireccion()
+DtDireccion* Propiedad::getDireccion()
 {
-    return this->direccion;
+    return new DtDireccion(this->direccion);
 }
 
 float Propiedad::getMtsCuadradosEdificados()

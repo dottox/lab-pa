@@ -12,8 +12,8 @@ Mensaje::Mensaje(
   this->emisor = emisor;
 }
 
-DtMensaje Mensaje::getMensaje() {
-  return DtMensaje(this->fecha, this->hora, this->texto);
+DtMensaje* Mensaje::getMensaje() {
+  return new DtMensaje(this->fecha, this->hora, this->texto);
 }
 
 Mensaje::~Mensaje()
