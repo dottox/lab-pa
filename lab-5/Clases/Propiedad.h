@@ -23,7 +23,7 @@ struct DtInfo;
 
 
 class Propiedad : public ICollectible {
-  private:
+  protected:
     IDictionary* chats;
     Chat* chatActual;
     Inmobiliaria* inmobiliaria;
@@ -38,47 +38,48 @@ class Propiedad : public ICollectible {
     float mtsCuadradosTotales;
     string tipo;
     float precio;
+    
+    Propiedad(int, int, int, int, bool, DtDireccion, float, float, string, float, Inmobiliaria*);
 
   public:
-    Propiedad(int, int, int, int, bool, DtDireccion, float, float, string, float, Inmobiliaria*);
     
     // Getters
-    int getCodigo();
-    int getCantAmbientes();
-    int getCantDormitorios();
-    int getCantBanios();
-    bool getGaraje();
-    DtDireccion* getDireccion();
-    float getMtsCuadradosEdificados();
-    float getMtsCuadradosTotales();
-    string getTipo();
-    float getPrecio();
+    virtual int getCodigo();
+    virtual int getCantAmbientes();
+    virtual int getCantDormitorios();
+    virtual int getCantBanios();
+    virtual bool getGaraje();
+    virtual DtDireccion* getDireccion();
+    virtual float getMtsCuadradosEdificados();
+    virtual float getMtsCuadradosTotales();
+    virtual string getTipo();
+    virtual float getPrecio();
 
-    Chat* getChatActual();
-    IDictionary* getChats();
-    Inmobiliaria* getInmobiliaria();
+    virtual Chat* getChatActual();
+    virtual IDictionary* getChats();
+    virtual Inmobiliaria* getInmobiliaria();
 
     // Setters
-    void setCodigo(int);
-    void setCantAmbientes(int);
-    void setCantDormitorios(int);
-    void setCantBanios(int);
-    void setGaraje(bool);
-    void setDireccion(DtDireccion);
-    void setMtsCuadradosEdificados(float);
-    void setMtsCuadradosTotales(float);
-    void setTipo(string);
-    void setPrecio(float);
-    void setInmobiliaria(Inmobiliaria*);
+    virtual void setCodigo(int);
+    virtual void setCantAmbientes(int);
+    virtual void setCantDormitorios(int);
+    virtual void setCantBanios(int);
+    virtual void setGaraje(bool);
+    virtual void setDireccion(DtDireccion);
+    virtual void setMtsCuadradosEdificados(float);
+    virtual void setMtsCuadradosTotales(float);
+    virtual void setTipo(string);
+    virtual void setPrecio(float);
+    virtual void setInmobiliaria(Inmobiliaria*);
 
     // Otros
-    Chat* createChat(Interesado*);
-    DtInfo* getInfoPropiedad(string);
-    void setChatActual(string);
-    void addChat(ICollectible*);
+    virtual Chat* createChat(Interesado*);
+    virtual DtInfo* getInfoPropiedad(string);
+    virtual void setChatActual(string);
+    virtual void addChat(ICollectible*);
 
     // Destructor
-    ~Propiedad();
+    virtual ~Propiedad();
 };
 
 #endif
