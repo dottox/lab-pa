@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-struct DtEdificio 
+struct DtEdificio : public ICollectible
 {
   private:
     string nombre;
