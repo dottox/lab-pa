@@ -111,9 +111,8 @@ void Zona::seleccionarPago(string tipo, float precio) {
 
 void Zona::darAlta()
 {
-  IKey* key = new Integer(codigo);
+  IKey* key = new Integer(this->propiedadActual->getCodigo());
   this->propiedades->add(key, this->propiedadActual);
-  delete key;
 }
 
 Zona::~Zona()
