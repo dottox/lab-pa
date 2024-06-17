@@ -71,7 +71,6 @@ class Propiedad : public ICollectible {
     virtual void setTipo(string);
     virtual void setPrecio(float);
     virtual void setInmobiliaria(Inmobiliaria*);
-    virtual void setDatos(DtDatos) = 0;
 
     // Otros
     virtual Chat* createChat(Interesado*);
