@@ -20,6 +20,7 @@ class Edificio;
 class Propiedad;
 class ICollectible;
 class IDictionary;
+class String;
 struct DtZona;
 struct DtInfo;
 struct DtEdificio;
@@ -48,7 +49,7 @@ class Zona : public ICollectible {
     void setNombre(string);
 
     // Otros
-    void seleccionarEdificio(int);
+    void seleccionarEdificio(string);
     void seleccionarPropiedad(int);
     void deseleccionarEdificio();
     void deseleccionarPropiedad();

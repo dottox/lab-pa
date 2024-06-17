@@ -2,7 +2,11 @@
 
 #include "../ICollection/collections/List.h"
 #include "../ICollection/interfaces/IKey.h"
+
+#include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/Integer.h"
+#include "../ICollection/String.h"
+
 
 Zona::Zona(int codigo, string nombre)
 {
@@ -32,10 +36,10 @@ void Zona::setNombre(string nombre)
   this->nombre = nombre;
 }
 
-void Zona::seleccionarEdificio(int codigo)
+void Zona::seleccionarEdificio(string nombre)
 {
-  IKey* key = new Integer(codigo);
-  this->edificioActual = dynamic_cast<Edificio*>(this->edificios->find(codigo));
+  IKey* key = new String((char*)nombre.c_str());
+  this->edificioActual = dynamic_cast<Edificio*>(this->edificios->find(key));
   delete key;
 }
 
@@ -86,7 +90,7 @@ ICollection* Zona::listarEdificios()
   {
     Edificio* edif = dynamic_cast<Edificio*>(it->getCurrent());
     DtEdificio data = edif->getInfo();
-    DtEdificio* info = new DtEdificio(data.getCodigo(), data.getNombre());
+    DtEdificio* info = new DtEdificio(data.getNombre(), data.getCantPisos(), data.getGastosComunes());
     ret->add(info);
     it->next();
   }
@@ -96,7 +100,7 @@ ICollection* Zona::listarEdificios()
 
 void Zona::agregarDatosApt(DtDatosApartamento datos)
 {
-  // Por implementar, usando edificio actual, delegar en edificio
+  this->edificioActual->agregarDatosApt(datos);
 }
 
 void Zona::agregarDatosCasa(DtDatosCasa datos)
@@ -108,6 +112,7 @@ void Zona::seleccionarPago(string tipo, float precio) {
   this->propiedadActual->setTipo(tipo);
   this->propiedadActual->setPrecio(precio);
 }
+
 
 void Zona::darAlta()
 {
