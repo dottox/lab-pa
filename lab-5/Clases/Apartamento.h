@@ -12,6 +12,9 @@ class Apartamento : public Propiedad {
   public:
     Apartamento(DtDatosApartamento, Inmobiliaria*);
     
+    // Setters
+    void setDatos(DtDatosApartamento);
+
     ~Apartamento();
 };
 

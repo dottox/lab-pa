@@ -78,7 +78,7 @@ Chat *Propiedad::getChatActual()
     return this->chatActual;
 }
 
-IDictionary *Propiedad::getChats()
+IDictionary* Propiedad::getChats()
 {
     return this->chats;
 }
