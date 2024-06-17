@@ -94,17 +94,17 @@ ICollection* Zona::listarEdificios()
   return ret;
 }
 
-void agregarDatosApt(DtDatosApartamento datos)
+void Zona::agregarDatosApt(DtDatosApartamento datos)
 {
   // Por implementar, usando edificio actual, delegar en edificio
 }
 
-void agregarDatosCasa(DtDatosCasa datos)
+void Zona::agregarDatosCasa(DtDatosCasa datos)
 {
   this->propiedadActual->setDatos(datos);
 }
 
-void seleccionarPago(string tipo, float precio) {
+void Zona::seleccionarPago(string tipo, float precio) {
   this->propiedadActual->setTipo(tipo);
   this->propiedadActual->setPrecio(precio);
 }
