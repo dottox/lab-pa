@@ -161,7 +161,7 @@ DtInfo Propiedad::getInfoPropiedad(string email)
     return DtInfo(this->codigo, chat->getMensajes()->getSize(), this->direccion);
 }
 
-void Propiedad::setChatActual(string email)
+void Propiedad::seleccionarChat(string email)
 { 
     const char* e = email.c_str();
     IKey* key = new String(e);
@@ -169,6 +169,11 @@ void Propiedad::setChatActual(string email)
     Chat* chat = dynamic_cast<Chat*>(c);
     delete key;
     this->chatActual = chat;
+}
+
+void Propiedad::deseleccionarChat()
+{
+    this->chatActual = nullptr;
 }
 
 void Propiedad::addChat(ICollectible* chat)
@@ -185,5 +190,8 @@ void Propiedad::addChat(ICollectible* chat)
 
 Propiedad::~Propiedad()
 {
+    if (this->chatActual != nullptr) {
+        delete this->chatActual;
+    }
     delete this->chats;
 }

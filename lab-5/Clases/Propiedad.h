@@ -25,7 +25,7 @@ struct DtInfo;
 class Propiedad : public ICollectible {
   protected:
     IDictionary* chats;
-    Chat* chatActual;
+    Chat* chatActual = nullptr;
     Inmobiliaria* inmobiliaria;
 
     int codigo;
@@ -75,7 +75,8 @@ class Propiedad : public ICollectible {
     // Otros
     virtual Chat* createChat(Interesado*);
     virtual DtInfo getInfoPropiedad(string);
-    virtual void setChatActual(string);
+    virtual void seleccionarChat(string);
+    virtual void deseleccionarChat();
     virtual void addChat(ICollectible*);
 
     // Destructor
