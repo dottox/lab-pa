@@ -8,7 +8,7 @@
 #include "../Datatypes/DtDatosApartamento.h"
 
 #include "../ICollection/interfaces/ICollection.h"
-#include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/interfaces/IDictionary.h"
 
 #include <string>
 using namespace std;
@@ -20,22 +20,27 @@ struct DtInfo;
 struct DtEdificio;
 struct DtDatosApartamento;
 
+
 class Edificio : public ICollectible {
   private:
     IDictionary* apartamentos;
+
     Propiedad* apartamentoActual = nullptr;
+
+
     
+
     string nombre;
     int cantPisos;
     float gastosComunes;
-  
+
   public:
-    Edificio(string, int, float);
+    Edificio(string, int, float, Inmboliaria*);
     
     // Getters
     string getNombre();
-    int getCantPistos();
-    int getGastosComunes();
+    int getCantPisos();
+    float getGastosComunes();
 
     // Setters
     void setNombre(string);
@@ -54,6 +59,7 @@ class Edificio : public ICollectible {
 
     void seleccionarPago(string, float);
     void darAlta(int);
+
 
     // Destructor
     ~Edificio();

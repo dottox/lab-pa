@@ -5,3 +5,8 @@
 16/06 En Apartamento y Casa:
   Se agregó un nuevo parámetro al constructor:
     Inmobiliaria* inmobiliaria;
+
+17/06 En Inmobiliaria:
+  Ver si la inmobiliaria debería de guardar sus edificios.
+      En Edificio:
+  Ver si el edificio debería de guardar su inmobiliaria.

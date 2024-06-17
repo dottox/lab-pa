@@ -63,7 +63,7 @@ class Zona : public ICollectible {
     void agregarDatosCasa(DtDatosCasa);
 
     void seleccionarPago(string, float);
-    void darAlta(int);
+    void darAlta();
 
     // Destructor
     ~Zona();

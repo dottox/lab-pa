@@ -2,9 +2,11 @@
 
 #include "../ICollection/collections/List.h"
 #include "../ICollection/interfaces/IKey.h"
+
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/Integer.h"
 #include "../ICollection/String.h"
+
 
 Zona::Zona(int codigo, string nombre)
 {
@@ -63,9 +65,26 @@ DtZona Zona::getInfo()
   return DtZona(this->codigo, this->nombre);
 }
 
+
+ICollection* Zona::getInfoPropiedades(string email)
+{
+  IDictionary* ret = new List();
+  IIterator* it = this->propiedades->getIterator();
+  while (it->hasCurrent())
+  {
+    Propiedad* prop = dynamic_cast<Propiedad*>(it->getCurrent());
+    DtInfo data = prop->getInfoPropiedad(email);
+    DtInfo* info = new DtInfo(data.getCodigo(), data.getCantMensajes(), data.getDireccion());
+    ret->add(info);
+    it->next();
+  }
+  delete it;
+  return ret;
+}
+
 ICollection* Zona::listarEdificios()
 {
-  ICollection* ret = new List();
+  IDictionary* ret = new List();
   IIterator* it = this->edificios->getIterator();
   while (it->hasCurrent())
   {
@@ -94,12 +113,11 @@ void Zona::seleccionarPago(string tipo, float precio) {
   this->propiedadActual->setPrecio(precio);
 }
 
-void Zona::darAlta(int codigo)
+
+void Zona::darAlta()
 {
-  IKey* key = new Integer(codigo);
-  this->propiedadActual->setCodigo(codigo);
+  IKey* key = new Integer(this->propiedadActual->getCodigo());
   this->propiedades->add(key, this->propiedadActual);
-  delete key;
 }
 
 Zona::~Zona()

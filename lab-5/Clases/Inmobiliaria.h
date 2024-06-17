@@ -20,6 +20,7 @@ class Inmobiliaria : public Usuario {
   private:
     DtDireccion direccion;
     ICollection* propiedades;
+    // ¿Mis edificios?
   
   public:
     // Constructor
