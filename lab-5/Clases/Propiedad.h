@@ -20,6 +20,7 @@ class IDictionary;
 class ICollectible;
 struct DtDireccion;
 struct DtInfo;
+struct DtDatos;
 
 
 class Propiedad : public ICollectible {
@@ -71,13 +72,14 @@ class Propiedad : public ICollectible {
     virtual void setTipo(string);
     virtual void setPrecio(float);
     virtual void setInmobiliaria(Inmobiliaria*);
+    virtual void setDatos(DtDatos);
 
     // Otros
     virtual Chat* createChat(Interesado*);
     virtual DtInfo getInfoPropiedad(string);
-    virtual void seleccionarChat(string);
+    virtual void seleccionarChat(string); 
     virtual void deseleccionarChat();
-    virtual void addChat(ICollectible*);
+    virtual void addChat(Chat*);
 
     // Destructor
     virtual ~Propiedad();

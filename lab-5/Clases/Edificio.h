@@ -1,14 +1,11 @@
-#ifndef ZONA_H
-#define ZONA_H
+#ifndef EDIFICIO_H
+#define EDIFICIO_H
 
-#include "Edificio.h"
 #include "Propiedad.h" 
 
-#include "../Datatypes/DtZona.h"
 #include "../Datatypes/DtInfo.h"
 #include "../Datatypes/DtEdificio.h"
 #include "../Datatypes/DtDatosApartamento.h"
-#include "../Datatypes/DtDatosCasa.h"
 
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/ICollectible.h"
@@ -16,57 +13,50 @@
 #include <string>
 using namespace std;
 
-class Edificio;
 class Propiedad;
 class ICollectible;
 class IDictionary;
-class String;
-struct DtZona;
 struct DtInfo;
 struct DtEdificio;
 struct DtDatosApartamento;
-struct DtDatosCasa;
 
-class Zona : public ICollectible {
+class Edificio : public ICollectible {
   private:
-    IDictionary* propiedades;
-    IDictionary* edificios;
-    Edificio* edificioActual = nullptr;
-    Propiedad* propiedadActual = nullptr;
+    IDictionary* apartamentos;
+    Propiedad* apartamentoActual = nullptr;
     
-    int codigo;
     string nombre;
+    int cantPisos;
+    float gastosComunes;
   
   public:
-    Zona(int, string);
+    Edificio(string, int, float);
     
     // Getters
-    int getCodigo();
     string getNombre();
+    int getCantPistos();
+    int getGastosComunes();
 
     // Setters
-    void setCodigo(int);
     void setNombre(string);
+    void setCantPisos(int);
+    void setGastosComunes(float);
 
     // Otros
-    void seleccionarEdificio(string);
     void seleccionarPropiedad(int);
-    void deseleccionarEdificio();
     void deseleccionarPropiedad();
 
-    DtZona getInfo();
+    DtEdificio getInfo();
 
-    ICollection* getInfoPropiedades(string);
-    ICollection* listarEdificios();
+    ICollection* getInfoPropiedad(string);
 
     void agregarDatosApt(DtDatosApartamento);
-    void agregarDatosCasa(DtDatosCasa);
 
     void seleccionarPago(string, float);
     void darAlta(int);
 
     // Destructor
-    ~Zona();
+    ~Edificio();
 };
 
 #endif

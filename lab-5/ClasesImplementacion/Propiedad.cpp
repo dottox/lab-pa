@@ -143,9 +143,10 @@ void Propiedad::setInmobiliaria(Inmobiliaria *inmobiliaria)
     this->inmobiliaria = inmobiliaria;
 }
 
-Chat *Propiedad::createChat(Interesado *interesado)
+Chat* Propiedad::createChat(Interesado *interesado)
 {
-    return new Chat(this->inmobiliaria, interesado);
+    Chat* c = new Chat(this->inmobiliaria, interesado);
+    return c;
 }
 
 DtInfo Propiedad::getInfoPropiedad(string email)
@@ -163,8 +164,7 @@ DtInfo Propiedad::getInfoPropiedad(string email)
 
 void Propiedad::seleccionarChat(string email)
 { 
-    const char* e = email.c_str();
-    IKey* key = new String(e);
+    IKey* key = new String((char*)email.c_str());
     ICollectible* c = this->chats->find(key);
     Chat* chat = dynamic_cast<Chat*>(c);
     delete key;
@@ -176,11 +176,9 @@ void Propiedad::deseleccionarChat()
     this->chatActual = nullptr;
 }
 
-void Propiedad::addChat(ICollectible* chat)
-{
-    Chat* c = dynamic_cast<Chat*>(chat);
-    char* email = c->getInteresado()->getEmail().data();
-    IKey* key = new String(email);
+void Propiedad::addChat(Chat* chat)
+{   
+    IKey* key = new String((char*)chat->getInteresado()->getEmail().c_str());
     if (key == NULL) {
         delete key;
         throw "No se pudo crear la clave";

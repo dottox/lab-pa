@@ -20,7 +20,7 @@ float Casa::getMtsCuadradosVerdes() {
   return this->mtsCuadradosVerdes;
 }
 
-void Casa::setDatos(DtDatosCasa) {
+void Casa::setDatos(DtDatosCasa datos) {
   this->codigo = datos.getCodigo();
   this->cantAmbientes = datos.getCantAmbientes();
   this->cantDormitorios = datos.getCantDormitorios();
