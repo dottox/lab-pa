@@ -54,18 +54,11 @@ void Chat::setInteresado(Interesado* interesado)
 }
 
 // Añade el mensaje a la lista
-void Chat::addMensaje(ICollectible* mensaje)
+void Chat::addMensaje(DtMensaje mensaje)
 {
-  this->mensajes->add(mensaje);
-}
-
-// Crea un mensaje con los datos pasados por parámetro y la fecha y hora actual
-Mensaje* Chat::createMensaje(string texto, string emisor)
-{
-  DtFecha fecha;
-  DtHora hora;
-
-  return new Mensaje(fecha, hora, texto, emisor);
+  // Se crea el mensaje y se guarda
+  Mensaje* newMensaje = new Mensaje(mensaje.getFecha(), mensaje.getHora(), mensaje.getTexto(), mensaje.getEmisor());
+  this->mensajes->add(newMensaje);
 }
 
 // Borra todos los mensajes, dejando la lista en NULL

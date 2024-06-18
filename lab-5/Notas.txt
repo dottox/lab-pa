@@ -10,3 +10,6 @@
   Ver si la inmobiliaria debería de guardar sus edificios.
       En Edificio:
   Ver si el edificio debería de guardar su inmobiliaria.
+
+17/06 En Edificio:
+  Cambié getInfoPropiedad por getInfoPropiedades.

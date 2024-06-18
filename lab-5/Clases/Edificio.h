@@ -1,7 +1,8 @@
 #ifndef EDIFICIO_H
 #define EDIFICIO_H
 
-#include "Propiedad.h" 
+#include "Apartamento.h" 
+#include "Inmobiliaria.h"
 
 #include "../Datatypes/DtInfo.h"
 #include "../Datatypes/DtEdificio.h"
@@ -13,9 +14,10 @@
 #include <string>
 using namespace std;
 
-class Propiedad;
+class Apartamento;
 class ICollectible;
 class IDictionary;
+class Inmobiliaria;
 struct DtInfo;
 struct DtEdificio;
 struct DtDatosApartamento;
@@ -24,11 +26,8 @@ struct DtDatosApartamento;
 class Edificio : public ICollectible {
   private:
     IDictionary* apartamentos;
-
-    Propiedad* apartamentoActual = nullptr;
-
-
-    
+    Apartamento* apartamentoActual = nullptr;
+    Inmobiliaria* inmobiliaria;
 
     string nombre;
     int cantPisos;
@@ -53,7 +52,7 @@ class Edificio : public ICollectible {
 
     DtEdificio getInfo();
 
-    ICollection* getInfoPropiedad(string);
+    ICollection* getInfoPropiedades(string);
 
     void agregarDatosApt(DtDatosApartamento);
 

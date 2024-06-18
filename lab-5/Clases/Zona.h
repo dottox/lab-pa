@@ -3,6 +3,7 @@
 
 #include "Edificio.h"
 #include "Propiedad.h" 
+#include "Interesado.h" 
 
 #include "../Datatypes/DtZona.h"
 #include "../Datatypes/DtInfo.h"
@@ -17,6 +18,7 @@
 using namespace std;
 
 class Edificio;
+class Interesado;
 class Propiedad;
 class ICollectible;
 class IDictionary;
@@ -47,6 +49,9 @@ class Zona : public ICollectible {
     // Setters
     void setCodigo(int);
     void setNombre(string);
+
+    // Funciones de propiedad
+    void addChat(Interesado*);
 
     // Otros
     void seleccionarEdificio(string);

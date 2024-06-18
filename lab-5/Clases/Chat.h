@@ -39,8 +39,7 @@ class Chat : public ICollectible {
     void setInteresado(Interesado*);
 
     // Otros
-    void addMensaje(ICollectible*);
-    Mensaje* createMensaje(string, string);
+    void addMensaje(DtMensaje);
     void deleteMensajes();
 
     // Funciones de los casos de uso

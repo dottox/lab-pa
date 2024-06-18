@@ -6,6 +6,7 @@
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/Integer.h"
 #include "../ICollection/String.h"
+#include "Zona.h"
 
 
 Zona::Zona(int codigo, string nombre)
@@ -34,6 +35,15 @@ void Zona::setCodigo(int codigo)
 void Zona::setNombre(string nombre)
 {
   this->nombre = nombre;
+}
+
+void Zona::addChat(Interesado* interesado)
+{
+  if (this->propiedadActual == nullptr)
+  {
+    throw "No hay propiedad seleccionada";
+  }
+  this->propiedadActual->addChat(interesado);
 }
 
 void Zona::seleccionarEdificio(string nombre)
@@ -68,7 +78,7 @@ DtZona Zona::getInfo()
 
 ICollection* Zona::getInfoPropiedades(string email)
 {
-  IDictionary* ret = new List();
+  ICollection* ret = new List();
   IIterator* it = this->propiedades->getIterator();
   while (it->hasCurrent())
   {
