@@ -31,7 +31,7 @@ void Departamento::setNombre(string nombre)
   this->nombre = nombre;
 }
 
-void Departamento::addChat(Interesado* interesado)
+void Departamento::addChat(Usuario* interesado)
 {
   if (this->zonaActual == nullptr) {
     throw "No hay zona seleccionada";
@@ -127,6 +127,22 @@ void Departamento::darAlta()
     throw "No hay zona seleccionada";
   }
   this->zonaActual->darAlta();
+}
+
+void Departamento::seleccionarChat(string email)
+{
+  if (this->zonaActual == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  this->zonaActual->seleccionarChat(email);
+}
+
+void Departamento::addMensaje(DtMensaje mensaje)
+{
+  if (this->zonaActual == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  this->zonaActual->addMensaje(mensaje);
 }
 
 Departamento::~Departamento()

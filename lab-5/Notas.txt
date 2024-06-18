@@ -13,3 +13,9 @@
 
 17/06 En Edificio:
   Cambié getInfoPropiedad por getInfoPropiedades.
+
+18/06 funcion addChat():
+  Los que llevan la funcion hasta Propiedad ahora tomando a Interesado como Usuario genérico.
+
+      En ISistema:
+  Cambié datosCasa y datosApartamento, el sistema no se va a encargar de crear el datatype, que pase directamente como tal.

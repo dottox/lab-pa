@@ -3,6 +3,7 @@
 
 #include "../Datatypes/DtDireccion.h"
 #include "../Datatypes/DtInfo.h"
+#include "../Datatypes/DtMensaje.h"
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/IDictionary.h"
 
@@ -21,6 +22,7 @@ class ICollectible;
 struct DtDireccion;
 struct DtInfo;
 struct DtDatos;
+struct DtMensaje;
 
 
 class Propiedad : public ICollectible {
@@ -79,6 +81,7 @@ class Propiedad : public ICollectible {
     virtual void seleccionarChat(string); 
     virtual void deseleccionarChat();
     virtual void addChat(Interesado*);
+    virtual void addMensaje(DtMensaje);
 
     // Destructor
     virtual ~Propiedad();

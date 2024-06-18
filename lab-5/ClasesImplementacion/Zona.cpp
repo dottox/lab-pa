@@ -37,7 +37,7 @@ void Zona::setNombre(string nombre)
   this->nombre = nombre;
 }
 
-void Zona::addChat(Interesado* interesado)
+void Zona::addChat(Usuario* interesado)
 {
   if (this->propiedadActual == nullptr)
   {
@@ -128,6 +128,24 @@ void Zona::darAlta()
 {
   IKey* key = new Integer(this->propiedadActual->getCodigo());
   this->propiedades->add(key, this->propiedadActual);
+}
+
+void Zona::addMensaje(DtMensaje mensaje)
+{
+  if (this->propiedadActual == nullptr)
+  {
+    throw "No hay propiedad seleccionada";
+  }
+  this->propiedadActual->addMensaje(mensaje);
+}
+
+void Zona::seleccionarChat(string email)
+{
+  if (this->propiedadActual == nullptr)
+  {
+    throw "No hay propiedad seleccionada";
+  }
+  this->propiedadActual->seleccionarChat(email);
 }
 
 Zona::~Zona()

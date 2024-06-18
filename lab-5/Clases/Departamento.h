@@ -2,11 +2,12 @@
 #define DEPARTAMENTO_H
 
 #include "Zona.h"
-#include "Interesado.h"
+#include "Usuario.h"
 
 #include "../Datatypes/DtDepartamento.h"
 #include "../Datatypes/DtDatosCasa.h"
 #include "../Datatypes/DtDatosApt.h"
+#include "../Datatypes/DtMensaje.h"
 
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/ICollectible.h"
@@ -15,8 +16,13 @@
 using namespace std;
 
 class Zona;
+class Usuario;
 class ICollectible;
 class IDictionary;
+struct DtDepartamento;
+struct DtDatosCasa;
+struct DtDatosApartamento;
+struct DtMensaje;
 
 class Departamento : public ICollectible {
   private:
@@ -38,7 +44,7 @@ class Departamento : public ICollectible {
     void setNombre(string);
 
     // Funciones de Zona
-    void addChat(Interesado*);
+    void addChat(Usuario*);
 
     // Otros
     DtDepartamento getInfo();
@@ -52,6 +58,9 @@ class Departamento : public ICollectible {
     void agregarDatosCasa(DtDatosCasa);
     void seleccionarPago(string, float);
     void darAlta();
+
+    void seleccionarChat(string);
+    void addMensaje(DtMensaje);
 
     // Destructor
     ~Departamento();

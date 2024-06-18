@@ -2,7 +2,7 @@
 #define ZONA_H
 
 #include "Edificio.h"
-#include "Propiedad.h" 
+#include "Usuario.h" 
 #include "Interesado.h" 
 
 #include "../Datatypes/DtZona.h"
@@ -10,6 +10,7 @@
 #include "../Datatypes/DtEdificio.h"
 #include "../Datatypes/DtDatosApartamento.h"
 #include "../Datatypes/DtDatosCasa.h"
+#include "../Datatypes/DtMensaje.h"
 
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/ICollectible.h"
@@ -18,11 +19,12 @@
 using namespace std;
 
 class Edificio;
-class Interesado;
+class Usuario;
 class Propiedad;
 class ICollectible;
 class IDictionary;
 class String;
+struct DtMensaje;
 struct DtZona;
 struct DtInfo;
 struct DtEdificio;
@@ -51,7 +53,7 @@ class Zona : public ICollectible {
     void setNombre(string);
 
     // Funciones de propiedad
-    void addChat(Interesado*);
+    void addChat(Usuario*);
 
     // Otros
     void seleccionarEdificio(string);
@@ -69,6 +71,9 @@ class Zona : public ICollectible {
 
     void seleccionarPago(string, float);
     void darAlta();
+
+    void addMensaje(DtMensaje);
+    void seleccionarChat(string);
 
     // Destructor
     ~Zona();

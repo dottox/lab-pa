@@ -174,9 +174,10 @@ void Propiedad::deseleccionarChat()
     this->chatActual = nullptr;
 }
 
-void Propiedad::addChat(Interesado* interesado)
+void Propiedad::addChat(Usuario* usuario)
 {   
-    IKey* key = new String((char*)email.c_str());
+    Interesado* interesado = dynamic_cast<Interesado*>(usuario);
+    IKey* key = new String((char*)interesado->getEmail().c_str());
     if (key == NULL) {
         delete key;
         throw "No se pudo crear la clave";
@@ -185,6 +186,14 @@ void Propiedad::addChat(Interesado* interesado)
     Chat* chat = new Chat(interesado, this->inmobiliaria);
 
     this->chats->add(key, chat);
+}
+
+void Propiedad::addMensaje(DtMensaje mensaje)
+{
+    if (this->chatActual == nullptr) {
+        throw "No hay chat seleccionado";
+    }
+    this->chatActual->addMensaje(mensaje);
 }
 
 Propiedad::~Propiedad()
