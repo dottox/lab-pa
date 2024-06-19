@@ -2,11 +2,9 @@
 
 #include "../ICollection/collections/List.h"
 #include "../ICollection/interfaces/IKey.h"
-
 #include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/Integer.h"
 #include "../ICollection/String.h"
-#include "Zona.h"
 
 
 Zona::Zona(int codigo, string nombre)
@@ -43,7 +41,7 @@ void Zona::addChat(Usuario* interesado)
   {
     throw "No hay propiedad seleccionada";
   }
-  this->propiedadActual->addChat(interesado);
+  this->propiedadActual->addChat((Interesado*)interesado);
 }
 
 void Zona::seleccionarEdificio(string nombre)
@@ -94,7 +92,7 @@ ICollection* Zona::getInfoPropiedades(string email)
 
 ICollection* Zona::listarEdificios()
 {
-  IDictionary* ret = new List();
+  ICollection* ret = new List();
   IIterator* it = this->edificios->getIterator();
   while (it->hasCurrent())
   {

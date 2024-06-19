@@ -5,6 +5,8 @@
 #include "../ICollection/Integer.h"
 #include "../ICollection/String.h"
 
+Sistema* Sistema::instancia = nullptr;
+
 Sistema::Sistema() {
   this->usuarios = new OrderedDictionary();
   this->departamentos = new OrderedDictionary();
@@ -14,7 +16,7 @@ Sistema* Sistema::getInstancia() {
   if (instancia == nullptr) {
     instancia = new Sistema();
   }
-  return instance;
+  return instancia;
 };
 
 void Sistema::seleccionarUsuarioActual(string email) {
@@ -24,7 +26,7 @@ void Sistema::seleccionarUsuarioActual(string email) {
 }
 
 void Sistema::seleccionarDepartamentoActual(char codigo) {
-  IKey* key = new Char(codigo);
+  IKey* key = new String((char*)codigo);
   this->departamentoActual = dynamic_cast<Departamento*>(this->departamentos->find(key));
   delete key;
 }

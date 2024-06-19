@@ -6,7 +6,7 @@
 
 #include "../Datatypes/DtDepartamento.h"
 #include "../Datatypes/DtDatosCasa.h"
-#include "../Datatypes/DtDatosApt.h"
+#include "../Datatypes/DtDatosApartamento.h"
 #include "../Datatypes/DtMensaje.h"
 
 #include "../ICollection/interfaces/ICollection.h"
@@ -49,7 +49,7 @@ class Departamento : public ICollectible {
     // Otros
     DtDepartamento getInfo();
     ICollection* getZonas();
-    void buscarZona(int); // ???
+    void buscarZona(int); // ??? <-- Explicate :s
     ICollection* getInfoPropiedades(string);
     void seleccionarTipoPropiedad(string);
     ICollection* listarEdificios();

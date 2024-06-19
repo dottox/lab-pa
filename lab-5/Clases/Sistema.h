@@ -1,12 +1,13 @@
 #ifndef SISTEMA_H
 #define SISTEMA_H
 
-#include "Usuario.h"
-#include "Departamento.h"
+#include "../Clases/Usuario.h"
+#include "../Clases/Departamento.h"
+#include "../Clases/ISistema.h"
 
 #include "../Datatypes/DtDepartamento.h"
 #include "../Datatypes/DtDatosCasa.h"
-#include "../Datatypes/DtDatosApt.h"
+#include "../Datatypes/DtDatosApartamento.h"
 
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/ICollectible.h"
@@ -26,7 +27,7 @@ class Sistema : public ISistema {
     IDictionary* usuarios;
     Usuario* usuarioActual = nullptr;
 
-    static Sistema* instancia = nullptr;
+    static Sistema* instancia; // Aquí no se inicializa la variable, se debe hacer en el .cpp con "Sistema* Sistema::instancia = nullptr;"
 
     Sistema();
 

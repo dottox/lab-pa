@@ -12,6 +12,32 @@ void Inmobiliaria::addPropiedad(Propiedad* propiedad)
   this->propiedades->add(propiedad);
 }
 
+Propiedad* Inmobiliaria::buscarPropiedad(int codigo)
+{
+  IIterator* it = this->propiedades->getIterator();
+  while (it->hasCurrent())
+  {
+    Propiedad* propiedad = dynamic_cast<Propiedad*>(it->getCurrent());
+    if (propiedad->getCodigo() == codigo)
+    {
+      return propiedad;
+    }
+    it->next();
+  }
+  delete it;
+  return nullptr;
+}
+
+void Inmobiliaria::removePropiedad(int codigo)
+{ // Aquí borro a la propiedad de la lista, luego de esto el objeto de la propiedad debe ser eliminado.
+  Propiedad* propiedad = this->buscarPropiedad(codigo);
+  if(propiedad == nullptr){
+    throw "La propiedad no existe";
+  }
+  this->propiedades->remove(propiedad);
+};
+
+
 string Inmobiliaria::getTipoUsuario()
 {
   return "Inmobiliaria";

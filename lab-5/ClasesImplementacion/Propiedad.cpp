@@ -83,7 +83,7 @@ IDictionary* Propiedad::getChats()
     return this->chats;
 }
 
-Inmobiliaria *Propiedad::getInmobiliaria()
+Inmobiliaria* Propiedad::getInmobiliaria()
 {
     return this->inmobiliaria;
 }
@@ -176,14 +176,14 @@ void Propiedad::deseleccionarChat()
 
 void Propiedad::addChat(Usuario* usuario)
 {   
-    Interesado* interesado = dynamic_cast<Interesado*>(usuario);
+    Interesado* interesado = (Interesado*)usuario;
     IKey* key = new String((char*)interesado->getEmail().c_str());
     if (key == NULL) {
         delete key;
         throw "No se pudo crear la clave";
     }
 
-    Chat* chat = new Chat(interesado, this->inmobiliaria);
+    Chat* chat = new Chat(this->getInmobiliaria(), interesado);
 
     this->chats->add(key, chat);
 }

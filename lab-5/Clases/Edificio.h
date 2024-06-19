@@ -34,7 +34,7 @@ class Edificio : public ICollectible {
     float gastosComunes;
 
   public:
-    Edificio(string, int, float, Inmboliaria*);
+    Edificio(string, int, float, Inmobiliaria*);
     
     // Getters
     string getNombre();
