@@ -1,5 +1,6 @@
 #include "../Clases/Casa.h"
 
+
 Casa::Casa(DtDatosCasa datos, Inmobiliaria* inmo) : Propiedad::Propiedad(
   datos.getCodigo(),
   datos.getCantAmbientes(),

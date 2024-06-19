@@ -1,5 +1,5 @@
 all: main.o
-	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtInfo.o DtDatosApartamento.o DtDatosCasa.o Includes.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o main.o -o programa
+	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtInfo.o DtDatosApartamento.o DtDatosCasa.o Includes.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o Edificio.o Zona.o Departamento.o ISistema.o Sistema.o SistemaFabrica.o main.o -o programa
 
 # INICIO COMPILACIÓN DE ICOLLECTION #
 
@@ -46,22 +46,25 @@ OrderedDictionaryEntry.o:
 
 # INICIO COMPILACIÓN DE DATATYPES #
 
-DtFecha.o:
+InicioDatatypes: ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o
+	echo "Compilando datatypes..."
+
+DtFecha.o: InicioDatatypes
 	g++ -c ../Datatypes/DtFecha.cpp
 
-DtHora.o:
+DtHora.o:	InicioDatatypes
 	g++ -c ../Datatypes/DtHora.cpp
 	
-DtEdificio.o:
+DtEdificio.o: InicioDatatypes
 	g++ -c ../Datatypes/DtEdificio.cpp
 
-DtDepartamento.o:
+DtDepartamento.o: InicioDatatypes
 	g++ -c ../Datatypes/DtDepartamento.cpp
 
-DtZona.o:
+DtZona.o: InicioDatatypes
 	g++ -c ../Datatypes/DtZona.cpp
 
-DtDireccion.o:
+DtDireccion.o: InicioDatatypes
 	g++ -c ../Datatypes/DtDireccion.cpp
 
 DtMensaje.o: DtHora.o DtFecha.o
@@ -83,37 +86,57 @@ DtDatosCasa.o: DtDireccion.o
 
 # INICIO COMPILACIÓN CLASES #
 
-Mensaje.o:
+InicioClases: DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfo.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o
+	echo "Compilando clases..."
+
+Mensaje.o: InicioClases
 	g++ -c ../ClasesImplementacion/Mensaje.cpp
 
 Chat.o: Mensaje.o
 	g++ -c ../ClasesImplementacion/Chat.cpp
 
-Usuario.o: ICollectible.o
+Usuario.o: InicioClases
 	g++ -c ../ClasesImplementacion/Usuario.cpp
 
-Interesado.o: DtFecha.o Usuario.o
+Interesado.o: Usuario.o
 	g++ -c ../ClasesImplementacion/Interesado.cpp
 
-Inmobiliaria.o: Usuario.o DtDireccion.o DtFecha.o ICollectible.o ICollection.o
+Inmobiliaria.o: Usuario.o
 	g++ -c ../ClasesImplementacion/Inmobiliaria.cpp
 
 Administrador.o: Usuario.o
 	g++ -c ../ClasesImplementacion/Administrador.cpp
 
-Propiedad.o: Inmobiliaria.o Chat.o ICollectible.o ICollection.o DtDireccion.o DtInfo.o
+Propiedad.o: Chat.o
 	g++ -c ../ClasesImplementacion/Propiedad.cpp
 
-Apartamento.o: Propiedad.o DtDatosApartamento.o
+Apartamento.o: Propiedad.o
 	g++ -c ../ClasesImplementacion/Apartamento.cpp
 	
-Casa.o: Propiedad.o DtDatosCasa.o
+Casa.o: Propiedad.o
 	g++ -c ../ClasesImplementacion/Casa.cpp
 
+Edificio.o: Apartamento.o
+	g++ -c ../ClasesImplementacion/Edificio.cpp
+
+Zona.o: Edificio.o Propiedad.o
+	g++ -c ../ClasesImplementacion/Zona.cpp
+
+Departamento.o: Zona.o
+	g++ -c ../ClasesImplementacion/Departamento.cpp
+
+ISistema.o: Departamento.o
+	g++ -c ../ClasesImplementacion/ISistema.cpp
+
+Sistema.o: ISistema.o
+	g++ -c ../ClasesImplementacion/Sistema.cpp
+
+SistemaFabrica.o: ISistema.o Sistema.o
+	g++ -c ../ClasesImplementacion/SistemaFabrica.cpp
 
 # FIN COMPILACIÓN CLASES #
 
-Includes.o: ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfo.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o
+Includes.o: Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o Edificio.o Zona.o Departamento.o ISistema.o Sistema.o SistemaFabrica.o 
 	g++ -c Includes.cpp
 
 main.o: Includes.o

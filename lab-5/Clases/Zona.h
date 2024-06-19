@@ -37,6 +37,7 @@ class Zona : public ICollectible {
     IDictionary* edificios;
     Edificio* edificioActual = nullptr;
     Propiedad* propiedadActual = nullptr;
+    string tipoPropiedadActual;
     
     int codigo;
     string nombre;
@@ -56,7 +57,7 @@ class Zona : public ICollectible {
     void addChat(Usuario*);
 
     // Otros
-    void seleccionarEdificio(int);
+    void seleccionarEdificio(string);
     void seleccionarPropiedad(int);
     void deseleccionarEdificio();
     void deseleccionarPropiedad();

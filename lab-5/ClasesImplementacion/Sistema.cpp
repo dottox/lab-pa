@@ -35,7 +35,9 @@ void Sistema::seleccionarUsuarioActual(string email) {
 }
 
 void Sistema::seleccionarDepartamentoActual(char codigo) {
-  IKey* key = new String((char*)codigo);
+  char* c = new char(codigo);
+  IKey* key = new String(c);
+  delete c;
   this->departamentoActual = dynamic_cast<Departamento*>(this->departamentos->find(key));
   delete key;
 }
@@ -75,7 +77,7 @@ void Sistema::guardarMensaje(DtMensaje mensaje) {
 }
 
 void Sistema::seleccionarChat(string email) {
-  if (this-getDepartamentoActual() == nullptr) {
+  if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
@@ -132,12 +134,12 @@ void Sistema::datosApt(DtDatosApartamento datos) {
   this->getDepartamentoActual()->agregarDatosApt(datos);
 }
 
-void Sistema::seleccionarEdificio(int codigo) {
+void Sistema::seleccionarEdificio(string nombre) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
-  this->getDepartamentoActual()->seleccionarEdificio(codigo);
+  this->getDepartamentoActual()->seleccionarEdificio(nombre);
 }
 
 ICollection* Sistema::listarEdificios() {
@@ -173,7 +175,9 @@ ICollection* Sistema::listarZonas() {
 }
 
 void Sistema::seleccionarDepartamento(char codigo) {
-  IKey* key = new String((char*)codigo);
+  char* c = new char(codigo);
+  IKey* key = new String(c);
+  delete c;
   Departamento* dep = dynamic_cast<Departamento*>(this->departamentos->find(key));
   delete key;
   if (dep == nullptr) {
@@ -214,11 +218,18 @@ void Sistema::cancelarInicio() {
   deseleccionarDepartamentoActual();
 }
 
-void Sistema::registrarUsuario(string email, string contrasenia) {
+void Sistema::registrarUsuario(string email, string contrasenia, string tipo) {
   if (this->verificarUsuario(email)) {
     throw "Usuario ya registrado";
   }
-  Usuario* usuario = new Usuario(email, contrasenia);
+
+  Usuario* usuario;
+  if (tipo == "Inmobiliaria") {
+    Usuario* usuario = new Inmobiliaria(email, contrasenia);
+  } else {
+    Usuario* usuario = new Interesado(email, contrasenia);
+  }
+
   IKey* key = new String((char*)email.c_str());
   this->usuarios->add(key, usuario);
 }

@@ -1,5 +1,12 @@
 #include "../Clases/Interesado.h"
 
+Interesado::Interesado(string email, string contrasenia) : Usuario::Usuario(email, contrasenia)
+{
+  this->nombre = "";
+  this->apellido = "";
+  this->fechaNacimiento = DtFecha();
+}
+
 Interesado::Interesado(string email, string contrasenia, string nombre, string apellido, DtFecha fechaNacimiento) : Usuario::Usuario(email, contrasenia)
 {
   this->nombre = nombre;

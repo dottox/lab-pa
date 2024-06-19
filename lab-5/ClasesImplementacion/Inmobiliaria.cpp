@@ -1,6 +1,12 @@
 #include "../Clases/Inmobiliaria.h"
 #include "../ICollection/collections/List.h"
 
+Inmobiliaria::Inmobiliaria(string email, string contrasenia) : Usuario::Usuario(email, contrasenia) 
+{
+  this->direccion = DtDireccion();
+  this->propiedades = new List();
+}
+
 Inmobiliaria::Inmobiliaria(string email, string contrasenia, DtDireccion direccion) : Usuario::Usuario(email, contrasenia)
 {
   this->direccion = direccion;

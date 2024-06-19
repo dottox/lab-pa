@@ -31,6 +31,9 @@ class Departamento : public ICollectible {
     
     char codigo;
     string nombre;
+
+    Zona* getZonaActual();
+    void comprobarZonaActual();
   
   public:
     Departamento(char, string);
@@ -38,6 +41,7 @@ class Departamento : public ICollectible {
     // Getters
     char getCodigo();
     string getNombre();
+
 
     // Setters
     void setCodigo(char);
@@ -53,11 +57,13 @@ class Departamento : public ICollectible {
     ICollection* getInfoPropiedades(string);
     void seleccionarTipoPropiedad(string);
     ICollection* listarEdificios();
-    void seleccionarEdificio(int);
+    void seleccionarEdificio(string);
     void agregarDatosApt(DtDatosApartamento);
     void agregarDatosCasa(DtDatosCasa);
     void seleccionarPago(string, float);
     void darAlta();
+
+    void seleccionarPropiedad(int);
 
     void seleccionarZona(int);
 

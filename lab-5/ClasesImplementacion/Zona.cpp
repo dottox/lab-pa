@@ -121,6 +121,10 @@ void Zona::seleccionarPago(string tipo, float precio) {
   this->propiedadActual->setPrecio(precio);
 }
 
+void Zona::seleccionarTipoPropiedad(string tipo)
+{
+  this->tipoPropiedadActual = tipo;
+}
 
 void Zona::darAlta()
 {

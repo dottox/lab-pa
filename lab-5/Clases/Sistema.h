@@ -55,7 +55,7 @@ class Sistema : public ISistema {
     void seleccionarPago(string, float);
     void datosCasa(DtDatosCasa);
     void datosApt(DtDatosApartamento);
-    void seleccionarEdificio(int);
+    void seleccionarEdificio(string);
     ICollection* listarEdificios();
     void seleccionarTipoPropiedad(string);
     void seleccionarZona(int);
@@ -64,7 +64,7 @@ class Sistema : public ISistema {
     ICollection* listarDepartamentos();
     void cancelarInicio();
     void iniciarSesion(string, string);
-    void registrarUsuario(string, string);
+    void registrarUsuario(string, string, string);
     bool registrarContrasenia(string);
     bool validarContrasenia(string);
     void darDeAltaInmobiliaria(string, string, DtDireccion);

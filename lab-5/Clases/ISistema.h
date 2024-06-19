@@ -38,7 +38,7 @@ class ISistema {
     virtual void seleccionarPago(string, float) = 0;
     virtual void datosCasa(DtDatosCasa) = 0;
     virtual void datosApt(DtDatosApartamento) = 0;
-    virtual void seleccionarEdificio(int) = 0;
+    virtual void seleccionarEdificio(string) = 0;
     virtual ICollection* listarEdificios() = 0;
     virtual void seleccionarTipoPropiedad(string) = 0;
     virtual void seleccionarZona(int) = 0;
@@ -47,7 +47,7 @@ class ISistema {
     virtual ICollection* listarDepartamentos() = 0;
     virtual void cancelarInicio() = 0;
     virtual void iniciarSesion(string, string) = 0;
-    virtual void registrarUsuario(string, string) = 0;
+    virtual void registrarUsuario(string, string, string) = 0;
     virtual bool registrarContrasenia(string) = 0;
     virtual bool validarContrasenia(string) = 0;
     virtual void darDeAltaInmobiliaria(string, string, DtDireccion) = 0;

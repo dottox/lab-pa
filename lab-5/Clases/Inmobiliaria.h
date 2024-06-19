@@ -24,6 +24,7 @@ class Inmobiliaria : public Usuario {
   
   public:
     // Constructor
+    Inmobiliaria(string, string);
     Inmobiliaria(string, string, DtDireccion);
 
     // Otros
