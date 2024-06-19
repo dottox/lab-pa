@@ -20,7 +20,7 @@ class Inmobiliaria : public Usuario {
   private:
     DtDireccion direccion;
     ICollection* propiedades;
-    // ¿Mis edificios?
+    ICollection* edificios; // Deberíamos gestionarlos en una colección, pero de igual manera, puede estar sujeto a cambios, de momento no haré nada con esto.
   
   public:
     // Constructor
@@ -28,7 +28,8 @@ class Inmobiliaria : public Usuario {
 
     // Otros
     void addPropiedad(Propiedad*);
-    void removePropiedad(Propiedad*);
+    Propiedad* buscarPropiedad(int);
+    void removePropiedad(int); // Esta función de momento no debería existir (no está en el lab 4)
     string getTipoUsuario();
 
     // Getters

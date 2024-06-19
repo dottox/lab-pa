@@ -80,7 +80,7 @@ class Propiedad : public ICollectible {
     virtual DtInfo getInfoPropiedad(string);
     virtual void seleccionarChat(string); 
     virtual void deseleccionarChat();
-    virtual void addChat(Interesado*);
+    virtual void addChat(Usuario*);
     virtual void addMensaje(DtMensaje);
 
     // Destructor

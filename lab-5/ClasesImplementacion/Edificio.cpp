@@ -1,12 +1,14 @@
 #include "../Clases/Edificio.h"
+#include "../Clases/Inmobiliaria.h"
 
 #include "../ICollection/collections/List.h"
-#include "../ICollection/interfaces/IKey.h"
+#include "../ICollection/interfaces/ICollectible.h"
+#include "../ICollection/collections/OrderedDictionary.h"
+#include "../ICollection/interfaces/IDictionary.h"
 #include "../ICollection/String.h"
 #include "../ICollection/Integer.h"
 
-
-Edificio::Edificio(string nombre, int cantPisos, float gastosComunes, Inmboliaria* inmo)
+Edificio::Edificio(string nombre, int cantPisos, float gastosComunes, Inmobiliaria* inmo)
 {
   this->nombre = nombre;
   this->cantPisos = cantPisos;
@@ -87,10 +89,11 @@ void Edificio::agregarDatosApt(DtDatosApartamento datos)
   }
 }
 
-void Edificio::seleccionarPago(string email, float monto)
+void Edificio::seleccionarPago(string tipo, float monto)
 {
   if (this->apartamentoActual != nullptr) {
-    this->apartamentoActual->seleccionarPago(email, monto);
+    this->apartamentoActual->setPrecio(monto);
+    this->apartamentoActual->setTipo(tipo);
   } else {
     throw "No existe apartamento seleccionado";
   }

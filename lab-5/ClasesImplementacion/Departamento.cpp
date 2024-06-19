@@ -1,6 +1,8 @@
 #include "../Clases/Departamento.h"
 
+#include "../ICollection/collections/List.h"
 #include "../ICollection/interfaces/IKey.h"
+#include "../ICollection/collections/OrderedDictionary.h"
 #include "../ICollection/Integer.h"
 #include "../ICollection/String.h"
 
@@ -11,12 +13,12 @@ Departamento::Departamento(char codigo, string nombre)
   this->zonas = new OrderedDictionary();
 }
 
-void Departamento::getCodigo()
+char Departamento::getCodigo()
 {
   return this->codigo;
 }
 
-void Departamento::getNombre()
+string Departamento::getNombre()
 {
   return this->nombre;
 }
@@ -39,7 +41,7 @@ void Departamento::addChat(Usuario* interesado)
   this->zonaActual->addChat(interesado);
 }
 
-DtDEpartamento Departamento::getInfo()
+DtDepartamento Departamento::getInfo()
 {
   DtDepartamento dtDepartamento = DtDepartamento(this->codigo, this->nombre);
   return dtDepartamento;
@@ -50,7 +52,7 @@ ICollection* Departamento::getZonas()
   ICollection* dtZonas = new List();
   IIterator* it = this->zonas->getIterator();
   while (it->hasCurrent()) {
-    IKey* key = it->getCurrent();
+    IKey* key = dynamic_cast<IKey*>(it->getCurrent());
     Zona* zona = dynamic_cast<Zona*>(this->zonas->find(key));
     DtZona infoZona = zona->getInfo();
     DtZona* ptrInfoZona = new DtZona(infoZona.getCodigo(), infoZona.getNombre());

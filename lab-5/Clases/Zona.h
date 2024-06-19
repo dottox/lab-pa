@@ -56,7 +56,7 @@ class Zona : public ICollectible {
     void addChat(Usuario*);
 
     // Otros
-    void seleccionarEdificio(string);
+    void seleccionarEdificio(int);
     void seleccionarPropiedad(int);
     void deseleccionarEdificio();
     void deseleccionarPropiedad();
@@ -70,7 +70,9 @@ class Zona : public ICollectible {
     void agregarDatosCasa(DtDatosCasa);
 
     void seleccionarPago(string, float);
+    void seleccionarTipoPropiedad(string);
     void darAlta();
+    void removePropiedad(int);
 
     void addMensaje(DtMensaje);
     void seleccionarChat(string);

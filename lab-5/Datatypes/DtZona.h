@@ -4,7 +4,11 @@
 #include <string>
 using namespace std;
 
-struct DtZona {
+#include "../ICollection/interfaces/ICollectible.h"
+
+struct ICollectible;
+
+struct DtZona : public ICollectible{
   private:
     int codigo;
     string nombre;
