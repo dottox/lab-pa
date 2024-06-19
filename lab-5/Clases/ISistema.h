@@ -32,7 +32,7 @@ class ISistema {
     virtual bool verificarUsuario(string) = 0;
     virtual void guardarMensaje(DtMensaje) = 0;
     virtual void seleccionarChat(string) = 0;
-    virtual void addChat(Usuario*) = 0;
+    virtual void crearConversacion() = 0;
     virtual void seleccionarPropiedad(int) = 0;
     virtual void darAlta() = 0;
     virtual void seleccionarPago(string, float) = 0;

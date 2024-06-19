@@ -30,6 +30,8 @@ class Sistema : public ISistema {
     static Sistema* instancia; // Aquí no se inicializa la variable, se debe hacer en el .cpp con "Sistema* Sistema::instancia = nullptr;"
 
     Sistema();
+    Usuario* getUsuarioActual();
+    Departamento* getDepartamentoActual();
 
   public:
     // Getters
@@ -47,7 +49,7 @@ class Sistema : public ISistema {
     bool verificarUsuario(string);
     void guardarMensaje(DtMensaje);
     void seleccionarChat(string);
-    void addChat(Usuario*);
+    void crearConversacion();
     void seleccionarPropiedad(int);
     void darAlta();
     void seleccionarPago(string, float);

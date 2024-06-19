@@ -59,6 +59,8 @@ class Departamento : public ICollectible {
     void seleccionarPago(string, float);
     void darAlta();
 
+    void seleccionarZona(int);
+
     void seleccionarChat(string);
     void addMensaje(DtMensaje);
 

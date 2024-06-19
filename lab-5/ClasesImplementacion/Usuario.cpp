@@ -16,6 +16,11 @@ string Usuario::getEmail()
   return this->email;
 }
 
+string Usuario::getContrasenia()
+{
+  return this->contrasenia;
+}
+
 void Usuario::setContrasenia(string contrasenia)
 {
   this->contrasenia = contrasenia;

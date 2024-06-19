@@ -19,6 +19,7 @@ class Usuario : public ICollectible {
   public:
     // Getters
     virtual string getEmail();
+    virtual string getContrasenia();
 
     // Setters
     virtual void setContrasenia(string);

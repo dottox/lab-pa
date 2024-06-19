@@ -56,16 +56,10 @@ ICollection* Departamento::getZonas()
     Zona* zona = dynamic_cast<Zona*>(this->zonas->find(key));
     DtZona infoZona = zona->getInfo();
     DtZona* ptrInfoZona = new DtZona(infoZona.getCodigo(), infoZona.getNombre());
-
     dtZonas->add(ptrInfoZona);
     it->next();
   }
   return dtZonas;
-}
-
-void Departamento::buscarZona(int codigo)
-{
-  // ???
 }
 
 ICollection* Departamento::getInfoPropiedades(string email) {
@@ -129,6 +123,17 @@ void Departamento::darAlta()
     throw "No hay zona seleccionada";
   }
   this->zonaActual->darAlta();
+}
+
+void Departamento::seleccionarZona(int codigo)
+{
+  IKey* key = new Integer(codigo);
+  Zona* zona = dynamic_cast<Zona*>(this->zonas->find(key));
+  delete key;
+  if (zona == nullptr) {
+    throw "No existe la zona";
+  }
+  this->zonaActual = zona;
 }
 
 void Departamento::seleccionarChat(string email)
