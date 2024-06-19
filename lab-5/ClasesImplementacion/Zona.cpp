@@ -148,14 +148,6 @@ void Zona::seleccionarChat(string email)
 
 Zona::~Zona()
 {
-  if (this->edificioActual != nullptr)
-  {
-    delete this->edificioActual;
-  }
-  if (this->propiedadActual != nullptr)
-  {
-    delete this->propiedadActual;
-  }
   delete this->propiedades;
   delete this->edificios;
 }

@@ -198,8 +198,5 @@ void Propiedad::addMensaje(DtMensaje mensaje)
 
 Propiedad::~Propiedad()
 {
-    if (this->chatActual != nullptr) {
-        delete this->chatActual;
-    }
     delete this->chats;
 }

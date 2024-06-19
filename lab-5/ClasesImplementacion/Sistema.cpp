@@ -233,6 +233,20 @@ bool Sistema::validarContrasenia(string contrasenia) {
     throw "No hay usuario seleccionado";
   }
 
-  
+  return this->getUsuarioActual()->getContrasenia() == contrasenia;
 }
 
+void Sistema::darDeAltaInmobiliaria(string nombre, string email, DtDireccion direccion) {
+  if (this->verificarUsuario(email)) {
+    throw "Inmobiliaria ya registrada";
+  }
+
+  Inmobiliaria* inmobiliaria = new Inmobiliaria(nombre, email, direccion);
+  IKey* key = new String((char*)email.c_str());
+  this->usuarios->add(key, inmobiliaria);
+}
+
+Sistema::~Sistema() {
+  delete this->usuarios;
+  delete this->departamentos;
+}
