@@ -6,7 +6,7 @@ using namespace std;
 
 #include "../ICollection/interfaces/ICollectible.h"
 
-struct ICollectible;
+class ICollectible;
 
 struct DtZona : public ICollectible{
   private:

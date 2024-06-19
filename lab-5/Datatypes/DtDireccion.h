@@ -1,10 +1,14 @@
 #ifndef DTDIRECCION_H
 #define DTDIRECCION_H
 
+#include "../ICollection/interfaces/ICollectible.h"
+
 #include <string>
 using namespace std;
 
-struct DtDireccion 
+class ICollectible;
+
+struct DtDireccion : public ICollectible
 {
   private:
     string calle;

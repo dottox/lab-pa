@@ -1,8 +1,12 @@
 #ifndef DTEDIFICIO_H
 #define DTEDIFICIO_H
 
+#include "../ICollection/interfaces/ICollectible.h"
+
 #include <string>
 using namespace std;
+
+class ICollectible;
 
 struct DtEdificio : public ICollectible
 {

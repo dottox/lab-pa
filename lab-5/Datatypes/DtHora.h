@@ -1,7 +1,12 @@
 #ifndef DTHORA_H
 #define DTHORA_H
 
-struct DtHora {
+#include "../ICollection/interfaces/ICollectible.h"
+
+class ICollectible;
+
+struct DtHora : public ICollectible 
+{
   private:
     int hora;
     int minuto;

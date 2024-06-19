@@ -3,12 +3,16 @@
 
 #include "DtDireccion.h"
 
+#include "../ICollection/interfaces/ICollectible.h"
+
+
 #include <string>
 using namespace std;
 
 struct DtDireccion;
+class ICollectible;
 
-struct DtDatos 
+struct DtDatos : public ICollectible
 {
   protected:
     int codigo;

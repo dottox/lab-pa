@@ -5,8 +5,8 @@
 
 #include "../ICollection/interfaces/ICollectible.h"
 
-struct ICollectible;
 struct DtDireccion;
+class ICollectible;
 
 struct DtInfo : public ICollectible
 {

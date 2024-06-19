@@ -7,7 +7,7 @@
 #include <string>
 using namespace std;
 
-struct DtDatosCasa : DtDatos
+struct DtDatosCasa : public DtDatos
 {
   private:
     float mtsCuadradosVerdes;

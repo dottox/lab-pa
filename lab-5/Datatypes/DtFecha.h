@@ -1,7 +1,12 @@
 #ifndef DTFECHA_H
 #define DTFECHA_H
 
-struct DtFecha {
+#include "../ICollection/interfaces/ICollectible.h"
+
+class ICollectible;
+
+struct DtFecha : public ICollectible 
+{
   private:
     int dia;
     int mes;
