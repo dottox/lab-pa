@@ -17,6 +17,13 @@ Edificio::Edificio(string nombre, int cantPisos, float gastosComunes, Inmobiliar
   this->apartamentos = new OrderedDictionary();
 }
 
+DtDatos getInfo(){
+  if(apartamentoActual == nullptr){
+    throw "No hay apartamento seleccionado";
+  }
+  return this->getPropiedadActual()->getInfo();
+}
+
 string Edificio::getNombre()
 {
   return this->nombre;
@@ -82,8 +89,8 @@ ICollection* Edificio::getInfoPropiedades(string email)
 
 void Edificio::agregarDatosApt(DtDatosApartamento datos)
 {
-  if (this->apartamentoActual != nullptr) {
-    this->apartamentoActual->setDatos(datos);
+  if (this->getPropiedadActual() != nullptr) {
+    this->getPropiedadActual()->setDatos(datos);
   } else {
     throw "No existe apartamento seleccionado";
   }
@@ -91,9 +98,9 @@ void Edificio::agregarDatosApt(DtDatosApartamento datos)
 
 void Edificio::seleccionarPago(string tipo, float monto)
 {
-  if (this->apartamentoActual != nullptr) {
-    this->apartamentoActual->setPrecio(monto);
-    this->apartamentoActual->setTipo(tipo);
+  if (this->getPropiedadActual() != nullptr) {
+    this->getPropiedadActual()->setPrecio(monto);
+    this->getPropiedadActual()->setTipo(tipo);
   } else {
     throw "No existe apartamento seleccionado";
   }
@@ -102,12 +109,23 @@ void Edificio::seleccionarPago(string tipo, float monto)
 void Edificio::darAlta(int codigo)
 {
   IKey* key = new Integer(codigo);
-  if (this->apartamentoActual != nullptr) {
-    this->apartamentos->add(key, this->apartamentoActual);
+  if (this->getPropiedadActual() != nullptr) {
+    this->apartamentos->add(key, this->getPropiedadActual());
   } else {
     delete key;
     throw "No existe apartamento seleccionado";
   }
+}
+
+Apartamento* Edificio::getPropiedadActual() {
+  return this->apartamentoActual;
+}
+
+void Edificio::deseleccionarTodo() {
+  if (this->getPropiedadActual() != nullptr) {
+    this->getPropiedadActual()->deseleccionarTodo();
+  }
+  this->deseleccionarPropiedad();
 }
 
 Edificio::~Edificio()

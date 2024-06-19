@@ -48,6 +48,9 @@ class Zona : public ICollectible {
     // Getters
     int getCodigo();
     string getNombre();
+    Edificio* getEdificioActual();
+    Propiedad* getPropiedadActual();
+
 
     // Setters
     void setCodigo(int);
@@ -63,6 +66,7 @@ class Zona : public ICollectible {
     void deseleccionarPropiedad();
 
     DtZona getInfo();
+    DtDatos detallesPropiedad(int);
 
     ICollection* getInfoPropiedades(string);
     ICollection* listarEdificios();
@@ -77,6 +81,8 @@ class Zona : public ICollectible {
 
     void addMensaje(DtMensaje);
     void seleccionarChat(string);
+
+    void deseleccionarTodo();
 
     // Destructor
     ~Zona();

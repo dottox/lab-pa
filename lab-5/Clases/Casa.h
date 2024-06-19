@@ -21,6 +21,9 @@ class Casa : public Propiedad {
     // Setters
     void setDatos(DtDatosCasa);
 
+    //Otros
+    DtDatos getInfo();
+
     // Destructor
     ~Casa();
 };

@@ -56,6 +56,11 @@ void Zona::seleccionarPropiedad(int codigo)
   IKey* key = new Integer(codigo);
   this->propiedadActual = dynamic_cast<Propiedad*>(this->propiedades->find(key));
   delete key;
+  
+  if (this->propiedadActual == nullptr)
+  {
+    throw "La propiedad no existe";
+  }
 }
 
 void Zona::deseleccionarEdificio()
@@ -149,6 +154,35 @@ void Zona::seleccionarChat(string email)
   }
   this->propiedadActual->seleccionarChat(email);
 }
+
+Propiedad* Zona::getPropiedadActual() {
+  return this->propiedadActual;
+}
+
+Edificio* Zona::getEdificioActual() {
+  return this->edificioActual;
+}
+
+void Zona::deseleccionarTodo() {
+  if (this->getPropiedadActual() != nullptr) {
+    this->getPropiedadActual()->deseleccionarTodo();
+  } 
+  else if (this->getEdificioActual() != nullptr) {
+    this->getEdificioActual()->deseleccionarTodo();
+  }
+  this->deseleccionarEdificio();
+  this->deseleccionarPropiedad();
+}
+
+DtDatos Zona::detallesPropiedad(int codigo){
+  if(propiedadActual != nullptr){
+    return this->getPropiedadActual()->getInfo();
+  }else if(edificioActual != nullptr){
+    return this->getEdificioActual()->getInfo(codigo);
+  }
+    throw "No hay propiedad seleccionada";
+}
+
 
 Zona::~Zona()
 {

@@ -89,6 +89,18 @@ ICollection* Departamento::listarEdificios()
   return this->getZonaActual()->listarEdificios();
 }
 
+void Departamento::deseleccionarZonaActual() {
+  this->zonaActual = nullptr;
+}
+
+void Departamento::deseleccionarTodo()
+{
+  if (this->getZonaActual() != nullptr) {
+    this->getZonaActual()->deseleccionarTodo();
+  }
+  this->deseleccionarZonaActual();
+}
+
 
 void Departamento::seleccionarEdificio(string nombre)
 {
@@ -148,6 +160,14 @@ void Departamento::addMensaje(DtMensaje mensaje)
   this->comprobarZonaActual();
   this->zonaActual->addMensaje(mensaje);
 }
+
+DtDatos Departamento::detallesPropiedad(int codigo){
+  if(zonaActual == nullptr){
+    throw "No hay zona seleccionada";
+  }
+  this->getZonaActual()->detallesPropiedad(codigo);
+}
+
 
 Departamento::~Departamento()
 {

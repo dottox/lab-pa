@@ -4,10 +4,14 @@
 #include "../Clases/Usuario.h"
 #include "../Clases/Departamento.h"
 #include "../Clases/ISistema.h"
+#include "../Clases/Administrador.h"
+#include "../Clases/Interesado.h"
+#include "../Clases/Inmobiliaria.h"
 
 #include "../Datatypes/DtDepartamento.h"
 #include "../Datatypes/DtDatosCasa.h"
 #include "../Datatypes/DtDatosApartamento.h"
+#include "../Datatypes/DtInmobiliaria.h"
 
 #include "../ICollection/interfaces/ICollection.h"
 #include "../ICollection/interfaces/ICollectible.h"
@@ -16,6 +20,17 @@
 using namespace std;
 
 class Zona;
+class Usuario;
+class Departamento;
+class ISistema;
+class Inmobiliaria;
+class Interesado;
+class Administraor;
+struct DtDepartamento;
+struct DtDatosCasa;
+struct DtDatosApartamento;
+struct DtInmobiliaria;
+class ICollection;
 class ICollectible;
 class IDictionary;
 
@@ -30,12 +45,12 @@ class Sistema : public ISistema {
     static Sistema* instancia; // Aquí no se inicializa la variable, se debe hacer en el .cpp con "Sistema* Sistema::instancia = nullptr;"
 
     Sistema();
-    Usuario* getUsuarioActual();
-    Departamento* getDepartamentoActual();
 
   public:
     // Getters
     static Sistema* getInstancia();
+    Usuario* getUsuarioActual();
+    Departamento* getDepartamentoActual();
 
     // Setters
     void seleccionarUsuarioActual(string);
@@ -61,13 +76,23 @@ class Sistema : public ISistema {
     void seleccionarZona(int);
     ICollection* listarZonas();
     void seleccionarDepartamento(char);
+    ICollection* listarInmobiliarias();
     ICollection* listarDepartamentos();
     void cancelarInicio();
     void iniciarSesion(string, string);
-    void registrarUsuario(string, string, string);
     bool registrarContrasenia(string);
     bool validarContrasenia(string);
+    void cerrarSesion();
+    bool isLogueado();
+    void deseleccionarTodo();
+    DtDatos detallesPropiedad(int);
+
+    // cu: Alta Inmobiliaria
     void darDeAltaInmobiliaria(string, string, DtDireccion);
+
+    // cu: Alta Interesado
+    void darDeAltaInteresado(string, string, string, string, DtFecha);
+
 
     // Destructor
     ~Sistema();

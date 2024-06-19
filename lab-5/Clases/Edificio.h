@@ -40,6 +40,7 @@ class Edificio : public ICollectible {
     string getNombre();
     int getCantPisos();
     float getGastosComunes();
+    Apartamento* getPropiedadActual();
 
     // Setters
     void setNombre(string);
@@ -50,6 +51,8 @@ class Edificio : public ICollectible {
     void seleccionarPropiedad(int);
     void deseleccionarPropiedad();
 
+    DtDatos getInfo();
+
     DtEdificio getInfo();
 
     ICollection* getInfoPropiedades(string);
@@ -59,6 +62,7 @@ class Edificio : public ICollectible {
     void seleccionarPago(string, float);
     void darAlta(int);
 
+    void deseleccionarTodo();
 
     // Destructor
     ~Edificio();

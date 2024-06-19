@@ -77,11 +77,14 @@ class Propiedad : public ICollectible {
     virtual void setDatos(DtDatos) = 0;
 
     // Otros
-    virtual DtInfo getInfoPropiedad(string);
+    virtual DtInfo getInfoPropiedad(string); // Este se utiliza para obtener info de la propiedad con los mensajes.
+    virtual DtDatos getInfo() = 0; // Este se utiliza para obtener los datos detallados de la propiedad junto a su inmobiliaria.
     virtual void seleccionarChat(string); 
     virtual void deseleccionarChat();
     virtual void addChat(Usuario*);
     virtual void addMensaje(DtMensaje);
+
+    virtual void deseleccionarTodo();
 
     // Destructor
     virtual ~Propiedad();

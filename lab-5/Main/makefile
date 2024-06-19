@@ -1,5 +1,5 @@
 all: main.o
-	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtInfo.o DtDatosApartamento.o DtDatosCasa.o Includes.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o Edificio.o Zona.o Departamento.o ISistema.o Sistema.o SistemaFabrica.o main.o -o programa
+	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtInfo.o DtDatosApartamento.o DtDatosCasa.o DtInmobiliaria.o Includes.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o Edificio.o Zona.o Departamento.o ISistema.o Sistema.o SistemaFabrica.o main.o -o programa
 
 # INICIO COMPILACIÓN DE ICOLLECTION #
 
@@ -47,6 +47,7 @@ OrderedDictionaryEntry.o:
 # INICIO COMPILACIÓN DE DATATYPES #
 
 InicioDatatypes: ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o
+	clear
 	echo "Compilando datatypes..."
 
 DtFecha.o: InicioDatatypes
@@ -82,11 +83,15 @@ DtDatosApartamento.o: DtDireccion.o
 DtDatosCasa.o: DtDireccion.o
 	g++ -c ../Datatypes/DtDatosCasa.cpp
 
+DtInmobiliaria.o: DtDireccion.o
+	g++ -c ../Datatypes/DtInmobiliaria.cpp
+
 # FIN COMPILACIÓN DE DATATYPES #
 
 # INICIO COMPILACIÓN CLASES #
 
-InicioClases: DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfo.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o
+InicioClases: DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfo.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o DtInmobiliaria.o
+	clear
 	echo "Compilando clases..."
 
 Mensaje.o: InicioClases
@@ -149,6 +154,7 @@ clean:
 	rm *.o
 
 run:
+	clear
 	make cleanPrograma
 	make
 	make clean

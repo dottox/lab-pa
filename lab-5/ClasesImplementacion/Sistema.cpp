@@ -6,11 +6,17 @@
 #include "../ICollection/Integer.h"
 #include "../ICollection/String.h"
 
+
 Sistema* Sistema::instancia = nullptr;
+
 
 Sistema::Sistema() {
   this->usuarios = new OrderedDictionary();
   this->departamentos = new OrderedDictionary();
+
+  Usuario* usuario = new Administrador("admin", "admin");
+  IKey* key = new String((char*)usuario->getEmail().c_str());
+  this->usuarios->add(key, usuario);
 }
 
 Sistema* Sistema::getInstancia() {
@@ -32,6 +38,10 @@ void Sistema::seleccionarUsuarioActual(string email) {
   IKey* key = new String((char*)email.c_str());
   this->usuarioActual = dynamic_cast<Usuario*>(this->usuarios->find(key));
   delete key;
+  
+  if (this->usuarioActual == nullptr) {
+    throw "No existe usuario";
+  }
 }
 
 void Sistema::seleccionarDepartamentoActual(char codigo) {
@@ -80,8 +90,11 @@ void Sistema::seleccionarChat(string email) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
   
-  this->getDepartamentoActual()->seleccionarChat(email);
+  this->getDepartamentoActual()->seleccionarChat(this->getUsuarioActual()->getEmail());
 }
 
 void Sistema::crearConversacion() {
@@ -200,6 +213,14 @@ ICollection* Sistema::listarDepartamentos() {
   return ret;
 }
 
+void Sistema::deseleccionarTodo() {
+
+  if (this->getDepartamentoActual() != nullptr) {
+    this->getDepartamentoActual()->deseleccionarTodo();
+  }
+  this->deseleccionarDepartamentoActual();
+}
+
 void Sistema::iniciarSesion(string email, string contrasenia) {
   IKey* key = new String((char*)email.c_str());
   Usuario* usuario = dynamic_cast<Usuario*>(this->usuarios->find(key));
@@ -213,26 +234,15 @@ void Sistema::iniciarSesion(string email, string contrasenia) {
   this->usuarioActual = usuario;
 }
 
+void Sistema::cerrarSesion(){
+  this->usuarioActual = nullptr;
+}
+
 void Sistema::cancelarInicio() {
   deseleccionarUsuarioActual();
   deseleccionarDepartamentoActual();
 }
 
-void Sistema::registrarUsuario(string email, string contrasenia, string tipo) {
-  if (this->verificarUsuario(email)) {
-    throw "Usuario ya registrado";
-  }
-
-  Usuario* usuario;
-  if (tipo == "Inmobiliaria") {
-    Usuario* usuario = new Inmobiliaria(email, contrasenia);
-  } else {
-    Usuario* usuario = new Interesado(email, contrasenia);
-  }
-
-  IKey* key = new String((char*)email.c_str());
-  this->usuarios->add(key, usuario);
-}
 
 bool Sistema::registrarContrasenia(string contrasenia) {
   // ????
@@ -247,14 +257,77 @@ bool Sistema::validarContrasenia(string contrasenia) {
   return this->getUsuarioActual()->getContrasenia() == contrasenia;
 }
 
-void Sistema::darDeAltaInmobiliaria(string nombre, string email, DtDireccion direccion) {
+void Sistema::darDeAltaInmobiliaria(string email, string contrasenia, DtDireccion direccion) {
   if (this->verificarUsuario(email)) {
     throw "Inmobiliaria ya registrada";
   }
 
-  Inmobiliaria* inmobiliaria = new Inmobiliaria(nombre, email, direccion);
+  Inmobiliaria* inmobiliaria = new Inmobiliaria(email, contrasenia, direccion);
   IKey* key = new String((char*)email.c_str());
   this->usuarios->add(key, inmobiliaria);
+}
+
+void Sistema::darDeAltaInteresado(string email, string contrasenia, string nombre, string apellido, DtFecha edad) {
+  if (this->verificarUsuario(email)) {
+    throw "Inmobiliaria ya registrada";
+  }
+
+  Interesado* interesado = new Interesado(email, contrasenia, nombre, apellido, edad);
+  IKey* key = new String((char*)email.c_str());
+  this->usuarios->add(key, interesado);
+}
+
+bool Sistema::isLogueado(){
+  return this->getUsuarioActual() != nullptr;
+}
+
+ICollection* Sistema::listarInmobiliarias(){
+  ICollection* ret = new List();
+  IIterator* it = this->usuarios->getIterator();
+  while (it->hasCurrent()) {
+    Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(it->getCurrent());
+  
+    if (inmo != nullptr) {
+      DtInmobiliaria* info = new DtInmobiliaria(inmo->getEmail(), inmo->getDireccion());
+      ret->add(info); 
+    }
+
+    it->next();
+  }
+  delete it;
+  return ret;
+}
+
+DtDatos Sistema::detallesPropiedad(int codigo){
+  if(this->departamentoActual == nullptr){
+    throw "No hay departamento seleccionado";
+  }
+  this->getDepartamentoActual()->detallesPropiedad(codigo);
+}
+
+
+ICollection* Sistema::listarConversaciones(){
+  ICollection* ret = new List();
+  
+  if (getUsuarioActual()->getTipoUsuario() != "Inmobiliaria") {
+    throw "El usuario no es una inmobiliaria"
+  }
+  IIterator* it = this->getUsuarioActual->getIterator();
+  while (it->hasCurrent()) {
+    Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(it->getCurrent());
+    ICollection* ret = new List();
+    IIterator* it = this->usuarios->getIterator();
+    inmo->getPropiedades()
+    if (inmo != nullptr) {
+      inmo->
+      DtInmobiliaria* info = new DtInmobiliaria(inmo->getEmail(), inmo->getDireccion());
+      ret->add(info); 
+    }
+
+    it->next();
+  }
+  delete it;
+  return ret;
 }
 
 Sistema::~Sistema() {

@@ -20,6 +20,11 @@ class IDictionary;
 
 class ISistema {
   public:
+  
+    // Getters
+    virtual Usuario* getUsuarioActual() = 0;
+    virtual Departamento* getDepartamentoActual() = 0;
+  
     // Setters
     virtual void seleccionarUsuarioActual(string) = 0;
     virtual void seleccionarDepartamentoActual(char) = 0;
@@ -45,12 +50,22 @@ class ISistema {
     virtual ICollection* listarZonas() = 0;
     virtual void seleccionarDepartamento(char) = 0;
     virtual ICollection* listarDepartamentos() = 0;
+    virtual ICollection* listarInmobiliarias() = 0;
     virtual void cancelarInicio() = 0;
     virtual void iniciarSesion(string, string) = 0;
-    virtual void registrarUsuario(string, string, string) = 0;
     virtual bool registrarContrasenia(string) = 0;
     virtual bool validarContrasenia(string) = 0;
+    virtual void cerrarSesion() = 0;
+    virtual bool isLogueado() = 0;
+    virtual void deseleccionarTodo() = 0;
+    virtual ICollection* listarConversaciones() = 0;
+
+    // cu: Alta Inmobiliaria
     virtual void darDeAltaInmobiliaria(string, string, DtDireccion) = 0;
+
+    // cu: Alta Interesado
+    virtual void darDeAltaInteresado(string, string, string, string, DtFecha) = 0;
+
 
     // Destructor
     virtual ~ISistema();

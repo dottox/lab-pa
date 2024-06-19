@@ -196,6 +196,11 @@ void Propiedad::addMensaje(DtMensaje mensaje)
     this->chatActual->addMensaje(mensaje);
 }
 
+
+void Propiedad::deseleccionarTodo() {
+    this->deseleccionarChat();
+}
+
 Propiedad::~Propiedad()
 {
     delete this->chats;

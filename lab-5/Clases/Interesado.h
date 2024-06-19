@@ -19,7 +19,6 @@ class Interesado : public Usuario {
     DtFecha fechaNacimiento;
   
   public:
-    Interesado(string, string);
     Interesado(string, string, string, string, DtFecha);
     string getTipoUsuario();
     ~Interesado();

@@ -28,5 +28,20 @@ void Apartamento::setDatos(DtDatosApartamento datosApartamento) {
   this->setPrecio(datosApartamento.getPrecio());
 }
 
+DtDatosApartamento Apartamento::getInfo() {
+  return DtDatosApartamento(
+    this->getCodigo(),
+    this->getCantAmbientes(),
+    this->getCantDormitorios(),
+    this->getCantBanios(),
+    this->getGaraje(),
+    this->getDireccion(),
+    this->getMtsCuadradosEdificados(),
+    this->getMtsCuadradosTotales(),
+    this->getTipo(),
+    this->getPrecio()
+  );
+}
+
 Apartamento::~Apartamento() {
 }

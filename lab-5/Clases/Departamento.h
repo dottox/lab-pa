@@ -62,6 +62,7 @@ class Departamento : public ICollectible {
     void agregarDatosCasa(DtDatosCasa);
     void seleccionarPago(string, float);
     void darAlta();
+    DtDatos detallesPropiedad(int);
 
     void seleccionarPropiedad(int);
 
@@ -69,6 +70,9 @@ class Departamento : public ICollectible {
 
     void seleccionarChat(string);
     void addMensaje(DtMensaje);
+
+    void deseleccionarZonaActual();
+    void deseleccionarTodo();
 
     // Destructor
     ~Departamento();
