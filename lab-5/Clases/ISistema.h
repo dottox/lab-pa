@@ -34,9 +34,12 @@ class ISistema {
 
     // Otros
     virtual DtDatos zona__edificio__getDatosPropiedad() = 0;
+    virtual DtDatos zona__edificio__getDatosPropiedadSinActual(int) = 0;
     virtual ICollection* zona__listarPropiedades() = 0;
+    virtual ICollection* edificio__listarPropiedades() = 0;
     virtual ICollection* propiedad__listarConversaciones() = 0;
     virtual ICollection* listarInmobiliarias() = 0;
+    virtual void listarReporteInmobiliarias() = 0;
     virtual ICollection* listarDepartamentos() = 0;
     virtual ICollection* zona__listarEdificios() = 0;
     virtual ICollection* departamento__listarZonas() = 0;
@@ -75,6 +78,12 @@ class ISistema {
     // cu: Enviar Mensaje Interesado
     virtual ICollection* chat__getUltimosMensajesUsuarioActualPropiedadActual() = 0;
 
+    // cu: Enviar Mensaje Inmobiliaria
+    virtual void propiedad__seleccionarChatInmobiliaria(string, int) = 0;
+    virtual bool inmobiliaria__isChatSeleccionado() = 0;
+    virtual ICollection* inmobiliaria__getMensajesChatActual() = 0;
+    virtual void inmobiliaria__addMensajeChatActual(DtMensaje) = 0;
+
     // cu: Alta Edificio
     virtual void zona__darDeAltaEdificio(DtEdificio) = 0;
     
@@ -86,7 +95,7 @@ class ISistema {
     virtual void zona__datosCasa(DtDatosCasa) = 0;
     virtual void edificio__datosApt(DtDatosApartamento) = 0;
     virtual void zona__edificio__darAlta() = 0;
-    virtual int zona__edificio__generarCodigoPropiedad() = 0;
+    virtual int generarCodigoPropiedad() = 0;
 
     // cu: Eliminar Propiedad
     virtual void zona__eliminarPropiedad(int) = 0; 

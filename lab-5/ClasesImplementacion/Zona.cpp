@@ -7,10 +7,11 @@
 #include "../ICollection/String.h"
 
 
-Zona::Zona(int codigo, string nombre)
+Zona::Zona(int codigo, string nombre, char departamento)
 {
   this->codigo = codigo;
   this->nombre = nombre;
+  this->miDepartamento = departamento;
   this->propiedades = new OrderedDictionary();
   this->edificios = new OrderedDictionary();
 }
@@ -46,6 +47,34 @@ DtDatos Zona::zona__edificio__getDatosPropiedad()
     return datos;
   } else {
     throw "No hay propiedad ni edificio seleccionado";
+  }
+}
+
+DtDatos Zona::zona__edificio__getDatosPropiedadNoSeleccionada(int codigo)
+{
+  IKey *key = new Integer(codigo);
+  Propiedad *prop = dynamic_cast<Propiedad*>(this->propiedades->find(key));
+  delete key;
+  if (prop != nullptr)
+  {
+    return prop->getDatos();
+  }
+  else
+  {
+    IIterator *it = this->edificios->getIterator();
+    while (it->hasCurrent())
+    {
+      Edificio *edif = dynamic_cast<Edificio*>(it->getCurrent());
+      try {
+        DtDatos datos = edif->getDatosApartamentoNoSeleccionado(codigo);
+        return datos;
+      } catch (const char *e) {
+        it->next();
+        continue;
+      }
+    }
+    delete it;
+    throw "No existe la propiedad";
   }
 }
 
@@ -120,6 +149,28 @@ ICollection* Zona::getInfoPropiedades(string email)
   return ret;
 }
 
+ICollection* Zona::edificio__getInfoPropiedades(string email) {
+  ICollection* ret = new List();
+  IIterator* it2 = this->edificios->getIterator();
+  while (it2->hasCurrent())
+  {
+    Edificio* edif = dynamic_cast<Edificio*>(it2->getCurrent());
+    ICollection* props = edif->getInfoPropiedades(email, true);
+    IIterator* it3 = props->getIterator();
+    while (it3->hasCurrent())
+    {
+      DtInfo* info = dynamic_cast<DtInfo*>(it3->getCurrent());
+      ret->add(info);
+      it3->next();
+    }
+    delete it3;
+    it2->next();
+  }
+
+  delete it2;
+  return ret;
+}
+
 ICollection* Zona::listarEdificios()
 {
   ICollection* ret = new List();
@@ -149,9 +200,14 @@ string Zona::propiedad__getNombreInmobiliaria()
   }
 }
 
+char Zona::getDepartamento()
+{
+  return this->miDepartamento;
+}
+
 void Zona::edificio__agregarDatosApt(DtDatosApartamento datos, Usuario* inmobiliaria)
 {
-  this->getEdificioActual()->agregarDatosApt(datos, inmobiliaria);
+  this->getEdificioActual()->agregarDatosApt(datos, inmobiliaria, this->getCodigo(), this->getDepartamento());
 }
 
 void Zona::agregarDatosCasa(DtDatosCasa datos, Usuario* inmobiliaria)
@@ -163,7 +219,7 @@ void Zona::agregarDatosCasa(DtDatosCasa datos, Usuario* inmobiliaria)
   }
   delete key;
   Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(inmobiliaria);
-  Propiedad* casa = new Casa(datos, inmo);
+  Propiedad* casa = new Casa(datos, inmo, this->getCodigo(), this->getDepartamento());
   this->propiedadActual = casa;
 }
 
@@ -172,13 +228,13 @@ void Zona::propiedad__seleccionarPago(string tipo, float precio) {
   this->getPropiedadActual()->setPrecio(precio);
 }
 
-void Zona::zona__edificio__darAlta()
+Propiedad* Zona::zona__edificio__darAlta()
 {
   try {
     if (this->getPropiedadActual() == nullptr) {
-      if (this->getEdificioActual() != nullptr){
-        this->getEdificioActual()->zona__edificio__darAlta();
-        return;
+      if (this->getEdificioActual() != nullptr) {
+        return this->getEdificioActual()->zona__edificio__darAlta();
+        
       }
       else {
         throw "No hay propiedad seleccionada";
@@ -186,19 +242,7 @@ void Zona::zona__edificio__darAlta()
     }
     IKey* key = new Integer(this->getPropiedadActual()->getCodigo());
     this->propiedades->add(key, this->getPropiedadActual());
-  } catch (const char* e) {
-    throw e;
-  }
-}
-
-int Zona::zona__edificio__generarCodigoPropiedad()
-{
-  try {
-    if (this->edificioActual != nullptr) {
-      return this->edificioActual->zona__edificio__generarCodigoPropiedad();
-    } else {
-      return this->propiedades->getSize() + 1;
-    }
+    return this->getPropiedadActual();
   } catch (const char* e) {
     throw e;
   }
@@ -290,6 +334,7 @@ void Zona::darDeAltaEdificio(DtEdificio edificio, Usuario* usuario){
   Inmobiliaria* inmobiliaria = dynamic_cast<Inmobiliaria*>(usuario);
   Edificio* edi = new Edificio(edificio.getNombre(), edificio.getCantPisos(), edificio.getGastosComunes(), inmobiliaria);
   this->edificios->add(key, edi);
+  this->edificioActual = edi;
 }
 
 void Zona::edificio__modificarDatosApartamento(DtDatosApartamento datos){
@@ -315,15 +360,28 @@ void Zona::modificarDatosCasa(DtDatosCasa datos){
   }
 }
 
-void Zona::eliminarPropiedad(int codigo) {
-  // hecho ponele(?)
+#include <iostream>
+
+bool Zona::eliminarPropiedad(int codigo) {
   IKey* key = new Integer(codigo);
   Propiedad* prop = dynamic_cast<Propiedad*>(this->propiedades->find(key));
+
   if (prop != nullptr) {
     this->propiedades->remove(key);
-    delete prop;
+    delete key;
+    return true;
   } else {
-    throw "No existe la propiedad";
+    IIterator* it = this->edificios->getIterator();
+    while (it->hasCurrent()) {
+      Edificio* edificio = dynamic_cast<Edificio*>(it->getCurrent());
+      if (edificio->eliminarPropiedad(codigo)) {
+        delete it;
+        return true;
+      }
+      it->next();
+    }
+    delete it;
+    return false;
   }
 }
 

@@ -1,7 +1,22 @@
 #include "../Clases/Casa.h"
 
 
-Casa::Casa(DtDatosCasa datos, Inmobiliaria* inmo) : Propiedad::Propiedad(datos.getCodigo(),datos.getCantAmbientes(),datos.getCantDormitorios(),datos.getCantBanios(),datos.getGaraje(),datos.getDireccion(),datos.getMtsCuadradosEdificados(),datos.getMtsCuadradosTotales(),datos.getTipo(),datos.getPrecio(),inmo) 
+Casa::Casa(DtDatosCasa datos, Inmobiliaria* inmo, int codigoZona, char codigoDepto) 
+: Propiedad::Propiedad(
+  datos.getCodigo(), 
+  datos.getCantAmbientes(),
+  datos.getCantDormitorios(),
+  datos.getCantBanios(),
+  datos.getGaraje(),
+  datos.getDireccion(),
+  datos.getMtsCuadradosEdificados(),
+  datos.getMtsCuadradosTotales(),
+  datos.getTipo(),
+  datos.getPrecio(),
+  inmo,
+  codigoZona,
+  codigoDepto
+) 
 {
   this->mtsCuadradosVerdes = datos.getMtsCuadradosVerdes();
 } 

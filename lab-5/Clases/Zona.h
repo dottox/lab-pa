@@ -39,13 +39,14 @@ class Zona : public ICollectible {
     IDictionary* edificios;
     Edificio* edificioActual = nullptr;
     Propiedad* propiedadActual = nullptr;
-    string tipoPropiedadActual;
+    
+    char miDepartamento;
     
     int codigo;
     string nombre;
   
   public:
-    Zona(int, string);
+    Zona(int, string, char);
 
     void comprobarPropiedadActual();
     void comprobarEdificioActual();
@@ -53,6 +54,7 @@ class Zona : public ICollectible {
     // Getters
     int getCodigo();
     string getNombre();
+    char getDepartamento();
     Edificio* getEdificioActual();
     Propiedad* getPropiedadActual();
 
@@ -72,6 +74,7 @@ class Zona : public ICollectible {
 
     DtZona getInfo();
     DtDatos zona__edificio__getDatosPropiedad();
+    DtDatos zona__edificio__getDatosPropiedadNoSeleccionada(int);
     DtInfo* propiedad__detallesPropiedad(int, string);
 
     ICollection* getInfoPropiedades(string);
@@ -95,8 +98,7 @@ class Zona : public ICollectible {
     // cu_AltaPropiedad
     void edificio__agregarDatosApt(DtDatosApartamento, Usuario*);
     void agregarDatosCasa(DtDatosCasa, Usuario*);
-    void zona__edificio__darAlta();
-    int zona__edificio__generarCodigoPropiedad();
+    Propiedad* zona__edificio__darAlta();
 
     // cu Modificar propiedad
     void edificio__modificarDatosApartamento(DtDatosApartamento);
@@ -104,9 +106,10 @@ class Zona : public ICollectible {
 
     // cu: Consultar propiedad
     string propiedad__getNombreInmobiliaria();
+    ICollection* edificio__getInfoPropiedades(string);
 
     // cu Eliminar Propiedad
-    void eliminarPropiedad(int);
+    bool eliminarPropiedad(int);
 
     // Destructor
     ~Zona();

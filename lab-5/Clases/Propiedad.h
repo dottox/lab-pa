@@ -6,6 +6,8 @@
 #include "../Datatypes/DtMensaje.h"
 #include "../Datatypes/DtDatosApartamento.h"
 #include "../Datatypes/DtDatosCasa.h"
+#include "../Datatypes/DtChat.h"
+
 #include "../ICollection/interfaces/ICollectible.h"
 #include "../ICollection/interfaces/IDictionary.h"
 
@@ -21,6 +23,7 @@ class Chat;
 class Interesado;
 class IDictionary;
 class ICollectible;
+struct DtChat;
 struct DtDatosApartamento;
 struct DtDatosCasa;
 struct DtDireccion;
@@ -46,10 +49,12 @@ class Propiedad : public ICollectible {
     string tipo;
     float precio;
     
+    int miZona;
+    char miDepartamento;
 
   public:
     Propiedad();
-    Propiedad(int, int, int, int, bool, DtDireccion, float, float, string, float, Inmobiliaria*);
+    Propiedad(int, int, int, int, bool, DtDireccion, float, float, string, float, Inmobiliaria*, int, char);
     
     // Getters
     virtual int getCodigo();
@@ -62,6 +67,8 @@ class Propiedad : public ICollectible {
     virtual float getMtsCuadradosTotales();
     virtual string getTipo();
     virtual float getPrecio();
+    virtual int getZona();
+    virtual char getDepartamento();
 
     virtual string getNombreInmobiliaria();
     virtual Chat* getChatActual();
@@ -90,7 +97,7 @@ class Propiedad : public ICollectible {
     virtual void deseleccionarChat();
     virtual void addChat(Usuario*);
     virtual void chat__addMensaje(DtMensaje);
-    virtual ICollection* getConversaciones(ICollection*);
+    virtual void getConversaciones(ICollection*);
     virtual ICollection* chat__getUltimosMensajes(string);
 
     virtual void aux__deseleccionarTodo();

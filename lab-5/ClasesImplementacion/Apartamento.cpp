@@ -1,6 +1,6 @@
 #include "../Clases/Apartamento.h"
 
-Apartamento::Apartamento(DtDatosApartamento datosApartamento, Inmobiliaria* inmo) : Propiedad::Propiedad(
+Apartamento::Apartamento(DtDatosApartamento datosApartamento, Inmobiliaria* inmo, int codigoZona, char codigoDepto) : Propiedad::Propiedad(
   datosApartamento.getCodigo(),
   datosApartamento.getCantAmbientes(),
   datosApartamento.getCantDormitorios(),
@@ -11,7 +11,9 @@ Apartamento::Apartamento(DtDatosApartamento datosApartamento, Inmobiliaria* inmo
   datosApartamento.getMtsCuadradosTotales(),
   datosApartamento.getTipo(),
   datosApartamento.getPrecio(),
-  inmo
+  inmo,
+  codigoZona,
+  codigoDepto
 ) {
 }
 

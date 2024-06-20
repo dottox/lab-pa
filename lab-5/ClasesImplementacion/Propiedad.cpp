@@ -20,7 +20,7 @@ Propiedad::Propiedad()
     this->chats = new OrderedDictionary();
 }
 
-Propiedad::Propiedad(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, string tipo, float precio, Inmobiliaria* inmobiliaria)
+Propiedad::Propiedad(int codigo, int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, string tipo, float precio, Inmobiliaria* inmobiliaria, int miZona, char miDepto)
 {
     this->chats = new OrderedDictionary();
     this->inmobiliaria = inmobiliaria;
@@ -35,6 +35,18 @@ Propiedad::Propiedad(int codigo, int cantAmbientes, int cantDormitorios, int can
     this->mtsCuadradosTotales = mtsCuadradosTotales;
     this->tipo = tipo;
     this->precio = precio;
+    this->miZona = miZona;
+    this->miDepartamento = miDepto;
+}
+
+int Propiedad::getZona()
+{
+    return this->miZona;
+}
+
+char Propiedad::getDepartamento()
+{
+    return this->miDepartamento;
 }
 
 int Propiedad::getCodigo()
@@ -103,18 +115,17 @@ Inmobiliaria* Propiedad::getInmobiliaria()
 }
 
 
-ICollection* Propiedad::getConversaciones(ICollection* conversaciones)
+void Propiedad::getConversaciones(ICollection* conversaciones)
 {
     IIterator* it = this->chats->getIterator();
     while (it->hasCurrent())
     {
         Chat* chat = dynamic_cast<Chat*>(it->getCurrent());
-        
-        conversaciones->add(chat);
+        DtChat* dtChat = new DtChat(chat->getInteresado()->getEmail(), this->getCodigo(), chat->getCantMensajes());
+        conversaciones->add(dtChat);
         it->next();
     }
     delete it;
-    return conversaciones;
 }
 
 void Propiedad::setCodigo(int codigo)
@@ -174,14 +185,10 @@ void Propiedad::setInmobiliaria(Inmobiliaria *inmobiliaria)
 
 ICollection* Propiedad::chat__getUltimosMensajes(string email)
 {
-    if (this->chatActual == nullptr) {
-        throw "No hay chat seleccionado";
-    }
 
     const char* e = email.c_str();
     IKey* key = new String(e);
-    ICollectible* c = this->chats->find(key);
-    Chat* chat = dynamic_cast<Chat*>(c);
+    Chat* chat = dynamic_cast<Chat*>(this->chats->find(key));
     delete key;
     if (chat == NULL) {
         throw "No se encontro el chat";
@@ -214,9 +221,13 @@ string Propiedad::getNombreInmobiliaria()
 void Propiedad::seleccionarChat(string email)
 {
     IKey* key = new String((char*)email.c_str());
-    Chat* chat = dynamic_cast<Chat*>(this->chats->find(key));
+    if (this->chats->member(key)) {
+        Chat *chat = dynamic_cast<Chat*>(this->chats->find(key));
+        this->chatActual = chat;
+    } else {
+        this->chatActual = nullptr;
+    }
     delete key;
-    this->chatActual = chat;
 }
 
 void Propiedad::deseleccionarChat()
@@ -226,7 +237,7 @@ void Propiedad::deseleccionarChat()
 
 void Propiedad::addChat(Usuario* usuario)
 {   
-    Interesado* interesado = (Interesado*)usuario;
+    Interesado* interesado = dynamic_cast<Interesado*>(usuario);
     IKey* key = new String((char*)interesado->getEmail().c_str());
     if (key == NULL) {
         delete key;
@@ -234,7 +245,6 @@ void Propiedad::addChat(Usuario* usuario)
     }
 
     Chat* chat = new Chat(this->getInmobiliaria(), interesado);
-
     this->chats->add(key, chat);
 }
 
@@ -252,7 +262,7 @@ void Propiedad::aux__deseleccionarTodo() {
 }
 
 bool Propiedad::isChatSeleccionado(){
-    return this->getChatActual() != nullptr;
+    return !(this->getChatActual() == nullptr);
 }
 
 ICollection* Propiedad::chat__getMensajes()

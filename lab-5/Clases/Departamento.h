@@ -54,7 +54,6 @@ class Departamento : public ICollectible {
     // Otros
     DtDepartamento getInfo();
     ICollection* getZonas();
-    void buscarZona(int); // ??? <-- Explicate :s
     ICollection* zona__getInfoPropiedades(string);
     ICollection* zona__listarEdificios();
     void zona__seleccionarEdificio(string);
@@ -62,6 +61,7 @@ class Departamento : public ICollectible {
     DtInfo* propiedad__detallesPropiedad(int, string);
 
     DtDatos zona__edificio__getDatosPropiedad();
+    DtDatos zona__edificio__getDatosPropiedadNoSeleccionada(int);
 
     void zona__seleccionarPropiedad(int);
 
@@ -80,19 +80,19 @@ class Departamento : public ICollectible {
     // cu_AltaPropiedad
     void edificio__agregarDatosApt(DtDatosApartamento, Usuario*);
     void zona__agregarDatosCasa(DtDatosCasa, Usuario*);
-    void zona__edificio__darAlta();
-    int zona__edificio__generarCodigoPropiedad();
+    Propiedad* zona__edificio__darAlta();
     ICollection* chat__getUltimosMensajes(string);
 
     // cu: Consultar propiedad
     string propiedad__getNombreInmobiliaria();
+    ICollection* edificio__getInfoPropiedades(string);
 
     // cu Modificar propiedad
     void edificio__modificarDatosApartamento(DtDatosApartamento);
     void zona__modificarDatosCasa(DtDatosCasa);
 
     // cu Eliminar propiedad
-    void zona__eliminarPropiedad(int);
+    bool zona__eliminarPropiedad(int);
 
     // Destructor
     ~Departamento();

@@ -7,6 +7,7 @@
 #include "../Clases/Administrador.h"
 #include "../Clases/Interesado.h"
 #include "../Clases/Inmobiliaria.h"
+#include "../Clases/Chat.h"
 
 #include "../Datatypes/DtDepartamento.h"
 #include "../Datatypes/DtDatosCasa.h"
@@ -25,7 +26,8 @@ class Departamento;
 class ISistema;
 class Inmobiliaria;
 class Interesado;
-class Administraor;
+class Administrador;
+class Chat;
 struct DtDepartamento;
 struct DtDatosCasa;
 struct DtDatosApartamento;
@@ -42,6 +44,8 @@ class Sistema : public ISistema {
     
     IDictionary* usuarios;
     Usuario* usuarioActual = nullptr;
+
+    int autoincrementalCodigoPropiedad = 1;
 
     static Sistema* instancia; // Aquí no se inicializa la variable, se debe hacer en el .cpp con "Sistema* Sistema::instancia = nullptr;"
 
@@ -65,6 +69,7 @@ class Sistema : public ISistema {
 
     // Otros 
     ICollection* zona__listarPropiedades();
+    ICollection* edificio__listarPropiedades();
     ICollection* propiedad__listarConversaciones();
     ICollection* listarDepartamentos();
     ICollection* zona__listarEdificios();
@@ -89,6 +94,7 @@ class Sistema : public ISistema {
     
     string getEmailUsuarioActual();
     DtDatos zona__edificio__getDatosPropiedad();
+    DtDatos zona__edificio__getDatosPropiedadSinActual(int);
 
     // cu: Alta Inmobiliaria
     void darDeAltaInmobiliaria(string, string, DtDireccion);
@@ -98,6 +104,7 @@ class Sistema : public ISistema {
 
     // cu: Obtener Reporte Inmobiliarias
     ICollection* listarInmobiliarias();
+    void listarReporteInmobiliarias();
 
     // cu: Consultar propiedad
     void seleccionarDepartamento(char);
@@ -120,7 +127,13 @@ class Sistema : public ISistema {
     void zona__datosCasa(DtDatosCasa);
     void edificio__datosApt(DtDatosApartamento);
     void zona__edificio__darAlta();
-    int zona__edificio__generarCodigoPropiedad();
+    int generarCodigoPropiedad();
+
+    //cu: Enviar mensaje inmobiliaria
+    void propiedad__seleccionarChatInmobiliaria(string, int);
+    bool inmobiliaria__isChatSeleccionado();
+    ICollection* inmobiliaria__getMensajesChatActual();
+    void inmobiliaria__addMensajeChatActual(DtMensaje);
 
     //cu: Modificar propiedad
     void edificio__modificarDatosApartamento(DtDatosApartamento);

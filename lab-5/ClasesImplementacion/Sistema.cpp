@@ -38,11 +38,11 @@ Sistema::Sistema() {
   // Dando de alta una casa, un edificio y un apartamento
   this->departamento__seleccionarZona(1);
   this->seleccionarUsuarioActual("Pedro");
-  this->zona__datosCasa(DtDatosCasa(1, 2, 3, 4, true, DtDireccion("Calle 1", "Ciudad 1", 1), 5, 6, "alquiler", 7, 8));
+  this->zona__datosCasa(DtDatosCasa(this->generarCodigoPropiedad(), 2, 3, 4, true, DtDireccion("Calle 1", "Ciudad 1", 1), 5, 6, "alquiler", 7, 8));
   this->zona__edificio__darAlta();
-  this->zona__datosCasa(DtDatosCasa(2, 2, 3, 4, true, DtDireccion("Calle 2", "Ciudad 2", 2), 5, 6, "venta", 7, 8));
+  this->zona__datosCasa(DtDatosCasa(this->generarCodigoPropiedad(), 2, 3, 4, true, DtDireccion("Calle 2", "Ciudad 2", 2), 5, 6, "venta", 7, 8));
   this->zona__edificio__darAlta();
-  this->zona__datosCasa(DtDatosCasa(3, 2, 3, 4, true, DtDireccion("Calle 3", "Ciudad 3", 3), 5, 6, "alquiler", 7, 8));
+  this->zona__datosCasa(DtDatosCasa(this->generarCodigoPropiedad(), 2, 3, 4, true, DtDireccion("Calle 3", "Ciudad 3", 3), 5, 6, "alquiler", 7, 8));
   this->zona__edificio__darAlta();
   this->zona__darDeAltaEdificio(DtEdificio("Edificio 1", 10, 11));
   this->zona__darDeAltaEdificio(DtEdificio("Edificio 2", 12, 13));
@@ -60,11 +60,11 @@ Sistema::Sistema() {
   // Dando de alta una casa, un edificio y un apartamento
   this->departamento__seleccionarZona(3);
   this->seleccionarUsuarioActual("Juan");
-  this->zona__datosCasa(DtDatosCasa(4, 2, 3, 4, true, DtDireccion("Calle 4", "Ciudad 4", 4), 5, 6, "Casa", 7, 8));
+  this->zona__datosCasa(DtDatosCasa(this->generarCodigoPropiedad(), 2, 3, 4, true, DtDireccion("Calle 4", "Ciudad 4", 4), 5, 6, "Casa", 7, 8));
   this->zona__edificio__darAlta();
-  this->zona__datosCasa(DtDatosCasa(5, 2, 3, 4, true, DtDireccion("Calle 5", "Ciudad 5", 5), 5, 6, "Casa", 7, 8));
+  this->zona__datosCasa(DtDatosCasa(this->generarCodigoPropiedad(), 2, 3, 4, true, DtDireccion("Calle 5", "Ciudad 5", 5), 5, 6, "Casa", 7, 8));
   this->zona__edificio__darAlta();
-  this->zona__datosCasa(DtDatosCasa(6, 2, 3, 4, true, DtDireccion("Calle 6", "Ciudad 6", 6), 5, 6, "Casa", 7, 8));
+  this->zona__datosCasa(DtDatosCasa(this->generarCodigoPropiedad(), 2, 3, 4, true, DtDireccion("Calle 6", "Ciudad 6", 6), 5, 6, "Casa", 7, 8));
   this->zona__edificio__darAlta();
   this->zona__darDeAltaEdificio(DtEdificio("Edificio 4", 16, 17));
   this->zona__darDeAltaEdificio(DtEdificio("Edificio 5", 18, 19));
@@ -163,6 +163,22 @@ ICollection* Sistema::zona__listarPropiedades() {
   }
 }
 
+ICollection* Sistema::edificio__listarPropiedades() {
+  if (this->departamentoActual == nullptr) {
+    throw "No hay departamento seleccionado";
+  } else if (this->usuarioActual == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+  
+  try {
+    string mailUsuario = this->usuarioActual->getEmail();
+    return this->departamentoActual->edificio__getInfoPropiedades(mailUsuario);
+  } catch (const char* e) {
+    throw e;
+  }
+
+}
+
 bool Sistema::verificarUsuario(string email) {
   IKey* key = new String((char*)email.c_str());
   Usuario* usuario = dynamic_cast<Usuario*>(this->usuarios->find(key));
@@ -192,6 +208,15 @@ void Sistema::propiedad__seleccionarChat() {
   
   try {
     this->getDepartamentoActual()->propiedad__seleccionarChat(this->getUsuarioActual()->getEmail());
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+void Sistema::propiedad__seleccionarChatInmobiliaria(string email, int codigo) {
+  try {
+    Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(this->getUsuarioActual());
+    inmo->propiedad__seleccionarChatInmobiliaria(email, codigo);
   } catch (const char* e) {
     throw e;
   }
@@ -229,7 +254,9 @@ void Sistema::zona__edificio__darAlta() {
   }
   
   try {
-    this->getDepartamentoActual()->zona__edificio__darAlta();
+    Propiedad* prop = this->getDepartamentoActual()->zona__edificio__darAlta();
+    Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(this->getUsuarioActual());
+    inmo->addPropiedad(prop);
   } catch (const char* e) {
     throw e;
   }
@@ -308,17 +335,8 @@ void Sistema::zona__seleccionarEdificio(string nombre) {
   }
 }
 
-int Sistema::zona__edificio__generarCodigoPropiedad() {
-  if (this->getDepartamentoActual() == nullptr) {
-    throw "No hay departamento seleccionado";
-  }
-  
-  try {
-    return this->getDepartamentoActual()->zona__edificio__generarCodigoPropiedad();
-  } catch (const char* e) {
-    throw e;
-  }
-
+int Sistema::generarCodigoPropiedad() {
+  return this->autoincrementalCodigoPropiedad++;
 }
 
 ICollection* Sistema::zona__listarEdificios() {
@@ -355,6 +373,18 @@ DtDatos Sistema::zona__edificio__getDatosPropiedad() {
   
   try {
     return this->getDepartamentoActual()->zona__edificio__getDatosPropiedad();
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+DtDatos Sistema::zona__edificio__getDatosPropiedadSinActual(int codigo) {
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  
+  try {
+    return this->getDepartamentoActual()->zona__edificio__getDatosPropiedadNoSeleccionada(codigo);
   } catch (const char* e) {
     throw e;
   }
@@ -445,6 +475,34 @@ bool Sistema::propiedad__isChatSeleccionado() {
   return this->getDepartamentoActual()->propiedad__isChatSeleccionado();
 }
 
+bool Sistema::inmobiliaria__isChatSeleccionado() {
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+
+  Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(this->getUsuarioActual());
+  return inmo->isChatSeleccionado();
+}
+
+ICollection* Sistema::inmobiliaria__getMensajesChatActual() {
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+
+  Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(this->getUsuarioActual());
+  return inmo->getMensajesChatActual();
+
+}
+
+void Sistema::inmobiliaria__addMensajeChatActual(DtMensaje mensaje) {
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+
+  Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(this->getUsuarioActual());
+  inmo->addMensajeChatActual(mensaje);
+}
+
 bool Sistema::validarContrasenia(string contrasenia) {
   if (this->getUsuarioActual() == nullptr) {
     throw "No hay usuario seleccionado";
@@ -492,6 +550,18 @@ ICollection* Sistema::listarInmobiliarias(){
   }
   delete it;
   return ret;
+}
+
+void Sistema::listarReporteInmobiliarias(){
+  IIterator* it = this->usuarios->getIterator();
+  while (it->hasCurrent()) {
+    Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(it->getCurrent());
+    if (inmo != nullptr) {
+      inmo->listarReporte();
+    }
+    it->next();
+  }
+  delete it;
 }
 
 DtInfo* Sistema::propiedad__detallesPropiedad(int codigo){
@@ -581,16 +651,23 @@ void Sistema::zona__darDeAltaEdificio(DtEdificio edificio){
 
 // NO ESTA HECHO
 void Sistema::zona__eliminarPropiedad(int codigo){
-  IIterator* it = this->departamentos->getIterator();
-  while (it->hasCurrent()) {
-    Departamento* dep = dynamic_cast<Departamento*>(it->getCurrent());
-    dep->zona__eliminarPropiedad(codigo);
-    it->next();
+  IIterator* it;
+  try {
+    bool find = false;
+    IIterator* it = this->departamentos->getIterator();
+    while (it->hasCurrent() && !find) {
+      Departamento* dep = dynamic_cast<Departamento*>(it->getCurrent());
+      find = dep->zona__eliminarPropiedad(codigo);
+      it->next();
+    }
+    delete it;
+  } catch (const char* e) {
+    delete it;
+    throw e;
   }
-  
 }
 
 Sistema::~Sistema() {
   delete this->usuarios;
   delete this->departamentos;
-  }
+}

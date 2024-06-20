@@ -16,7 +16,7 @@ Departamento::Departamento(char codigo, string nombre)
 void Departamento::darAltaZona(int codigo, string nombre)
 {
   IKey* key = new Integer(codigo);
-  Zona* zona = new Zona(codigo, nombre);
+  Zona* zona = new Zona(codigo, nombre, this->getCodigo());
   this->zonas->add(key, zona);
 }
 
@@ -89,6 +89,18 @@ ICollection* Departamento::zona__getInfoPropiedades(string email) {
   }
 }
 
+ICollection* Departamento::edificio__getInfoPropiedades(string email) {
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  try {
+    return this->getZonaActual()->edificio__getInfoPropiedades(email);
+  } catch (const char* e) {
+    throw e;
+  }
+
+}
+
 ICollection* Departamento::zona__listarEdificios()
 {
   if (this->getZonaActual() == nullptr) {
@@ -130,6 +142,18 @@ void Departamento::edificio__agregarDatosApt(DtDatosApartamento datos, Usuario* 
   this->getZonaActual()->edificio__agregarDatosApt(datos, inmobiliaria);
 }
 
+DtDatos Departamento::zona__edificio__getDatosPropiedadNoSeleccionada(int codigo) {
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  try {
+    return this->getZonaActual()->zona__edificio__getDatosPropiedadNoSeleccionada(codigo);
+  } catch (const char* e) {
+    throw e;
+  }
+
+}
+
 DtDatos Departamento::zona__edificio__getDatosPropiedad()
 {
   if (this->getZonaActual() == nullptr) {
@@ -153,18 +177,6 @@ ICollection* Departamento::chat__getUltimosMensajes(string email) {
   }
 }
 
-int Departamento::zona__edificio__generarCodigoPropiedad() {
-  if (this->getZonaActual() == nullptr) {
-    throw "No hay zona seleccionada";
-  }
-
-  try {
-    return this->getZonaActual()->zona__edificio__generarCodigoPropiedad();
-  } catch (const char* e) {
-    throw e;
-  }
-}
-
 void Departamento::zona__agregarDatosCasa(DtDatosCasa datos, Usuario* inmobiliaria)
 {
   if (this->getZonaActual() == nullptr) {
@@ -173,12 +185,15 @@ void Departamento::zona__agregarDatosCasa(DtDatosCasa datos, Usuario* inmobiliar
   this->getZonaActual()->agregarDatosCasa(datos, inmobiliaria);
 }
 
-void Departamento::zona__edificio__darAlta()
+Propiedad* Departamento::zona__edificio__darAlta()
 {
   if (this->getZonaActual() == nullptr) {
     throw "No hay zona seleccionada";
+  } try {
+    return this->getZonaActual()->zona__edificio__darAlta();
+  } catch (const char* e) {
+    throw e;
   }
-  this->getZonaActual()->zona__edificio__darAlta();
 }
 
 void Departamento::zona__seleccionarPropiedad(int codigo)
@@ -214,7 +229,7 @@ void Departamento::propiedad__seleccionarChat(string email)
   if (this->getZonaActual() == nullptr) {
     throw "No hay zona seleccionada";
   }
-  this->zonaActual->propiedad__seleccionarChat(email);
+  this->getZonaActual()->propiedad__seleccionarChat(email);
 }
 
 void Departamento::chat__addMensaje(DtMensaje mensaje)
@@ -270,8 +285,22 @@ void Departamento::zona__modificarDatosCasa(DtDatosCasa datos){
   this->getZonaActual()->modificarDatosCasa(datos);
 }
 
-void Departamento::zona__eliminarPropiedad(int codigo){
-  //
+bool Departamento::zona__eliminarPropiedad(int codigo){
+  IIterator* it;
+  try {
+    bool encontrado = false;
+    IIterator* it = this->zonas->getIterator();
+    while (it->hasCurrent() && !encontrado) {
+      Zona* zona = dynamic_cast<Zona*>(it->getCurrent());
+      encontrado = zona->eliminarPropiedad(codigo);
+      it->next();
+    }
+    delete it;
+    return encontrado;
+  } catch (const char* e) {
+    delete it;
+    throw e;
+  }
 }
 
 void Departamento::edificio__modificarDatosApartamento(DtDatosApartamento datos){

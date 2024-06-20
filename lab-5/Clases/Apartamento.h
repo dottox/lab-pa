@@ -10,7 +10,7 @@ struct DtDatosApartamento;
 
 class Apartamento : public Propiedad {
   public:
-    Apartamento(DtDatosApartamento, Inmobiliaria*);
+    Apartamento(DtDatosApartamento, Inmobiliaria*, int, char);
     
     // Setters
     void setDatos(DtDatosApartamento);

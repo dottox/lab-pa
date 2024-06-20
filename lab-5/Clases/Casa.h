@@ -13,7 +13,7 @@ class Casa : public Propiedad {
     float mtsCuadradosVerdes;
 
   public:
-    Casa(DtDatosCasa, Inmobiliaria*);
+    Casa(DtDatosCasa, Inmobiliaria*, int, char);
     
     // Getters
     float getMtsCuadradosVerdes();

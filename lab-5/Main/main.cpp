@@ -20,6 +20,7 @@ void mostrarListadoDepartamentos(ISistema*);
 void mostrarListadoZonas(ISistema*);
 void mostrarListadoEdificios(ISistema*);
 void mostrarListadoConversaciones(ISistema*);
+void mostrarListadoMensajes(IIterator*);
 void mostrarDetallesPropiedad(DtInfo*);
 
 // ****** CU de Administrador ******
@@ -101,7 +102,7 @@ void pantallaBienvenida(ISistema* sistema) {
         }
         break;
       case 2:
-        cout << "Saliendo del programa...";
+        cout << "Saliendo del programa..." << endl;
         break;
       default:
         cout << "Opcion invalida" << endl;
@@ -148,12 +149,23 @@ void mostrarListadoPropiedades(ISistema* sistema) {
   try
   {
     ICollection* propiedades = sistema->zona__listarPropiedades();
+    ICollection* propiedadesEdificio = sistema->edificio__listarPropiedades();
+
     IIterator* it = propiedades->getIterator();
     while (it->hasCurrent()) {
-    DtInfo * propiedad = dynamic_cast<DtInfo*>(it->getCurrent());
-    cout << "Propiedad: " << propiedad->getCodigo() << " | Tipo : " << propiedad->getTipo() << " | Direccion : " << propiedad->getDireccion().getCalle() << " " << propiedad->getDireccion().getNumero() << " " << propiedad->getDireccion().getCiudad() << endl;
-    it->next();
-  }
+      DtInfo * propiedad = dynamic_cast<DtInfo*>(it->getCurrent());
+      cout << "Casa: " << propiedad->getCodigo() << " | Tipo : " << propiedad->getTipo() << " | Direccion : " << propiedad->getDireccion().getCalle() << " " << propiedad->getDireccion().getNumero() << ", " << propiedad->getDireccion().getCiudad() << endl;
+      it->next();
+    }
+    delete it;
+
+    IIterator* it2 = propiedadesEdificio->getIterator();
+    while (it2->hasCurrent()) {
+      DtInfo * propiedad = dynamic_cast<DtInfo*>(it2->getCurrent());
+      cout << "Apartamento: " << propiedad->getCodigo() << " | Tipo : " << propiedad->getTipo() << " | Direccion : " << propiedad->getDireccion().getCalle() << " " << propiedad->getDireccion().getNumero() << " " << propiedad->getDireccion().getCiudad() << endl;
+      it2->next();
+    }
+    delete it2;
   } catch (const char* e) {
     throw e;
   }
@@ -195,9 +207,19 @@ void mostrarListadoConversaciones(ISistema* sistema) {
   }
 }
 
-void mostrarDetallesPropiedad(DtDatos prop, string inmobiliaria) {
+void mostrarListadoMensajes(IIterator* it) {
+  while (it->hasCurrent()) {
+    DtMensaje* mensaje = dynamic_cast<DtMensaje*>(it->getCurrent());
+    cout << mensaje->getEmisor() << " | " << mensaje->getFecha().getDia() << " - " << mensaje->getFecha().getMes() << " - " << mensaje->getFecha().getAnio() << endl << " | " << mensaje->getHora().getHora() << " : " << mensaje->getHora().getMinuto() << " | " << mensaje->getTexto() << endl;
+    it->next();
+  }
+  delete it;
+}
+
+void mostrarDetallesPropiedad(DtDatos prop, string inmobiliaria = "") {
   limpiarPantalla();
   cout << "Detalles de la propiedad: \n";
+  cout << "Inmobiliaria: " << inmobiliaria << endl;
   cout << "Codigo: " << prop.getCodigo() << endl;
   cout << "Tipo: " << prop.getTipo() << endl;
   cout << "Direccion: " << prop.getDireccion().getCalle() << " " << prop.getDireccion().getNumero() << " " << prop.getDireccion().getCiudad() << endl;
@@ -469,15 +491,7 @@ void cu_ObtenerReporteInmobiliarias(ISistema* sistema){
   limpiarPantalla();
   getchar();
   try {
-    ICollection* inmos = sistema->listarInmobiliarias();
-    IIterator* it = sistema->listarInmobiliarias()->getIterator();
-    while (it->hasCurrent()) {
-      DtInmobiliaria* inmo = dynamic_cast<DtInmobiliaria*>(it->getCurrent());
-      cout << "Inmobiliaria: " << inmo->getEmail() << " | " << inmo->getDireccion().getCalle() << " " << inmo->getDireccion().getNumero() << " " << inmo->getDireccion().getCiudad() << endl;
-      it->next();
-    }
-    delete it;
-    delete inmos;
+    sistema->listarReporteInmobiliarias();
     cout << "\nPulse cualquier tecla para continuar..." << endl;
     getchar();
   } catch (const char* e) {
@@ -501,9 +515,19 @@ void cu_ConsultarPropiedad(ISistema* sistema){ // return DtInfo de propiedad
     sistema->departamento__seleccionarZona(stoi(codigoZona));
     mostrarListadoPropiedades(sistema);
     getline(cin, codigo);
-    sistema->zona__seleccionarPropiedad(stoi(codigo));
-    DtDatos propiedadDatos = sistema->zona__edificio__getDatosPropiedad();
-    mostrarDetallesPropiedad(propiedadDatos, sistema->propiedad__getNombreInmobiliaria());
+    
+    bool flag = false;
+    try {
+      sistema->zona__seleccionarPropiedad(stoi(codigo));
+    } catch (const char* e) { 
+      flag = true;
+    }
+
+    DtDatos propiedadDatos = sistema->zona__edificio__getDatosPropiedadSinActual(stoi(codigo));
+    if (flag)
+      mostrarDetallesPropiedad(propiedadDatos);
+    else
+      mostrarDetallesPropiedad(propiedadDatos, sistema->propiedad__getNombreInmobiliaria());
   } // Si algo falla, se deselecciona todo. 
   catch (const char* e) {
     sistema->aux__deseleccionarTodo(false);
@@ -545,7 +569,9 @@ void cu_EnviarMensajeInteresado(ISistema* sistema) {
 
     // Muestra los detalles de la propiedad seleccionada
     ICollection* mensajesConLaPropiedad = sistema->chat__getUltimosMensajesUsuarioActualPropiedadActual();
-    // TODO Iterador y mostrar los mensajes
+    
+    IIterator* it = mensajesConLaPropiedad->getIterator();
+    mostrarListadoMensajes(it);
 
 
     cout << "\nEscriba un mensaje para la propiedad: \n";
@@ -578,17 +604,25 @@ void cu_EnviarMensajeInmobiliaria(ISistema* sistema){
     getline(cin, email);
     sistema->propiedad__seleccionarChatInmobiliaria(email, stoi(codigo));
 
-    if (sistema->propiedad__isChatSeleccionado()) {
-      sistema->propiedad__addChat(sistema->getUsuarioActual());
-      sistema->propiedad__seleccionarChat();
+    if (!sistema->inmobiliaria__isChatSeleccionado()) {
+      throw "No se pudo seleccionar el chat";
     }
 
-    IIterator * it = sistema->chat__getMensajes()->getIterator();
-    int x = 5;
-    while (it->hasCurrent() && x-- > 0) {
-      DtMensaje* mensaje = dynamic_cast<DtMensaje*>(it->getCurrent());
-      cout << mensaje->getEmisor() << " | " << mensaje->getFecha().getDia() << " - " << mensaje->getFecha().getMes() << " - " << mensaje->getFecha().getAnio() << endl << " | " << mensaje->getHora().getHora() << " : " << mensaje->getHora().getMinuto() << " | " << mensaje->getTexto() << endl;
-      it->next();
+    IIterator* it = sistema->inmobiliaria__getMensajesChatActual()->getIterator();
+    mostrarListadoMensajes(it);
+
+    string reply;
+    cout << "\n¿Desea enviar un mensaje? (y/n): ";
+    getline(cin, reply);
+
+    if (reply == "y" || reply == "Y") {
+      cout << "\nEscriba el mensaje: \n";
+      string texto;
+      getline(cin, texto);
+      DtFecha fecha;
+      DtHora hora;
+      DtMensaje mensaje = DtMensaje(fecha, hora, texto, sistema->getEmailUsuarioActual());
+      sistema->inmobiliaria__addMensajeChatActual(mensaje);
     }
   } catch (const char* e) {
     sistema->aux__deseleccionarTodo(false);

@@ -52,18 +52,18 @@ class Edificio : public ICollectible {
     void deseleccionarPropiedad();
 
     DtDatos getDatosApartamento();
+    DtDatos getDatosApartamentoNoSeleccionado(int);
 
     DtEdificio getInfo();
 
     DtInfo propiedad__getInfoPropiedad(int, string);
 
-    ICollection* getInfoPropiedades(string);
+    ICollection* getInfoPropiedades(string, bool);
 
 
     // cu_AltaPropiedad
-    void agregarDatosApt(DtDatosApartamento, Usuario*);
-    void zona__edificio__darAlta();
-    int zona__edificio__generarCodigoPropiedad();
+    void agregarDatosApt(DtDatosApartamento, Usuario*, int, char);
+    Propiedad* zona__edificio__darAlta();
 
     void aux__deseleccionarTodo(bool);
 
