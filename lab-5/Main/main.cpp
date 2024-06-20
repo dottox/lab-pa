@@ -19,6 +19,7 @@ void registrarUsuario(ISistema*);
 void mostrarListadoDepartamentos(ISistema*);
 void mostrarListadoZonas(ISistema*);
 void mostrarListadoEdificios(ISistema*);
+void mostrarListadoConversaciones(ISistema*);
 void mostrarDetallesPropiedad(DtInfo*);
 
 // ****** CU de Administrador ******
@@ -176,6 +177,24 @@ void mostrarListadoEdificios(ISistema* sistema) {
   }
 }
 
+void mostrarListadoConversaciones(ISistema* sistema) {
+  limpiarPantalla();
+  cout << "Seleccione una conversacion: \n";
+  try {
+    ICollection* conversaciones = sistema->propiedad__listarConversaciones();
+    IIterator* it = conversaciones->getIterator();
+    while (it->hasCurrent()) {
+      DtChat* chat = dynamic_cast<DtChat*>(it->getCurrent());
+      cout << "\nPropiedad: " << chat->getPropiedad() << endl;
+      cout << "Interesado: " << chat->getInteresado() << endl;
+      cout << "Cantidad de mensajes: " << chat->getCantMensajes() << endl;
+      it->next();
+    }
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
 void mostrarDetallesPropiedad(DtDatos prop, string inmobiliaria) {
   limpiarPantalla();
   cout << "Detalles de la propiedad: \n";
@@ -206,7 +225,7 @@ void menuInteresado(ISistema* sistema){
       case 1:
         try {
           cout << "consultarPropiedad" << endl;
-          //consultarPropiedad(sistema);
+          cu_ConsultarPropiedad(sistema);
         } catch (const char* e) {
           mensajeError = (char*)e;
         }
@@ -214,7 +233,7 @@ void menuInteresado(ISistema* sistema){
       case 2:
         try {
           cout << "consultarPropiedad" << endl;
-          //enviarMensaje(sistema);
+          cu_EnviarMensajeInteresado(sistema);
         } catch (const char* e) {
           mensajeError = (char*)e;
         }
@@ -307,21 +326,21 @@ void menuInmobiliaria(ISistema* sistema){
         break;
       case 3:
         try {
-          // cu_ModificarPropiedad(sistema);
+          cu_ModificarPropiedad(sistema);
         } catch (const char* e) {
           mensajeError = (char*)e;
         }
         break;
       case 4:
         try {
-          // cu_EnviarMensajeInmobiliaria(sistema);
+          cu_EnviarMensajeInmobiliaria(sistema);
         } catch (const char* e) {
           mensajeError = (char*)e;
         }
         break;
       case 5:
         try {
-          // cu_EliminarPropiedad(sistema);
+          cu_EliminarPropiedad(sistema);
         } catch (const char* e) {
           mensajeError = (char*)e;
         }
@@ -519,7 +538,7 @@ void cu_EnviarMensajeInteresado(ISistema* sistema) {
     
     // Se fija si existe el chat, si no existe entonces lo crea.
     sistema->propiedad__seleccionarChat();
-    if (sistema->propiedad__isChatSeleccionado()) {
+    if (!sistema->propiedad__isChatSeleccionado()) {
       sistema->propiedad__addChat(sistema->getUsuarioActual());
       sistema->propiedad__seleccionarChat();
     }
@@ -529,7 +548,7 @@ void cu_EnviarMensajeInteresado(ISistema* sistema) {
     // TODO Iterador y mostrar los mensajes
 
 
-    cout << "Escriba un mensaje para la propiedad: \n";
+    cout << "\nEscriba un mensaje para la propiedad: \n";
     getline(cin, texto);
     
     DtFecha fecha;
@@ -547,37 +566,49 @@ void cu_EnviarMensajeInteresado(ISistema* sistema) {
 }
 
 void cu_EnviarMensajeInmobiliaria(ISistema* sistema){
-  sistema->propiedad__listarConversaciones();
-  cout << "Seleccione una conversacion: ";
-  sistema->propiedad__seleccionarChat();
+  limpiarPantalla();
+  getchar();
+  string codigo, email;
+  
+  try {
+    mostrarListadoConversaciones(sistema);
+    cout << "Escriba el código de la propiedad deseada: ";
+    getline(cin, codigo);
+    cout << "Escriba el mail de la persona con la que quiere hablar: ";
+    getline(cin, email);
+    sistema->propiedad__seleccionarChatInmobiliaria(email, stoi(codigo));
 
-  if (sistema->propiedad__isChatSeleccionado()) {
-    sistema->propiedad__addChat(sistema->getUsuarioActual());
-    sistema->propiedad__seleccionarChat();
-  }
+    if (sistema->propiedad__isChatSeleccionado()) {
+      sistema->propiedad__addChat(sistema->getUsuarioActual());
+      sistema->propiedad__seleccionarChat();
+    }
 
-  IIterator * it = sistema->chat__getMensajes()->getIterator();
-  int x = 5;
-  while (it->hasCurrent() && x-- > 0) {
-    DtMensaje* mensaje = dynamic_cast<DtMensaje*>(it->getCurrent());
-    cout << mensaje->getEmisor() << " | " << mensaje->getFecha().getDia() << " - " << mensaje->getFecha().getMes() << " - " << mensaje->getFecha().getAnio() << endl << " | " << mensaje->getHora().getHora() << " : " << mensaje->getHora().getMinuto() << " | " << mensaje->getTexto() << endl;
-    it->next();
+    IIterator * it = sistema->chat__getMensajes()->getIterator();
+    int x = 5;
+    while (it->hasCurrent() && x-- > 0) {
+      DtMensaje* mensaje = dynamic_cast<DtMensaje*>(it->getCurrent());
+      cout << mensaje->getEmisor() << " | " << mensaje->getFecha().getDia() << " - " << mensaje->getFecha().getMes() << " - " << mensaje->getFecha().getAnio() << endl << " | " << mensaje->getHora().getHora() << " : " << mensaje->getHora().getMinuto() << " | " << mensaje->getTexto() << endl;
+      it->next();
+    }
+  } catch (const char* e) {
+    sistema->aux__deseleccionarTodo(false);
+    throw e;
   }
   sistema->aux__deseleccionarTodo(false);
+
 }
 
 void cu_AltaEdificio(ISistema* sistema){
   limpiarPantalla();
-  getchar();
   string nombre;
   string cantPisos;
   string gastosComunes;
   try {
-    cout << "Ingrese el nombre del edificio: \n" << endl;
+    cout << "\nIngrese el nombre del edificio: ";
     getline(cin, nombre);
-    cout << "Ingrese la cantidad de pisos: \n" << endl;
+    cout << "\nIngrese la cantidad de pisos: ";
     getline(cin, cantPisos);
-    cout << "Ingrese los gastos comunes: \n" << endl;
+    cout << "\nIngrese los gastos comunes: ";
     getline(cin, gastosComunes);
     DtEdificio edificio = DtEdificio(nombre, stoi(cantPisos), stof(gastosComunes));
     sistema->zona__darDeAltaEdificio(edificio);
@@ -586,10 +617,8 @@ void cu_AltaEdificio(ISistema* sistema){
     getchar();
   } // Si algo falla, se deselecciona todo. 
   catch (const char* e){
-    sistema->aux__deseleccionarTodo(true);
     throw e;
   }
-  sistema->aux__deseleccionarTodo(false);
 }
 
 void cu_AltaPropiedad(ISistema* sistema){
@@ -672,8 +701,8 @@ void cu_AltaPropiedad(ISistema* sistema){
         cout << "\nIngrese el precio: ";
         getline(cin, precio);
         
-        
-        codigo = sistema->zona__edificio__generarCodigoPropiedad(); // Se obtiene un nuevo codigo incremental para la propiedad
+        codigo = sistema->generarCodigoPropiedad(); // Se obtiene un nuevo codigo incremental para la propiedad
+
         DtDireccion direccion = DtDireccion(calle, ciudad, stoi(numero));
         DtDatosApartamento datos = DtDatosApartamento(codigo, stoi(cantAmbientes),  stoi(cantDormitorios), stoi(cantBanios), garaje, direccion, stof(mtsCuadradosEdificados), stof(mtsCuadradosTotales), tipo, stof(precio));
         sistema->edificio__datosApt(datos);
@@ -725,7 +754,7 @@ void cu_AltaPropiedad(ISistema* sistema){
         cout << "\nIngrese el precio: ";
         getline(cin, precio);
   
-        codigo = sistema->zona__edificio__generarCodigoPropiedad(); // Se obtiene un nuevo codigo incremental para la propiedad
+        codigo = sistema->generarCodigoPropiedad(); // Se obtiene un nuevo codigo incremental para la propiedad
         DtDireccion direccion = DtDireccion(calle, ciudad, stoi(numero));
         DtDatosCasa datos = DtDatosCasa(codigo, stoi(cantAmbientes), stoi(cantDormitorios), stoi(cantBanios), garaje, direccion, stof(mtsCuadradosEdificados), stof(mtsCuadradosTotales), tipo, stof(precio), stof(mtsCuadradosVerdes));
         sistema->zona__datosCasa(datos);
@@ -749,8 +778,6 @@ void cu_AltaPropiedad(ISistema* sistema){
 
   sistema->aux__deseleccionarTodo(false);
 }
-
-void cu_EliminarPropiedad(ISistema* sistema){}
 
 void cu_ModificarPropiedad(ISistema* sistema){
   limpiarPantalla();
@@ -859,11 +886,10 @@ void cu_ModificarPropiedad(ISistema* sistema){
   }
 }
 
-void cu_eliminarPropiedad(ISistema* sistema){
+void cu_EliminarPropiedad(ISistema* sistema){
   limpiarPantalla();
   getchar();
   string codigo;
-  string codigoZona;
   try {
     cout << "Ingrese el codigo de la propiedad a eliminar: \n" << endl;
     getline(cin, codigo);
