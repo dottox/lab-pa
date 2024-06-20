@@ -557,8 +557,6 @@ void cu_EnviarMensajeInteresado(ISistema* sistema) {
     // Lista las propiedades de la zona seleccionada y selecciona una según input del usuario
     mostrarListadoPropiedades(sistema);
     getline(cin, codigo);
-    sistema->zona__seleccionarPropiedad(stoi(codigo));
-
     
     // Se fija si existe el chat, si no existe entonces lo crea.
     sistema->propiedad__seleccionarChat();
@@ -823,49 +821,47 @@ void cu_ModificarPropiedad(ISistema* sistema){
   try {
     do{
       limpiarPantalla();
+      // Muestra los edificios y deja al usuario seleccionar uno.
+      cout << endl << "Ingrese el código de la propiedad a modificar" << endl;
+      cout << "Respuesta: ";
+      getline(cin, opcionEd);
+
       cout << "Ingrese el tipo de propiedad: \n 1.Apartamento\n 2.Casa\n" << endl;
       getline(cin, opcionAP);
+
+
+      //Ingresa los datos del apartamento
+      cout << "Ingrese la cantidad de ambientes: ";
+      getline(cin, cantAmbientes);
+      cout << "\nIngrese la cantidad de dormitorios: ";
+      getline(cin, cantDormitorios);
+      cout << "\nIngrese la cantidad de baños: ";
+      getline(cin, cantBanios);
+      cout << "\nIngrese si tiene garaje (y/n): ";
+      getline(cin, garajeReply);
+      if (garajeReply == "y" || garajeReply == "Y")
+        garaje = true;
+      cout << "\nIngresar Direccion (calle): ";
+      getline(cin, calle);
+      cout << "\nIngresar Direccion (ciudad): ";
+      getline(cin, ciudad);
+      cout << "\nIngresar Direccion (numero): ";
+      getline(cin, numero);
+      cout << "\nIngrese los metros cuadrados edificados: ";
+      getline(cin, mtsCuadradosEdificados);
+      cout << "\nIngrese los metros cuadrados totales: ";
+      getline(cin, mtsCuadradosTotales);
+      cout << "\nIngrese el tipo (alquiler/venta): ";
+      getline(cin, tipo);
+      cout << "\nIngrese el precio: ";
+      getline(cin, precio);
+      
       if (opcionAP == "1"){
         limpiarPantalla();
         
-        // Muestra los edificios y deja al usuario seleccionar uno.
-        mostrarListadoEdificios(sistema);
-        cout << endl << "Seleccione el nombre del edificio" << endl;
-        cout << "Respuesta: ";
-        getline(cin, opcionEd);
-
-        sistema->zona__seleccionarEdificio(opcionEd);
-
-        //Ingresa los datos del apartamento
-        cout << "Ingrese la cantidad de ambientes: ";
-        getline(cin, cantAmbientes);
-        cout << "\nIngrese la cantidad de dormitorios: ";
-        getline(cin, cantDormitorios);
-        cout << "\nIngrese la cantidad de baños: ";
-        getline(cin, cantBanios);
-        cout << "\nIngrese si tiene garaje (y/n): ";
-        getline(cin, garajeReply);
-        if (garajeReply == "y" || garajeReply == "Y")
-          garaje = true;
-        cout << "\nIngresar Direccion (calle): ";
-        getline(cin, calle);
-        cout << "\nIngresar Direccion (ciudad): ";
-        getline(cin, ciudad);
-        cout << "\nIngresar Direccion (numero): ";
-        getline(cin, numero);
-        cout << "\nIngrese los metros cuadrados edificados: ";
-        getline(cin, mtsCuadradosEdificados);
-        cout << "\nIngrese los metros cuadrados totales: ";
-        getline(cin, mtsCuadradosTotales);
-        cout << "\nIngrese el tipo (alquiler/venta): ";
-        getline(cin, tipo);
-        cout << "\nIngrese el precio: ";
-        getline(cin, precio);
-        
-        
         DtDireccion direccion = DtDireccion(calle, ciudad, stoi(numero));
-        DtDatosApartamento datos = DtDatosApartamento( stoi(cantAmbientes),  stoi(cantDormitorios), stoi(cantBanios), garaje, direccion, stof(mtsCuadradosEdificados), stof(mtsCuadradosTotales), tipo, stof(precio));
-        sistema->edificio__modificarDatosApartamento(datos);
+        DtDatosApartamento datos = DtDatosApartamento(stoi(opcionEd), stoi(cantAmbientes),  stoi(cantDormitorios), stoi(cantBanios), garaje, direccion, stof(mtsCuadradosEdificados), stof(mtsCuadradosTotales), tipo, stof(precio));
+        sistema->inmobiliaria__modificarPropiedadApartamento(datos, stoi(opcionEd));
         cout << "Apartamento modificada con exito:\n\nnCantidad de ambientes: " << cantAmbientes << "\nCantidad de dormitorios: " << cantDormitorios << "\nCantidad de baños: " << cantBanios << "\nGaraje: " << garaje << "\nDireccion: " << calle << " " << numero << " " << ciudad << "\nMetros cuadrados edificados: " << mtsCuadradosEdificados << "\nMetros cuadrados totales: " << mtsCuadradosTotales << "\nTipo: " << tipo << "\nPrecio: " << precio << "\nMetros cuadrados verdes: " << endl;
         cout << "\nPulse cualquier tecla para continuar..." << endl;
         getchar();
@@ -873,49 +869,24 @@ void cu_ModificarPropiedad(ISistema* sistema){
       else if (opcionAP == "2"){
         limpiarPantalla();
 
-        //Ingresa los datos del apartamento
-        cout << "Ingrese la cantidad de ambientes: ";
-        getline(cin, cantAmbientes);
-        cout << "\nIngrese la cantidad de dormitorios: ";
-        getline(cin, cantDormitorios);
-        cout << "\nIngrese la cantidad de baños: ";
-        getline(cin, cantBanios);
-        cout << "\nIngrese si tiene garaje: (y/n) ";
-        getline(cin, garajeReply);
-        if (garajeReply == "y" || garajeReply == "Y")
-          garaje = true;
-        cout << "\nIngresar Direccion (calle): ";
-        getline(cin, calle);
-        cout << "\nIngresar Direccion (ciudad): ";
-        getline(cin, ciudad);
-        cout << "\nIngresar Direccion (numero): ";
-        getline(cin, numero);
-        cout << "\nIngrese los metros cuadrados edificados: ";
-        getline(cin, mtsCuadradosEdificados);
-        cout << "\nIngrese los metros cuadrados totales: ";
-        getline(cin, mtsCuadradosTotales);
         cout << "\nIngrese los metros cuadrados verdes: ";
         getline(cin, mtsCuadradosVerdes);
-        cout << "\nIngrese el tipo: (alquier/venta)";
-        getline(cin, tipo);
-        cout << "\nIngrese el precio: ";
-        getline(cin, precio);
-  
+        
         DtDireccion direccion = DtDireccion(calle, ciudad, stoi(numero));
-        DtDatosCasa datos = DtDatosCasa(stoi(cantAmbientes), stoi(cantDormitorios), stoi(cantBanios), garaje, direccion, stof(mtsCuadradosEdificados), stof(mtsCuadradosTotales), tipo, stof(precio), stof(mtsCuadradosVerdes));
-        sistema->zona__modificarDatosCasa(datos);
+        DtDatosCasa datos = DtDatosCasa(stoi(opcionEd), stoi(cantAmbientes), stoi(cantDormitorios), stoi(cantBanios), garaje, direccion, stof(mtsCuadradosEdificados), stof(mtsCuadradosTotales), tipo, stof(precio), stof(mtsCuadradosVerdes));
+        sistema->inmobiliaria__modificarPropiedadCasa(datos, stoi(opcionEd));
         cout << "Casa modificada con exito:\n\nCantidad de ambientes: " << cantAmbientes << "\nCantidad de dormitorios: " << cantDormitorios << "\nCantidad de baños: " << cantBanios << "\nGaraje: " << garaje << "\nDireccion: " << calle << " " << numero << " " << ciudad << "\nMetros cuadrados edificados: " << mtsCuadradosEdificados << "\nMetros cuadrados totales: " << mtsCuadradosTotales << "\nTipo: " << tipo << "\nPrecio: " << precio << "\nMetros cuadrados verdes: " << mtsCuadradosVerdes << endl;
         cout << "\nPulse cualquier tecla para continuar..." << endl;
         getchar();
       }
       else{
-        cout << "Opcion invalida" << endl;
+        throw "Opcion invalida";
       }
     }
     while(opcionAP != "1" && opcionAP != "2");
   }
   catch (const char* e){
-    sistema->aux__deseleccionarTodo(true);
+    sistema->aux__deseleccionarTodo(false);
     throw e;
   }
 }

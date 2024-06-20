@@ -8,6 +8,7 @@ Interesado::Interesado(string email, string contrasenia, string nombre, string a
   this->fechaNacimiento = fechaNacimiento;
 }
 
+
 string Interesado::getTipoUsuario()
 {
   return "Interesado";

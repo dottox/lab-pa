@@ -4,6 +4,7 @@
 #include "Usuario.h"
 #include "Propiedad.h"
 #include "Chat.h"
+#include "Edificio.h"
 
 #include "../Datatypes/DtDireccion.h"
 #include "../Datatypes/DtFecha.h"
@@ -16,6 +17,7 @@
 class Usuario;
 class Propiedad;
 class Chat;
+class Edificio;
 class IDictionary;
 struct DtDireccion;
 
@@ -23,7 +25,7 @@ class Inmobiliaria : public Usuario {
   private:
     DtDireccion direccion;
     IDictionary* propiedades;
-    IDictionary* edificios; // Deberíamos gestionarlos en una colección, pero de igual manera, puede estar sujeto a cambios, de momento no haré nada con esto.
+    IDictionary* edificios;
 
     Chat* chatActual = nullptr;
   
@@ -53,11 +55,18 @@ class Inmobiliaria : public Usuario {
     // cu: Listar reporte de Inmobiliarias
     void listarReporte();
 
+    // cu: alta edificio
+    void addEdificio(Edificio*);
+
     // cu: Enviar mensaje inmo
     bool isChatSeleccionado();
     ICollection* getMensajesChatActual();
     void addMensajeChatActual(DtMensaje);
-  
+
+    // cu: Modificar Propiedad
+    void modificarDatosCasa(DtDatosCasa, int);
+    void edificio__modificarDatosApartamento(DtDatosApartamento,int);
+
     // Destructor
     ~Inmobiliaria();
 };

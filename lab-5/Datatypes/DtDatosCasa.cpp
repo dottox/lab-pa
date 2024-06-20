@@ -28,32 +28,6 @@ DtDatosCasa::DtDatosCasa(
   this->mtsCuadradosVerdes = mtsCuadradosVerdes;
 }
 
-DtDatosCasa::DtDatosCasa(
-  int cantAmbientes, 
-  int cantDormitorios, 
-  int cantBanios, 
-  bool garaje, 
-  DtDireccion direccion, 
-  float mtsCuadradosEdificados, 
-  float mtsCuadradosTotales, 
-  string tipo, 
-  float precio, 
-  float mtsCuadradosVerdes
-) 
-: DtDatos::DtDatos(
-  cantAmbientes, 
-  cantDormitorios, 
-  cantBanios, 
-  garaje, 
-  direccion, 
-  mtsCuadradosEdificados, 
-  mtsCuadradosTotales, 
-  tipo, 
-  precio
-) {
-  this->mtsCuadradosVerdes = mtsCuadradosVerdes;
-}
-
 float DtDatosCasa::getMtsCuadradosVerdes() {
   return this->mtsCuadradosVerdes;
 }

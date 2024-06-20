@@ -1,7 +1,7 @@
 #ifndef EDIFICIO_H
 #define EDIFICIO_H
 
-#include "Apartamento.h" 
+#include "Propiedad.h"
 #include "Inmobiliaria.h"
 
 #include "../Datatypes/DtInfo.h"
@@ -14,7 +14,7 @@
 #include <string>
 using namespace std;
 
-class Apartamento;
+class Propiedad;
 class ICollectible;
 class IDictionary;
 class Inmobiliaria;
@@ -67,7 +67,7 @@ class Edificio : public ICollectible {
 
     void aux__deseleccionarTodo(bool);
 
-    void modificarDatosApartamento(DtDatosApartamento);
+    void modificarDatosApartamento(DtDatosApartamento, int);
 
     // cu_Eliminar Propiedad
     bool eliminarPropiedad(int);

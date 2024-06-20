@@ -26,7 +26,6 @@ struct DtDatos : public ICollectible
     string tipo;
     float precio;
     DtDatos(int, int, int, int, bool, DtDireccion, float, float, string, float);
-    DtDatos(int, int, int, bool, DtDireccion, float, float, string, float);
 
   public:
     virtual int getCodigo();

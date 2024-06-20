@@ -277,35 +277,31 @@ void Sistema::zona__datosCasa(DtDatosCasa datos) {
   }
 }
 
-void Sistema::zona__modificarDatosCasa(DtDatosCasa datos) {
-  if (this->getDepartamentoActual() == nullptr) {
-    throw "No hay departamento seleccionado";
-  }
+void Sistema::inmobiliaria__modificarPropiedadCasa(DtDatosCasa datos,int codigo) {
   if (this->getUsuarioActual() == nullptr) {
     throw "No hay usuario seleccionado";
   }
-  
   try {
-    this->getDepartamentoActual()->zona__modificarDatosCasa(datos);
+    Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(this->getUsuarioActual());
+    inmo->modificarDatosCasa(datos, codigo);
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::edificio__modificarDatosApartamento(DtDatosApartamento datos) {
-  if (this->getDepartamentoActual() == nullptr) {
-    throw "No hay departamento seleccionado";
-  }
+void Sistema::inmobiliaria__modificarPropiedadApartamento(DtDatosApartamento datos,int codigo) {
   if (this->getUsuarioActual() == nullptr) {
     throw "No hay usuario seleccionado";
   }
-  
   try {
-    this->getDepartamentoActual()->edificio__modificarDatosApartamento(datos);
+    Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(this->getUsuarioActual());
+    inmo->edificio__modificarDatosApartamento(datos, codigo);
   } catch (const char* e) {
     throw e;
   }
 }
+
+
 
 
 void Sistema::edificio__datosApt(DtDatosApartamento datos) {

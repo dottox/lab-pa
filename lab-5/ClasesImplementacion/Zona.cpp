@@ -324,6 +324,8 @@ ICollection* Zona::chat__getMensajes(){
   return this->getPropiedadActual()->chat__getMensajes();
 }
 
+#include <iostream>
+
 void Zona::darDeAltaEdificio(DtEdificio edificio, Usuario* usuario){
   IKey* key = new String((char*)edificio.getNombre().c_str());
   Edificio* e = dynamic_cast<Edificio*>(this->edificios->find(key));
@@ -334,30 +336,8 @@ void Zona::darDeAltaEdificio(DtEdificio edificio, Usuario* usuario){
   Inmobiliaria* inmobiliaria = dynamic_cast<Inmobiliaria*>(usuario);
   Edificio* edi = new Edificio(edificio.getNombre(), edificio.getCantPisos(), edificio.getGastosComunes(), inmobiliaria);
   this->edificios->add(key, edi);
+  inmobiliaria->addEdificio(edi);
   this->edificioActual = edi;
-}
-
-void Zona::edificio__modificarDatosApartamento(DtDatosApartamento datos){
-  if(this->getEdificioActual() == nullptr){
-    throw "No hay propiedad seleccionada";
-  } 
-  try {
-    this->getEdificioActual()->modificarDatosApartamento(datos);
-  } catch (const char* e) {
-    throw e;
-  }
-}
-
-void Zona::modificarDatosCasa(DtDatosCasa datos){
-  if(this->getPropiedadActual() == nullptr){
-    throw "No hay propiedad seleccionada";
-  }
-  try {
-    Casa *casa = dynamic_cast<Casa*>(this->getPropiedadActual());
-    casa->setDatos(datos);
-  } catch (const char* e) {
-    throw e;
-  }
 }
 
 #include <iostream>

@@ -136,8 +136,8 @@ class Sistema : public ISistema {
     void inmobiliaria__addMensajeChatActual(DtMensaje);
 
     //cu: Modificar propiedad
-    void edificio__modificarDatosApartamento(DtDatosApartamento);
-    void zona__modificarDatosCasa(DtDatosCasa);
+    void inmobiliaria__modificarPropiedadApartamento(DtDatosApartamento,int);
+    void inmobiliaria__modificarPropiedadCasa(DtDatosCasa,int);
 
     // cu: eliminar propiedad
     void zona__eliminarPropiedad(int);

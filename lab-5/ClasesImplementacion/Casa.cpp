@@ -22,7 +22,6 @@ Casa::Casa(DtDatosCasa datos, Inmobiliaria* inmo, int codigoZona, char codigoDep
 } 
 
 void Casa::setDatos(DtDatosCasa datos) {
-  this->codigo = datos.getCodigo();
   this->cantAmbientes = datos.getCantAmbientes();
   this->cantDormitorios = datos.getCantDormitorios();
   this->cantBanios = datos.getCantBanios();

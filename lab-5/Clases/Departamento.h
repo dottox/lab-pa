@@ -87,9 +87,6 @@ class Departamento : public ICollectible {
     string propiedad__getNombreInmobiliaria();
     ICollection* edificio__getInfoPropiedades(string);
 
-    // cu Modificar propiedad
-    void edificio__modificarDatosApartamento(DtDatosApartamento);
-    void zona__modificarDatosCasa(DtDatosCasa);
 
     // cu Eliminar propiedad
     bool zona__eliminarPropiedad(int);

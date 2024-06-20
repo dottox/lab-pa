@@ -6,6 +6,7 @@
 #include "../Datatypes/DtDatosApartamento.h"
 
 class Propiedad;
+class Inmobiliaria;
 struct DtDatosApartamento;
 
 class Apartamento : public Propiedad {

@@ -14,7 +14,6 @@ struct DtDatosApartamento : public DtDatos
 {
   public:
     DtDatosApartamento(int, int, int, int, bool, DtDireccion, float, float, string, float);
-    DtDatosApartamento(int, int, int, bool, DtDireccion, float, float, string, float);
 
     ~DtDatosApartamento();
 };

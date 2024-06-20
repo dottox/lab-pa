@@ -6,10 +6,15 @@
 #include "../ICollection/Integer.h"
 #include "../ICollection/String.h"
 
+#include "../Clases/Casa.h"
+
+struct IKey;
+
 Inmobiliaria::Inmobiliaria(string email, string contrasenia, DtDireccion direccion) : Usuario::Usuario(email, contrasenia)
 {
   this->direccion = direccion;
   this->propiedades = new OrderedDictionary();
+  this->edificios = new OrderedDictionary();
 }
 
 void Inmobiliaria::addPropiedad(Propiedad* propiedad)
@@ -104,6 +109,43 @@ void Inmobiliaria::addMensajeChatActual(DtMensaje mensaje)
   this->chatActual->addMensaje(mensaje);
 }
 
+#include <iostream>
+using namespace std;
+
+
+
+void Inmobiliaria::edificio__modificarDatosApartamento(DtDatosApartamento datos, int codigo){
+  cout << "AAA" << endl;
+  IIterator* it = this->edificios->getIterator();
+  cout << "BBB" << endl;
+  while (it->hasCurrent()){
+    Edificio* edificio = dynamic_cast<Edificio*>(it->getCurrent());
+    try {
+      edificio->modificarDatosApartamento(datos, codigo);
+      delete it;
+      return;
+    } catch (const char* e) {
+      it->next();
+      continue;
+    }
+  }
+  
+}
+
+void Inmobiliaria::modificarDatosCasa(DtDatosCasa datos, int codigo){
+  try {
+    IKey* key = new Integer(codigo);
+    Casa* casa = dynamic_cast<Casa*>(this->propiedades->find(key));
+    delete key;
+    if(casa == nullptr){
+      throw "La propiedad no existe";
+    }
+    casa->setDatos(datos);
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
 #include <map>
 #include <iostream>
 using namespace std;
@@ -149,6 +191,12 @@ void Inmobiliaria::listarReporte() {
     }
   }
   cout << endl;
+}
+
+void Inmobiliaria::addEdificio(Edificio* edi)
+{
+  IKey* key = new String(edi->getNombre().c_str());
+  this->edificios->add(key, edi);
 }
 
 void Inmobiliaria::setDireccion(DtDireccion direccion)

@@ -1,5 +1,6 @@
 #include "../Clases/Edificio.h"
 #include "../Clases/Inmobiliaria.h"
+#include "../Clases/Apartamento.h"
 
 #include "../ICollection/collections/List.h"
 #include "../ICollection/interfaces/ICollectible.h"
@@ -7,6 +8,7 @@
 #include "../ICollection/interfaces/IDictionary.h"
 #include "../ICollection/String.h"
 #include "../ICollection/Integer.h"
+
 
 Edificio::Edificio(string nombre, int cantPisos, float gastosComunes, Inmobiliaria* inmo)
 {
@@ -153,13 +155,17 @@ void Edificio::aux__deseleccionarTodo(bool borrarCasa = false) {
   this->deseleccionarPropiedad();
 }
 
-void Edificio::modificarDatosApartamento(DtDatosApartamento datos) {
-  if (this->getPropiedadActual() != nullptr) {
-    Apartamento* apt = dynamic_cast<Apartamento*>(this->getPropiedadActual());
-    apt->setDatos(datos);
-  } else {
-    throw "No existe apartamento seleccionado";
+#include <iostream>
+
+void Edificio::modificarDatosApartamento(DtDatosApartamento datos, int codigo) {
+  cout << "llego edificio";
+  IKey* key = new Integer(codigo);
+  Apartamento* apt = dynamic_cast<Apartamento*>(this->apartamentos->find(key));
+  delete key;
+  if (apt == nullptr) {
+    throw "No existe apartamento";
   }
+  apt->setDatos(datos); 
 }
 
 bool Edificio::eliminarPropiedad(int codigo){

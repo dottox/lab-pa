@@ -100,10 +100,6 @@ class Zona : public ICollectible {
     void agregarDatosCasa(DtDatosCasa, Usuario*);
     Propiedad* zona__edificio__darAlta();
 
-    // cu Modificar propiedad
-    void edificio__modificarDatosApartamento(DtDatosApartamento);
-    void modificarDatosCasa(DtDatosCasa);
-
     // cu: Consultar propiedad
     string propiedad__getNombreInmobiliaria();
     ICollection* edificio__getInfoPropiedades(string);

@@ -14,19 +14,6 @@ DtDatos::DtDatos(int codigo, int cantAmbientes, int cantDormitorios, int cantBan
   this->precio = precio;
 }
 
-DtDatos::DtDatos(int cantAmbientes, int cantDormitorios, int cantBanios, bool garaje, DtDireccion direccion, float mtsCuadradosEdificados, float mtsCuadradosTotales, string tipo, float precio)
-{
-  this->cantAmbientes = cantAmbientes;
-  this->cantDormitorios = cantDormitorios;
-  this->cantBanios = cantBanios;
-  this->garaje = garaje;
-  this->direccion = direccion;
-  this->mtsCuadradosEdificados = mtsCuadradosEdificados;
-  this->mtsCuadradosTotales = mtsCuadradosTotales;
-  this->tipo = tipo;
-  this->precio = precio;
-}
-
 int DtDatos::getCodigo() {
   return this->codigo;
 }

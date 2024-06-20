@@ -88,8 +88,8 @@ class ISistema {
     virtual void zona__darDeAltaEdificio(DtEdificio) = 0;
     
     // cu: Modificar Propiedad
-    virtual void zona__modificarDatosCasa(DtDatosCasa) = 0;
-    virtual void edificio__modificarDatosApartamento(DtDatosApartamento) = 0;
+    virtual void inmobiliaria__modificarPropiedadCasa(DtDatosCasa,int) = 0;
+    virtual void inmobiliaria__modificarPropiedadApartamento(DtDatosApartamento,int) = 0;
 
     // cu: Alta Propiedad
     virtual void zona__datosCasa(DtDatosCasa) = 0;

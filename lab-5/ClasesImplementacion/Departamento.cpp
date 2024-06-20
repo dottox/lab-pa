@@ -113,6 +113,14 @@ ICollection* Departamento::zona__listarEdificios()
   }
 }
 
+void Departamento::zona__darDeAltaEdificio(DtEdificio edificio,Usuario* Inmobiliaria)
+{
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  this->getZonaActual()->darDeAltaEdificio(edificio, Inmobiliaria);
+}
+
 void Departamento::deseleccionarZonaActual() {
   this->zonaActual = nullptr;
 }
@@ -271,19 +279,6 @@ ICollection* Departamento::chat__getMensajes()
   return this->getZonaActual()->chat__getMensajes();
 }
 
-void Departamento::zona__darDeAltaEdificio(DtEdificio edificio, Usuario* inmobiliaria){
-  if (this->zonaActual == nullptr) {
-    throw "No hay zona seleccionada";
-  }
-  this->getZonaActual()->darDeAltaEdificio(edificio, inmobiliaria);
-}
-
-void Departamento::zona__modificarDatosCasa(DtDatosCasa datos){
-  if (this->zonaActual == nullptr) {
-    throw "No hay zona seleccionada";
-  }
-  this->getZonaActual()->modificarDatosCasa(datos);
-}
 
 bool Departamento::zona__eliminarPropiedad(int codigo){
   IIterator* it;
@@ -301,13 +296,6 @@ bool Departamento::zona__eliminarPropiedad(int codigo){
     delete it;
     throw e;
   }
-}
-
-void Departamento::edificio__modificarDatosApartamento(DtDatosApartamento datos){
-  if (this->zonaActual == nullptr) {
-    throw "No hay zona seleccionada";
-  }
-  this->getZonaActual()->edificio__modificarDatosApartamento(datos);
 }
 
 Departamento::~Departamento()
