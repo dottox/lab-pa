@@ -15,6 +15,19 @@ Apartamento::Apartamento(DtDatosApartamento datosApartamento, Inmobiliaria* inmo
 ) {
 }
 
+void Apartamento::setDatos(DtDatosApartamento datos) {
+  this->codigo = datos.getCodigo();
+  this->cantAmbientes = datos.getCantAmbientes();
+  this->cantDormitorios = datos.getCantDormitorios();
+  this->cantBanios = datos.getCantBanios();
+  this->garaje = datos.getGaraje();
+  this->direccion = datos.getDireccion();
+  this->mtsCuadradosEdificados = datos.getMtsCuadradosEdificados();
+  this->mtsCuadradosTotales = datos.getMtsCuadradosTotales();
+  this->tipo = datos.getTipo();
+  this->precio = datos.getPrecio();
+}
+
 DtDatos Apartamento::getDatos() {
   return DtDatosApartamento(
     this->getCodigo(),

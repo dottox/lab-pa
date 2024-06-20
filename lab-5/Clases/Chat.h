@@ -47,6 +47,9 @@ class Chat : public ICollectible {
     // Funciones de los casos de uso
     ICollection* getUltimosMensajes();
 
+    // cu Eliminar Propiedad
+    void eliminarMensajes();
+
     // Destructor
     ~Chat();
 };

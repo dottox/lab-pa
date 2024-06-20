@@ -28,7 +28,7 @@ Propiedad* Inmobiliaria::buscarPropiedad(int codigo)
   return nullptr;
 }
 
-void Inmobiliaria::removePropiedad(int codigo)
+void Inmobiliaria::eliminarPropiedad(int codigo)
 { // Aquí borro a la propiedad de la lista, luego de esto el objeto de la propiedad debe ser eliminado.
   Propiedad* propiedad = this->buscarPropiedad(codigo);
   if(propiedad == nullptr){
@@ -55,7 +55,7 @@ DtDireccion Inmobiliaria::getDireccion()
 }
 
 
-ICollection* Inmobiliaria::getConversaciones(){
+ICollection* Inmobiliaria::propiedad__getConversaciones(){
   IIterator* it = this->getPropiedades()->getIterator();
   ICollection* conversaciones = new List();
   

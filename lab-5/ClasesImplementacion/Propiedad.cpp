@@ -172,7 +172,7 @@ void Propiedad::setInmobiliaria(Inmobiliaria *inmobiliaria)
     this->inmobiliaria = inmobiliaria;
 }
 
-ICollection* Propiedad::getUltimosMensajes(string email)
+ICollection* Propiedad::chat__getUltimosMensajes(string email)
 {
     if (this->chatActual == nullptr) {
         throw "No hay chat seleccionado";
@@ -206,6 +206,11 @@ DtInfo Propiedad::getInfoPropiedad(string email)
     return DtInfo(this->codigo, chat->getMensajes()->getSize(), this->direccion);
 }
 
+string Propiedad::getNombreInmobiliaria()
+{
+    return this->getInmobiliaria()->getEmail();
+}
+
 void Propiedad::seleccionarChat(string email)
 {
     IKey* key = new String((char*)email.c_str());
@@ -233,29 +238,29 @@ void Propiedad::addChat(Usuario* usuario)
     this->chats->add(key, chat);
 }
 
-void Propiedad::addMensaje(DtMensaje mensaje)
+void Propiedad::chat__addMensaje(DtMensaje mensaje)
 {
-    if (this->chatActual == nullptr) {
+    if (this->getChatActual() == nullptr) {
         throw "No hay chat seleccionado";
     }
-    this->chatActual->addMensaje(mensaje);
+    this->getChatActual()->addMensaje(mensaje);
 }
 
 
-void Propiedad::deseleccionarTodo() {
+void Propiedad::aux__deseleccionarTodo() {
     this->deseleccionarChat();
 }
 
 bool Propiedad::isChatSeleccionado(){
-    return this->chatActual != nullptr;
+    return this->getChatActual() != nullptr;
 }
 
-ICollection* Propiedad::getMensajes()
+ICollection* Propiedad::chat__getMensajes()
 {
-    if (this->chatActual == nullptr) {
+    if (this->getChatActual() == nullptr) {
         throw "No hay chat seleccionado";
     }
-    return this->chatActual->getMensajes();
+    return this->getChatActual()->getMensajes();
 }
 
 Propiedad::~Propiedad()

@@ -14,6 +14,7 @@ struct DtDatosCasa : public DtDatos
 
   public:
     DtDatosCasa(int, int, int, int, bool, DtDireccion, float, float, string, float, float);
+    DtDatosCasa(int, int, int, bool, DtDireccion, float, float, string, float, float);
     
     float getMtsCuadradosVerdes();
 

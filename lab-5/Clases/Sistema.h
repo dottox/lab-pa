@@ -47,7 +47,7 @@ class Sistema : public ISistema {
 
     Sistema();
     void darAltaDepartamento(char, string);
-    void darAltaZona(int, string);
+    void departamento__darAltaZona(int, string);
 
 
   public:
@@ -63,35 +63,32 @@ class Sistema : public ISistema {
     void deseleccionarUsuarioActual();
     void deseleccionarDepartamentoActual();
 
-    // Otros
-    ICollection* listarPropiedades();
-    ICollection* listarConversaciones();
+    // Otros 
+    ICollection* zona__listarPropiedades();
+    ICollection* propiedad__listarConversaciones();
     ICollection* listarDepartamentos();
-    ICollection* listarEdificios();
-    ICollection* listarZonas();
-    ICollection* getMensajes();
+    ICollection* zona__listarEdificios();
+    ICollection* departamento__listarZonas();
+    ICollection* chat__getMensajes();
 
-    void guardarMensaje(DtMensaje);
-    void crearConversacion();
+    void chat__guardarMensaje(DtMensaje);
+    void propiedad__crearConversacion();
 
-    void seleccionarPago(string, float);
-    void seleccionarEdificio(string);
-    void seleccionarTipoPropiedad(string);
-    void seleccionarChat();
+    void zona__seleccionarEdificio(string);
+    void propiedad__seleccionarChat();
     
     bool verificarUsuario(string);
     void cancelarInicio();
     void iniciarSesion(string, string);
-    bool registrarContrasenia(string);
     void cerrarSesion();
     bool isLogueado();
-    bool isChatSeleccionado();
-    void addChat(Usuario*);
+    bool propiedad__isChatSeleccionado();
+    void propiedad__addChat(Usuario*);
 
     bool validarContrasenia(string);
     
     string getEmailUsuarioActual();
-    DtDatos getDatosPropiedad();
+    DtDatos zona__edificio__getDatosPropiedad();
 
     // cu: Alta Inmobiliaria
     void darDeAltaInmobiliaria(string, string, DtDireccion);
@@ -104,30 +101,33 @@ class Sistema : public ISistema {
 
     // cu: Consultar propiedad
     void seleccionarDepartamento(char);
-    void seleccionarZona(int);
-    void seleccionarPropiedad(int);
-    DtInfo* detallesPropiedad(int);
-    void deseleccionarTodo(bool);
+    void departamento__seleccionarZona(int);
+    void zona__seleccionarPropiedad(int);
+    DtInfo* propiedad__detallesPropiedad(int);
+    void aux__deseleccionarTodo(bool);
+    string propiedad__getNombreInmobiliaria();
 
     // cu: Enviar Mensaje Interesado
     // seleccionarDepartamento
     // seleccionarZona
     // seleccionarPropiedad
-    ICollection* getUltimosMensajesUsuarioActualPropiedadActual();
+    ICollection* chat__getUltimosMensajesUsuarioActualPropiedadActual();
    
     // cu: Alta Edificio
-    void darDeAltaEdificio(DtEdificio);
+    void zona__darDeAltaEdificio(DtEdificio);
 
     // cu: Alta Propiedad
-    void datosCasa(DtDatosCasa);
-    void datosApt(DtDatosApartamento);
-    void darAlta();
-    int zona__generarCodigoPropiedad();
+    void zona__datosCasa(DtDatosCasa);
+    void edificio__datosApt(DtDatosApartamento);
+    void zona__edificio__darAlta();
+    int zona__edificio__generarCodigoPropiedad();
 
     //cu: Modificar propiedad
-    void modificarDatosApt(DtDatosApartamento);
-    void modificarDatosCasa(DtDatosCasa);
-    void darAltaModificacion(DtDatosCasa);
+    void edificio__modificarDatosApartamento(DtDatosApartamento);
+    void zona__modificarDatosCasa(DtDatosCasa);
+
+    // cu: eliminar propiedad
+    void zona__eliminarPropiedad(int);
 
     // Destructor
     ~Sistema();

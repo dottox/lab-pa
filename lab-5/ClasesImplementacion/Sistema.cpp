@@ -27,42 +27,71 @@ Sistema::Sistema() {
   this->darDeAltaInteresado("Maria", "mariquita", "Maria", "Gomez", DtFecha(2, 2, 2000));
   this->darDeAltaInteresado("Ana", "anita", "Ana", "Rodriguez", DtFecha(3, 3, 2000));
   this->darDeAltaInteresado("Carlos", "carlitos", "Carlos", "Fernandez", DtFecha(4, 4, 2000));
-  this->deseleccionarTodo(false);
+  this->aux__deseleccionarTodo(false);
   
+  /* *** Carga de datos en Montevideo *** */
   this->darAltaDepartamento('A', "Montevideo");
   this->seleccionarDepartamento('A');
-  this->darAltaZona(1, "Centro");
-  this->darAltaZona(2, "Cordon");
-  this->deseleccionarTodo(false);
+  this->departamento__darAltaZona(1, "Centro");
+  this->departamento__darAltaZona(2, "Cordon");
 
+  // Dando de alta una casa, un edificio y un apartamento
+  this->departamento__seleccionarZona(1);
+  this->seleccionarUsuarioActual("Pedro");
+  this->zona__datosCasa(DtDatosCasa(1, 2, 3, 4, true, DtDireccion("Calle 1", "Ciudad 1", 1), 5, 6, "alquiler", 7, 8));
+  this->zona__edificio__darAlta();
+  this->zona__datosCasa(DtDatosCasa(2, 2, 3, 4, true, DtDireccion("Calle 2", "Ciudad 2", 2), 5, 6, "venta", 7, 8));
+  this->zona__edificio__darAlta();
+  this->zona__datosCasa(DtDatosCasa(3, 2, 3, 4, true, DtDireccion("Calle 3", "Ciudad 3", 3), 5, 6, "alquiler", 7, 8));
+  this->zona__edificio__darAlta();
+  this->zona__darDeAltaEdificio(DtEdificio("Edificio 1", 10, 11));
+  this->zona__darDeAltaEdificio(DtEdificio("Edificio 2", 12, 13));
+  this->zona__darDeAltaEdificio(DtEdificio("Edificio 3", 14, 15));
+  this->aux__deseleccionarTodo(false);
+  /* ------------------------------------ */
+
+  /* *** Carga de datos en Canelones *** */
   this->darAltaDepartamento('B', "Canelones");
   this->seleccionarDepartamento('B');
-  this->darAltaZona(1, "Santa Lucia");
-  this->darAltaZona(2, "Las Piedras");
-  this->darAltaZona(3, "Progreso");
-  this->deseleccionarTodo(false);
+  this->departamento__darAltaZona(1, "Santa Lucia");
+  this->departamento__darAltaZona(2, "Las Piedras");
+  this->departamento__darAltaZona(3, "Progreso");
+
+  // Dando de alta una casa, un edificio y un apartamento
+  this->departamento__seleccionarZona(3);
+  this->seleccionarUsuarioActual("Juan");
+  this->zona__datosCasa(DtDatosCasa(4, 2, 3, 4, true, DtDireccion("Calle 4", "Ciudad 4", 4), 5, 6, "Casa", 7, 8));
+  this->zona__edificio__darAlta();
+  this->zona__datosCasa(DtDatosCasa(5, 2, 3, 4, true, DtDireccion("Calle 5", "Ciudad 5", 5), 5, 6, "Casa", 7, 8));
+  this->zona__edificio__darAlta();
+  this->zona__datosCasa(DtDatosCasa(6, 2, 3, 4, true, DtDireccion("Calle 6", "Ciudad 6", 6), 5, 6, "Casa", 7, 8));
+  this->zona__edificio__darAlta();
+  this->zona__darDeAltaEdificio(DtEdificio("Edificio 4", 16, 17));
+  this->zona__darDeAltaEdificio(DtEdificio("Edificio 5", 18, 19));
+  this->zona__darDeAltaEdificio(DtEdificio("Edificio 6", 20, 21));
+  this->aux__deseleccionarTodo(false);
+  /* ------------------------------------ */
 
   this->darAltaDepartamento('C', "Maldonado");
   this->seleccionarDepartamento('C');
-  this->darAltaZona(1, "Punta del Este");
-  this->darAltaZona(2, "Piriapolis");
-  this->deseleccionarTodo(false);
+  this->departamento__darAltaZona(1, "Punta del Este");
+  this->departamento__darAltaZona(2, "Piriapolis");
+  this->aux__deseleccionarTodo(false);
 
   this->darAltaDepartamento('D', "Rocha");
   this->seleccionarDepartamento('D');
-  this->darAltaZona(1, "La Paloma");
-  this->darAltaZona(2, "Cabo Polonio");
-  this->deseleccionarTodo(false);
+  this->departamento__darAltaZona(1, "La Paloma");
+  this->departamento__darAltaZona(2, "Cabo Polonio");
+  this->aux__deseleccionarTodo(false);
 
-  // this->darAltaDepartamento('E', "Colonia");
-  // this->darAltaDepartamento('F', "San Jose");
-  // this->darAltaDepartamento('G', "Soriano");
-  // this->darAltaDepartamento('H', "Paysandu");
-  // this->darAltaDepartamento('I', "Rio Negro");
-  // this->darAltaDepartamento('J', "Artigas");
-
-
-  // this->deseleccionarTodo();
+  this->darAltaDepartamento('E', "Colonia");
+  this->darAltaDepartamento('F', "San Jose");
+  this->darAltaDepartamento('G', "Soriano");
+  this->darAltaDepartamento('H', "Paysandu");
+  this->darAltaDepartamento('I', "Rio Negro");
+  this->darAltaDepartamento('J', "Artigas");
+  
+  this->aux__deseleccionarTodo(false);
 }
 
 void Sistema::darAltaDepartamento(char codigo,string nombre){
@@ -74,13 +103,13 @@ void Sistema::darAltaDepartamento(char codigo,string nombre){
 }
 
 
-void Sistema::darAltaZona(int codigo, string nombre) {
-  if (this->departamentoActual == nullptr) {
+void Sistema::departamento__darAltaZona(int codigo, string nombre) {
+  if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
   try {
-    this->departamentoActual->darAltaZona(codigo, nombre);
+    this->getDepartamentoActual()->darAltaZona(codigo, nombre);
   } catch (const char* e) {
     throw e;
   }
@@ -119,7 +148,7 @@ void Sistema::deseleccionarDepartamentoActual() {
   this->departamentoActual = nullptr;
 }
 
-ICollection* Sistema::listarPropiedades() {
+ICollection* Sistema::zona__listarPropiedades() {
   if (this->departamentoActual == nullptr) {
     throw "No hay departamento seleccionado";
   } else if (this->usuarioActual == nullptr) {
@@ -128,7 +157,7 @@ ICollection* Sistema::listarPropiedades() {
   
   try {
     string mailUsuario = this->usuarioActual->getEmail();
-    return this->departamentoActual->getInfoPropiedades(mailUsuario);
+    return this->departamentoActual->zona__getInfoPropiedades(mailUsuario);
   } catch (const char* e) {
     throw e;
   }
@@ -141,19 +170,19 @@ bool Sistema::verificarUsuario(string email) {
   return usuario != nullptr;
 }
 
-void Sistema::guardarMensaje(DtMensaje mensaje) {
+void Sistema::chat__guardarMensaje(DtMensaje mensaje) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
   try {
-    this->getDepartamentoActual()->addMensaje(mensaje);
+    this->getDepartamentoActual()->chat__addMensaje(mensaje);
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::seleccionarChat() {
+void Sistema::propiedad__seleccionarChat() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
@@ -162,13 +191,13 @@ void Sistema::seleccionarChat() {
   }
   
   try {
-    this->getDepartamentoActual()->seleccionarChat(this->getUsuarioActual()->getEmail());
+    this->getDepartamentoActual()->propiedad__seleccionarChat(this->getUsuarioActual()->getEmail());
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::crearConversacion() {
+void Sistema::propiedad__crearConversacion() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamen to seleccionado";
   } else if (this->getUsuarioActual() == nullptr) {
@@ -176,49 +205,37 @@ void Sistema::crearConversacion() {
   }
   
   try {
-    this->getDepartamentoActual()->addChat(this->getUsuarioActual());
+    this->getDepartamentoActual()->propiedad__addChat(this->getUsuarioActual());
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::seleccionarPropiedad(int codigo) {
+void Sistema::zona__seleccionarPropiedad(int codigo) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
   try {
-    this->getDepartamentoActual()->seleccionarPropiedad(codigo);
+    this->getDepartamentoActual()->zona__seleccionarPropiedad(codigo);
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::darAlta() {
+void Sistema::zona__edificio__darAlta() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
   try {
-    this->getDepartamentoActual()->darAlta();
+    this->getDepartamentoActual()->zona__edificio__darAlta();
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::seleccionarPago(string metodo, float monto) {
-  if (this->getDepartamentoActual() == nullptr) {
-    throw "No hay departamento seleccionado";
-  }
-  
-  try {
-    this->getDepartamentoActual()->seleccionarPago(metodo, monto);
-  } catch (const char* e) {
-    throw e;
-  }
-}
-
-void Sistema::datosCasa(DtDatosCasa datos) {
+void Sistema::zona__datosCasa(DtDatosCasa datos) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
@@ -227,13 +244,13 @@ void Sistema::datosCasa(DtDatosCasa datos) {
   }
   
   try {
-    this->getDepartamentoActual()->agregarDatosCasa(datos, this->getUsuarioActual());
+    this->getDepartamentoActual()->zona__agregarDatosCasa(datos, this->getUsuarioActual());
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::modificarDatosCasa(DtDatosCasa datos); {
+void Sistema::zona__modificarDatosCasa(DtDatosCasa datos) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
@@ -242,13 +259,13 @@ void Sistema::modificarDatosCasa(DtDatosCasa datos); {
   }
   
   try {
-    this->getDepartamentoActual()->modificarDatosCasa(datos, this->getUsuarioActual());
+    this->getDepartamentoActual()->zona__modificarDatosCasa(datos);
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::modificarDatosApt(DtDatosApartamento datos) {
+void Sistema::edificio__modificarDatosApartamento(DtDatosApartamento datos) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
@@ -257,13 +274,14 @@ void Sistema::modificarDatosApt(DtDatosApartamento datos) {
   }
   
   try {
-    //this->getDepartamentoActual()->agregarDatosApartamento(datos, this->getUsuarioActual());
+    this->getDepartamentoActual()->edificio__modificarDatosApartamento(datos);
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::darAltaModificacion(DtDatosCasa datos) {
+
+void Sistema::edificio__datosApt(DtDatosApartamento datos) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
@@ -272,78 +290,50 @@ void Sistema::darAltaModificacion(DtDatosCasa datos) {
   }
   
   try {
-    this->getDepartamentoActual()->agregarDatosCasa(datos, this->getUsuarioActual());
+    this->getDepartamentoActual()->edificio__agregarDatosApt(datos, this->getUsuarioActual());
   } catch (const char* e) {
     throw e;
   }
 }
 
-
-void Sistema::datosApt(DtDatosApartamento datos) {
-  if (this->getDepartamentoActual() == nullptr) {
-    throw "No hay departamento seleccionado";
-  }
-  if (this->getUsuarioActual() == nullptr) {
-    throw "No hay usuario seleccionado";
-  }
-  
-  try {
-    this->getDepartamentoActual()->agregarDatosApt(datos, this->getUsuarioActual());
-  } catch (const char* e) {
-    throw e;
-  }
-}
-
-void Sistema::seleccionarEdificio(string nombre) {
+void Sistema::zona__seleccionarEdificio(string nombre) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
   try {
-    this->getDepartamentoActual()->seleccionarEdificio(nombre);
+    this->getDepartamentoActual()->zona__seleccionarEdificio(nombre);
   } catch (const char* e) {
     throw e;
   }
 }
 
-int Sistema::zona__generarCodigoPropiedad() {
+int Sistema::zona__edificio__generarCodigoPropiedad() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
   try {
-    return this->getDepartamentoActual()->zona__generarCodigoPropiedad();
+    return this->getDepartamentoActual()->zona__edificio__generarCodigoPropiedad();
   } catch (const char* e) {
     throw e;
   }
 
 }
 
-ICollection* Sistema::listarEdificios() {
+ICollection* Sistema::zona__listarEdificios() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
   try {
-    return this->getDepartamentoActual()->listarEdificios();
+    return this->getDepartamentoActual()->zona__listarEdificios();
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::seleccionarTipoPropiedad(string tipo) {
-  if (this->getDepartamentoActual() == nullptr) {
-    throw "No hay departamento seleccionado";
-  }
-  
-  try {
-    this->getDepartamentoActual()->seleccionarTipoPropiedad(tipo);
-  } catch (const char* e) {
-    throw e;
-  }
-}
-
-ICollection* Sistema::getUltimosMensajesUsuarioActualPropiedadActual() {
+ICollection* Sistema::chat__getUltimosMensajesUsuarioActualPropiedadActual() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   } 
@@ -352,25 +342,25 @@ ICollection* Sistema::getUltimosMensajesUsuarioActualPropiedadActual() {
   }
   try {
     string email = this->getUsuarioActual()->getEmail();
-    return this->getDepartamentoActual()->getUltimosMensajes(email);
+    return this->getDepartamentoActual()->chat__getUltimosMensajes(email);
   } catch (const char* e) {
     throw e;
   }
 }
 
-DtDatos Sistema::getDatosPropiedad() {
+DtDatos Sistema::zona__edificio__getDatosPropiedad() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   
   try {
-    return this->getDepartamentoActual()->getDatosPropiedad();
+    return this->getDepartamentoActual()->zona__edificio__getDatosPropiedad();
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::seleccionarZona(int codigo) {
+void Sistema::departamento__seleccionarZona(int codigo) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
@@ -382,7 +372,7 @@ void Sistema::seleccionarZona(int codigo) {
   }
 }
 
-ICollection* Sistema::listarZonas() {
+ICollection* Sistema::departamento__listarZonas() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
@@ -418,10 +408,10 @@ ICollection* Sistema::listarDepartamentos() {
   return ret;
 }
 
-void Sistema::deseleccionarTodo(bool borrarCasa = false) {
+void Sistema::aux__deseleccionarTodo(bool borrarCasa = false) {
 
   if (this->getDepartamentoActual() != nullptr) {
-    this->getDepartamentoActual()->deseleccionarTodo(borrarCasa);
+    this->getDepartamentoActual()->aux__deseleccionarTodo(borrarCasa);
   }
   this->deseleccionarDepartamentoActual();
 }
@@ -448,17 +438,11 @@ void Sistema::cancelarInicio() {
   deseleccionarDepartamentoActual();
 }
 
-
-bool Sistema::registrarContrasenia(string contrasenia) {
-  // ????
-  return true;
-}
-
-bool Sistema::isChatSeleccionado() {
+bool Sistema::propiedad__isChatSeleccionado() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
-  return this->getDepartamentoActual()->isChatSeleccionado();
+  return this->getDepartamentoActual()->propiedad__isChatSeleccionado();
 }
 
 bool Sistema::validarContrasenia(string contrasenia) {
@@ -510,7 +494,7 @@ ICollection* Sistema::listarInmobiliarias(){
   return ret;
 }
 
-DtInfo* Sistema::detallesPropiedad(int codigo){
+DtInfo* Sistema::propiedad__detallesPropiedad(int codigo){
   if(this->departamentoActual == nullptr){
     throw "No hay departamento seleccionado";
   }
@@ -519,7 +503,18 @@ DtInfo* Sistema::detallesPropiedad(int codigo){
       throw "No hay usuario seleccionado";
     }
     string email = this->getUsuarioActual()->getEmail();
-    return this->getDepartamentoActual()->detallesPropiedad(codigo, email);
+    return this->getDepartamentoActual()->propiedad__detallesPropiedad(codigo, email);
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+string Sistema::propiedad__getNombreInmobiliaria(){
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  try {
+    return this->getDepartamentoActual()->propiedad__getNombreInmobiliaria();
   } catch (const char* e) {
     throw e;
   }
@@ -532,7 +527,7 @@ string Sistema::getEmailUsuarioActual(){
   return this->getUsuarioActual()->getEmail();
 }
 
-ICollection* Sistema::listarConversaciones(){
+ICollection* Sistema::propiedad__listarConversaciones(){ 
   if (this->getUsuarioActual() == nullptr) {
     throw "No hay usuario seleccionado";
   }
@@ -542,35 +537,35 @@ ICollection* Sistema::listarConversaciones(){
   Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(this->getUsuarioActual());
   
   try {
-    return inmo->getConversaciones();
+    return inmo->propiedad__getConversaciones();
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::addChat(Usuario* usuario){
+void Sistema::propiedad__addChat(Usuario* usuario){
   if(this->departamentoActual == nullptr){
     throw "No hay departamento seleccionado";
   }
   try {
-    this->getDepartamentoActual()->addChat(usuario);
+    this->getDepartamentoActual()->propiedad__addChat(usuario);
   } catch (const char* e) {
     throw e;
   }
 }
 
-ICollection* Sistema::getMensajes(){
+ICollection* Sistema::chat__getMensajes(){
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
   try {
-    return this->getDepartamentoActual()->getMensajes();
+    return this->getDepartamentoActual()->chat__getMensajes();
   } catch (const char* e) {
     throw e;
   }
 }
 
-void Sistema::darDeAltaEdificio(DtEdificio edificio){
+void Sistema::zona__darDeAltaEdificio(DtEdificio edificio){
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   } 
@@ -578,10 +573,21 @@ void Sistema::darDeAltaEdificio(DtEdificio edificio){
     throw "No hay usuario seleccionado";
   }
   try {
-    this->getDepartamentoActual()->darDeAltaEdificio(edificio, this->getUsuarioActual());
+    this->getDepartamentoActual()->zona__darDeAltaEdificio(edificio, this->getUsuarioActual());
   } catch (const char* e) {
     throw e;
   }
+}
+
+// NO ESTA HECHO
+void Sistema::zona__eliminarPropiedad(int codigo){
+  IIterator* it = this->departamentos->getIterator();
+  while (it->hasCurrent()) {
+    Departamento* dep = dynamic_cast<Departamento*>(it->getCurrent());
+    dep->zona__eliminarPropiedad(codigo);
+    it->next();
+  }
+  
 }
 
 Sistema::~Sistema() {

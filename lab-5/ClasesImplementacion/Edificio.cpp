@@ -27,7 +27,7 @@ DtDatos Edificio::getDatosApartamento(){
   }
 }
 
-DtInfo Edificio::getInfoPropiedad(int codigo, string email)
+DtInfo Edificio::propiedad__getInfoPropiedad(int codigo, string email)
 {
   IKey* key = new Integer(codigo);
   Propiedad* apt = dynamic_cast<Propiedad*>(this->apartamentos->find(key));
@@ -112,7 +112,7 @@ void Edificio::agregarDatosApt(DtDatosApartamento datos, Usuario* inmobiliaria)
   }
 }
 
-void Edificio::darAlta()
+void Edificio::zona__edificio__darAlta()
 {
   if (this->getPropiedadActual() != nullptr) {
     IKey* key = new Integer(getPropiedadActual()->getCodigo());
@@ -126,19 +126,35 @@ Propiedad* Edificio::getPropiedadActual() {
   return this->apartamentoActual;
 }
 
-int Edificio::generarCodigoPropiedad() {
+int Edificio::zona__edificio__generarCodigoPropiedad() {
   return this->apartamentos->getSize() + 1;
 }
 
-void Edificio::deseleccionarTodo(bool borrarCasa = false) {
+void Edificio::aux__deseleccionarTodo(bool borrarCasa = false) {
   if (this->getPropiedadActual() != nullptr) {
     if (borrarCasa) {
       delete this->getPropiedadActual();
     } else {
-      this->getPropiedadActual()->deseleccionarTodo();
+      this->getPropiedadActual()->aux__deseleccionarTodo();
     }
   }
   this->deseleccionarPropiedad();
+}
+
+void Edificio::modificarDatosApartamento(DtDatosApartamento datos) {
+  if (this->getPropiedadActual() != nullptr) {
+    Apartamento* apt = dynamic_cast<Apartamento*>(this->getPropiedadActual());
+    apt->setDatos(datos);
+  } else {
+    throw "No existe apartamento seleccionado";
+  }
+}
+
+bool Edificio::eliminarPropiedad(int codigo){
+  IKey* key = new Integer(codigo);
+  Propiedad* apt = dynamic_cast<Propiedad*>(this->apartamentos->find(key));
+  delete key;
+  return apt != nullptr;
 }
 
 Edificio::~Edificio()

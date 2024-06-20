@@ -29,16 +29,18 @@ class Inmobiliaria : public Usuario {
     // Otros
     void addPropiedad(Propiedad*);
     Propiedad* buscarPropiedad(int);
-    void removePropiedad(int); // Esta función de momento no debería existir (no está en el lab 4)
     string getTipoUsuario();
 
     // Getters
     ICollection* getPropiedades();
     DtDireccion getDireccion();
-    ICollection* getConversaciones();
+    ICollection* propiedad__getConversaciones();
 
     // Setters
     void setDireccion(DtDireccion);
+
+    // cu EliminarPropiedad
+    void eliminarPropiedad(int);
 
     // Destructor
     ~Inmobiliaria();

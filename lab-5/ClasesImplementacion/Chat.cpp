@@ -114,8 +114,18 @@ DtMensaje* Chat::extractDtMensajeFromCollectible(ICollectible* mensajeCollectibl
   return new DtMensaje(mensaje->getMensaje().getFecha(), mensaje->getMensaje().getHora(), mensaje->getMensaje().getTexto(), mensaje->getMensaje().getEmisor());
 }
 
+void Chat::eliminarMensajes(){
+  IIterator* it = this->mensajes->getIterator();
+  while (it->hasCurrent())
+  {
+    Mensaje* msg = dynamic_cast<Mensaje*>(it->getCurrent());
+    delete msg;
+    it->next();
+  }
+  delete it;
+}
+
 // Destructor de la clase Chat
 Chat::~Chat()
 {
-  deleteMensajes();
 }

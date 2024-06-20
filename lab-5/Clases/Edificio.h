@@ -55,17 +55,22 @@ class Edificio : public ICollectible {
 
     DtEdificio getInfo();
 
-    DtInfo getInfoPropiedad(int, string);
+    DtInfo propiedad__getInfoPropiedad(int, string);
 
     ICollection* getInfoPropiedades(string);
 
 
     // cu_AltaPropiedad
     void agregarDatosApt(DtDatosApartamento, Usuario*);
-    void darAlta();
-    int generarCodigoPropiedad();
+    void zona__edificio__darAlta();
+    int zona__edificio__generarCodigoPropiedad();
 
-    void deseleccionarTodo(bool);
+    void aux__deseleccionarTodo(bool);
+
+    void modificarDatosApartamento(DtDatosApartamento);
+
+    // cu_Eliminar Propiedad
+    bool eliminarPropiedad(int);
 
     // Destructor
     ~Edificio();

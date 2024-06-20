@@ -62,7 +62,7 @@ class Zona : public ICollectible {
     void setNombre(string);
 
     // Funciones de propiedad
-    void addChat(Usuario*);
+    void propiedad__addChat(Usuario*);
 
     // Otros
     void seleccionarEdificio(string);
@@ -71,33 +71,42 @@ class Zona : public ICollectible {
     void deseleccionarPropiedad();
 
     DtZona getInfo();
-    DtDatos getDatosPropiedad();
-    DtInfo* detallesPropiedad(int, string);
+    DtDatos zona__edificio__getDatosPropiedad();
+    DtInfo* propiedad__detallesPropiedad(int, string);
 
     ICollection* getInfoPropiedades(string);
     ICollection* listarEdificios();
-    virtual ICollection* getMensajes();
+    ICollection* chat__getMensajes();
 
-    bool isChatSeleccionado();
-    void seleccionarPago(string, float);
-    void seleccionarTipoPropiedad(string);
+    bool propiedad__isChatSeleccionado();
+    void propiedad__seleccionarPago(string, float);
     void removePropiedad(int);
 
-    void addMensaje(DtMensaje);
-    void seleccionarChat(string);
+    void chat__addMensaje(DtMensaje);
+    void propiedad__seleccionarChat(string);
 
-    void deseleccionarTodo(bool);
+    void aux__deseleccionarTodo(bool);
 
-    ICollection* getUltimosMensajes(string);
+    ICollection* chat__getUltimosMensajes(string);
 
     // cu_AltaEdificio
     void darDeAltaEdificio(DtEdificio, Usuario*);
 
     // cu_AltaPropiedad
-    void agregarDatosApt(DtDatosApartamento, Usuario*);
+    void edificio__agregarDatosApt(DtDatosApartamento, Usuario*);
     void agregarDatosCasa(DtDatosCasa, Usuario*);
-    void darAlta();
-    int generarCodigoPropiedad();
+    void zona__edificio__darAlta();
+    int zona__edificio__generarCodigoPropiedad();
+
+    // cu Modificar propiedad
+    void edificio__modificarDatosApartamento(DtDatosApartamento);
+    void modificarDatosCasa(DtDatosCasa);
+
+    // cu: Consultar propiedad
+    string propiedad__getNombreInmobiliaria();
+
+    // cu Eliminar Propiedad
+    void eliminarPropiedad(int);
 
     // Destructor
     ~Zona();

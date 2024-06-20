@@ -6,8 +6,18 @@ Casa::Casa(DtDatosCasa datos, Inmobiliaria* inmo) : Propiedad::Propiedad(datos.g
   this->mtsCuadradosVerdes = datos.getMtsCuadradosVerdes();
 } 
 
-float Casa::getMtsCuadradosVerdes() {
-  return this->mtsCuadradosVerdes;
+void Casa::setDatos(DtDatosCasa datos) {
+  this->codigo = datos.getCodigo();
+  this->cantAmbientes = datos.getCantAmbientes();
+  this->cantDormitorios = datos.getCantDormitorios();
+  this->cantBanios = datos.getCantBanios();
+  this->garaje = datos.getGaraje();
+  this->direccion = datos.getDireccion();
+  this->mtsCuadradosEdificados = datos.getMtsCuadradosEdificados();
+  this->mtsCuadradosTotales = datos.getMtsCuadradosTotales();
+  this->tipo = datos.getTipo();
+  this->precio = datos.getPrecio();
+  this->mtsCuadradosVerdes = datos.getMtsCuadradosVerdes();
 }
 
 DtDatos Casa::getDatos(){
@@ -24,6 +34,14 @@ DtDatos Casa::getDatos(){
     this->getPrecio(),
     this->getMtsCuadradosVerdes()
   );
+}
+
+float Casa::getMtsCuadradosVerdes() {
+  return this->mtsCuadradosVerdes;
+}
+
+void Casa::setMtsCuadradosVerdes(float mtsCuadradosVerdes) {
+  this->mtsCuadradosVerdes = mtsCuadradosVerdes;
 }
 
 Casa::~Casa() {
