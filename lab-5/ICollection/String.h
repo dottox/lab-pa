@@ -16,6 +16,7 @@ private:
     char *s;
 public:
     // construye el Datatype a partir de un puntero a caracter
+    String(std::string);
     String(const char *s = "");
     
     // da el valor del string

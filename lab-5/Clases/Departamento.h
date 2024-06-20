@@ -61,7 +61,6 @@ class Departamento : public ICollectible {
     void seleccionarEdificio(string);
     virtual ICollection* getMensajes();
     void seleccionarPago(string, float);
-    void darAlta();
     DtInfo* detallesPropiedad(int, string);
 
     DtDatos getDatosPropiedad();
@@ -83,8 +82,13 @@ class Departamento : public ICollectible {
     // cu_AltaPropiedad
     void agregarDatosApt(DtDatosApartamento, Usuario*);
     void agregarDatosCasa(DtDatosCasa, Usuario*);
-
+    void darAlta();
+    int zona__generarCodigoPropiedad();
     ICollection* getUltimosMensajes(string);
+
+    // cu Modificar propiedad
+    void modificarDatosApartamento(DtDatosApartamento);
+    void modificarDatosCasa(DtDatosCasa);
 
     // Destructor
     ~Departamento();

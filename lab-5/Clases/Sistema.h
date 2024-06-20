@@ -59,7 +59,6 @@ class Sistema : public ISistema {
 
     // Setters
     void seleccionarUsuarioActual(string);
-    void seleccionarDepartamentoActual(char);
 
     void deseleccionarUsuarioActual();
     void deseleccionarDepartamentoActual();
@@ -74,9 +73,6 @@ class Sistema : public ISistema {
 
     void guardarMensaje(DtMensaje);
     void crearConversacion();
-    void darAlta();
-    void datosCasa(DtDatosCasa);
-    void datosApt(DtDatosApartamento);
 
     void seleccionarPago(string, float);
     void seleccionarEdificio(string);
@@ -121,6 +117,17 @@ class Sistema : public ISistema {
    
     // cu: Alta Edificio
     void darDeAltaEdificio(DtEdificio);
+
+    // cu: Alta Propiedad
+    void datosCasa(DtDatosCasa);
+    void datosApt(DtDatosApartamento);
+    void darAlta();
+    int zona__generarCodigoPropiedad();
+
+    //cu: Modificar propiedad
+    void modificarDatosApt(DtDatosApartamento);
+    void modificarDatosCasa(DtDatosCasa);
+    void darAltaModificacion(DtDatosCasa);
 
     // Destructor
     ~Sistema();

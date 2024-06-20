@@ -59,10 +59,11 @@ class Edificio : public ICollectible {
 
     ICollection* getInfoPropiedades(string);
 
-    void agregarDatosApt(DtDatosApartamento, Usuario*);
 
-    void seleccionarPago(string, float);
+    // cu_AltaPropiedad
+    void agregarDatosApt(DtDatosApartamento, Usuario*);
     void darAlta();
+    int generarCodigoPropiedad();
 
     void deseleccionarTodo(bool);
 

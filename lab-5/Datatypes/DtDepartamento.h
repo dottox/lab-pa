@@ -16,7 +16,7 @@ struct DtDepartamento : public ICollectible
 
   public:
     DtDepartamento(char, string);
-    int getCodigo();
+    char getCodigo();
     string getNombre();
 
     ~DtDepartamento();

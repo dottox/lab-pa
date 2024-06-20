@@ -3,6 +3,12 @@
 #include <string.h>
 #include "String.h"
 
+String::String(std::string str) {
+    if (str == "")
+        throw std::invalid_argument("str es vacio");
+    
+    s = strcpy(new char[str.size() + 1], str.c_str());
+}
 
 String::String(const char* str){
     if(str == NULL)

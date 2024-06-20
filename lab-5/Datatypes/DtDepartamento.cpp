@@ -5,7 +5,7 @@ DtDepartamento::DtDepartamento(char codigo, string nombre) {
   this->nombre = nombre;
 }
 
-int DtDepartamento::getCodigo() {
+char DtDepartamento::getCodigo() {
   return this->codigo;
 }
 

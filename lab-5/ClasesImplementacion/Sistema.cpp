@@ -27,29 +27,32 @@ Sistema::Sistema() {
   this->darDeAltaInteresado("Maria", "mariquita", "Maria", "Gomez", DtFecha(2, 2, 2000));
   this->darDeAltaInteresado("Ana", "anita", "Ana", "Rodriguez", DtFecha(3, 3, 2000));
   this->darDeAltaInteresado("Carlos", "carlitos", "Carlos", "Fernandez", DtFecha(4, 4, 2000));
+  this->deseleccionarTodo(false);
   
   this->darAltaDepartamento('A', "Montevideo");
-  this->seleccionarDepartamentoActual('A');
+  this->seleccionarDepartamento('A');
   this->darAltaZona(1, "Centro");
   this->darAltaZona(2, "Cordon");
   this->deseleccionarTodo(false);
 
   this->darAltaDepartamento('B', "Canelones");
-  this->seleccionarDepartamentoActual('B');
+  this->seleccionarDepartamento('B');
   this->darAltaZona(1, "Santa Lucia");
   this->darAltaZona(2, "Las Piedras");
-  this->darAltaZona(2, "Progreso");
+  this->darAltaZona(3, "Progreso");
   this->deseleccionarTodo(false);
 
-  // this->darAltaDepartamento('C', "Maldonado");
-  // this->seleccionarDepartamentoActual('C');
-  // this->darAltaZona(1, "Punta del Este");
-  // this->darAltaZona(2, "Piriapolis");
+  this->darAltaDepartamento('C', "Maldonado");
+  this->seleccionarDepartamento('C');
+  this->darAltaZona(1, "Punta del Este");
+  this->darAltaZona(2, "Piriapolis");
+  this->deseleccionarTodo(false);
 
-  // this->darAltaDepartamento('D', "Rocha");
-  // this->seleccionarDepartamentoActual('D');
-  // this->darAltaZona(1, "La Paloma");
-  // this->darAltaZona(2, "Cabo Polonio");
+  this->darAltaDepartamento('D', "Rocha");
+  this->seleccionarDepartamento('D');
+  this->darAltaZona(1, "La Paloma");
+  this->darAltaZona(2, "Cabo Polonio");
+  this->deseleccionarTodo(false);
 
   // this->darAltaDepartamento('E', "Colonia");
   // this->darAltaDepartamento('F', "San Jose");
@@ -63,12 +66,13 @@ Sistema::Sistema() {
 }
 
 void Sistema::darAltaDepartamento(char codigo,string nombre){
-  char* c = new char(codigo);
+  string c(1, codigo);
   IKey* key = new String(c);
-  delete c;
+  String* strKey = dynamic_cast<String*>(key); 
   Departamento* departamento = new Departamento(codigo, nombre);
   this->departamentos->add(key, departamento);
 }
+
 
 void Sistema::darAltaZona(int codigo, string nombre) {
   if (this->departamentoActual == nullptr) {
@@ -105,14 +109,6 @@ void Sistema::seleccionarUsuarioActual(string email) {
   if (this->usuarioActual == nullptr) {
     throw "No existe usuario";
   }
-}
-
-void Sistema::seleccionarDepartamentoActual(char codigo) {
-  char* c = new char(codigo);
-  IKey* key = new String(c);
-  delete c;
-  this->departamentoActual = dynamic_cast<Departamento*>(this->departamentos->find(key));
-  delete key;
 }
 
 void Sistema::deseleccionarUsuarioActual() {
@@ -237,6 +233,52 @@ void Sistema::datosCasa(DtDatosCasa datos) {
   }
 }
 
+void Sistema::modificarDatosCasa(DtDatosCasa datos); {
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+  
+  try {
+    this->getDepartamentoActual()->modificarDatosCasa(datos, this->getUsuarioActual());
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+void Sistema::modificarDatosApt(DtDatosApartamento datos) {
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+  
+  try {
+    //this->getDepartamentoActual()->agregarDatosApartamento(datos, this->getUsuarioActual());
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+void Sistema::darAltaModificacion(DtDatosCasa datos) {
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+  
+  try {
+    this->getDepartamentoActual()->agregarDatosCasa(datos, this->getUsuarioActual());
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+
 void Sistema::datosApt(DtDatosApartamento datos) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
@@ -262,6 +304,19 @@ void Sistema::seleccionarEdificio(string nombre) {
   } catch (const char* e) {
     throw e;
   }
+}
+
+int Sistema::zona__generarCodigoPropiedad() {
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  
+  try {
+    return this->getDepartamentoActual()->zona__generarCodigoPropiedad();
+  } catch (const char* e) {
+    throw e;
+  }
+
 }
 
 ICollection* Sistema::listarEdificios() {
@@ -339,9 +394,8 @@ ICollection* Sistema::listarZonas() {
 }
 
 void Sistema::seleccionarDepartamento(char codigo) {
-  char* c = new char(codigo);
+  string c(1, codigo);
   IKey* key = new String(c);
-  delete c;
   Departamento* dep = dynamic_cast<Departamento*>(this->departamentos->find(key));
   delete key;
   if (dep == nullptr) {

@@ -81,7 +81,6 @@ class Zona : public ICollectible {
     bool isChatSeleccionado();
     void seleccionarPago(string, float);
     void seleccionarTipoPropiedad(string);
-    void darAlta();
     void removePropiedad(int);
 
     void addMensaje(DtMensaje);
@@ -97,6 +96,8 @@ class Zona : public ICollectible {
     // cu_AltaPropiedad
     void agregarDatosApt(DtDatosApartamento, Usuario*);
     void agregarDatosCasa(DtDatosCasa, Usuario*);
+    void darAlta();
+    int generarCodigoPropiedad();
 
     // Destructor
     ~Zona();

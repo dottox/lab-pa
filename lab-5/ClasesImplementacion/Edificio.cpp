@@ -112,16 +112,6 @@ void Edificio::agregarDatosApt(DtDatosApartamento datos, Usuario* inmobiliaria)
   }
 }
 
-void Edificio::seleccionarPago(string tipo, float monto)
-{
-  if (this->getPropiedadActual() != nullptr) {
-    this->getPropiedadActual()->setPrecio(monto);
-    this->getPropiedadActual()->setTipo(tipo);
-  } else {
-    throw "No existe apartamento seleccionado";
-  }
-}
-
 void Edificio::darAlta()
 {
   if (this->getPropiedadActual() != nullptr) {
@@ -134,6 +124,10 @@ void Edificio::darAlta()
 
 Propiedad* Edificio::getPropiedadActual() {
   return this->apartamentoActual;
+}
+
+int Edificio::generarCodigoPropiedad() {
+  return this->apartamentos->getSize() + 1;
 }
 
 void Edificio::deseleccionarTodo(bool borrarCasa = false) {

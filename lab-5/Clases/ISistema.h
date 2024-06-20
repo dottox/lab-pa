@@ -27,7 +27,7 @@ class ISistema {
   
     // Setters
     virtual void seleccionarUsuarioActual(string) = 0;
-    virtual void seleccionarDepartamentoActual(char) = 0;
+    virtual void seleccionarDepartamento(char) = 0;
 
     virtual void deseleccionarUsuarioActual() = 0;
     virtual void deseleccionarDepartamentoActual() = 0;
@@ -45,16 +45,12 @@ class ISistema {
 
     virtual void guardarMensaje(DtMensaje) = 0;
     virtual void crearConversacion() = 0;
-    virtual void darAlta() = 0;
-    virtual void datosCasa(DtDatosCasa) = 0;
-    virtual void datosApt(DtDatosApartamento) = 0;
     virtual void deseleccionarTodo(bool) = 0;
     virtual void seleccionarPropiedad(int) = 0;
     virtual void seleccionarPago(string, float) = 0;
     virtual void seleccionarEdificio(string) = 0;
     virtual void seleccionarTipoPropiedad(string) = 0;
     virtual void seleccionarZona(int) = 0;
-    virtual void seleccionarDepartamento(char) = 0;
     virtual void seleccionarChat() = 0;
     virtual void cancelarInicio() = 0;
     virtual void iniciarSesion(string, string) = 0;
@@ -80,6 +76,18 @@ class ISistema {
 
     // cu: Alta Edificio
     virtual void darDeAltaEdificio(DtEdificio) = 0;
+    
+    // cu: Modificar Propiedad
+    virtual void darAltaModificacion(DtDatosCasa) = 0;
+    virtual void modificarDatosCasa(DtDatosCasa)=0;
+    virtual void modificarDatosApt(DtDatosApartamento) = 0;
+
+    // cu: Alta Propiedad
+    virtual void datosCasa(DtDatosCasa) = 0;
+    virtual void datosApt(DtDatosApartamento) = 0;
+    virtual void darAlta() = 0;
+    virtual int zona__generarCodigoPropiedad() = 0;
+
 
     // Destructor
     virtual ~ISistema();

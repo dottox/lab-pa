@@ -168,8 +168,34 @@ void Zona::seleccionarTipoPropiedad(string tipo)
 
 void Zona::darAlta()
 {
-  IKey* key = new Integer(this->propiedadActual->getCodigo());
-  this->propiedades->add(key, this->propiedadActual);
+  try {
+    if (this->propiedadActual == nullptr) {
+      if (this->edificioActual != nullptr){
+        this->edificioActual->darAlta();
+        return;
+      }
+      else {
+        throw "No hay propiedad seleccionada";
+      }
+    }
+    IKey* key = new Integer(this->propiedadActual->getCodigo());
+    this->propiedades->add(key, this->propiedadActual);
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+int Zona::generarCodigoPropiedad()
+{
+  try {
+    if (this->edificioActual != nullptr) {
+      return this->edificioActual->generarCodigoPropiedad();
+    } else {
+      return this->propiedades->getSize() + 1;
+    }
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Zona::addMensaje(DtMensaje mensaje)

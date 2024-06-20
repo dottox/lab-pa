@@ -64,13 +64,13 @@ ICollection* Departamento::getZonas()
   ICollection* dtZonas = new List();
   IIterator* it = this->zonas->getIterator();
   while (it->hasCurrent()) {
-    IKey* key = dynamic_cast<IKey*>(it->getCurrent());
-    Zona* zona = dynamic_cast<Zona*>(this->zonas->find(key));
+    Zona* zona = dynamic_cast<Zona*>(it->getCurrent());
     DtZona infoZona = zona->getInfo();
     DtZona* ptrInfoZona = new DtZona(infoZona.getCodigo(), infoZona.getNombre());
     dtZonas->add(ptrInfoZona);
     it->next();
   }
+  delete it;
   return dtZonas;
 }
 
@@ -149,6 +149,18 @@ ICollection* Departamento::getUltimosMensajes(string email) {
   }
 }
 
+int Departamento::zona__generarCodigoPropiedad() {
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+
+  try {
+    return this->getZonaActual()->generarCodigoPropiedad();
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
 void Departamento::agregarDatosCasa(DtDatosCasa datos, Usuario* inmobiliaria)
 {
   if (this->getZonaActual() == nullptr) {
@@ -180,6 +192,7 @@ void Departamento::seleccionarPropiedad(int codigo)
   }
   this->getZonaActual()->seleccionarPropiedad(codigo);
 }
+
 
 void Departamento::seleccionarZona(int codigo)
 {
@@ -240,6 +253,13 @@ void Departamento::darDeAltaEdificio(DtEdificio edificio, Usuario* inmobiliaria)
     throw "No hay zona seleccionada";
   }
   this->getZonaActual()->darDeAltaEdificio(edificio, inmobiliaria);
+}
+
+void Departamento::modificarDatosCasa(DtDatosCasa datos,Usuario inmobiliaria);{
+  if (this->zonaActual == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  this->getZonaActual()->modificarDatosCasa(datos, inmobiliaria);
 }
 
 
