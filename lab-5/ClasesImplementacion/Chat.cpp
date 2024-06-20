@@ -41,6 +41,11 @@ Interesado* Chat::getInteresado()
   return this->interesado;
 }
 
+int Chat::getCantMensajes()
+{
+  return this->mensajes->getSize();
+}
+
 // Setea la inmobiliaria del chat
 void Chat::setInmobiliaria(Inmobiliaria* inmobiliaria)
 {
@@ -74,7 +79,7 @@ void Chat::deleteMensajes()
 }
 
 // Selecciona los últimos 5 mensajes. Si hay menos de 5 mensajes, devuelve todos los mensajes.
-ICollection* Chat::seleccionarConversacion()
+ICollection* Chat::getUltimosMensajes()
 {
   ICollection* ret = new List();
   IIterator* it = this->mensajes->getIterator();

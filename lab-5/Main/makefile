@@ -1,5 +1,5 @@
 all: main.o
-	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtInfo.o DtDatosApartamento.o DtDatosCasa.o DtInmobiliaria.o Includes.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o Edificio.o Zona.o Departamento.o ISistema.o Sistema.o SistemaFabrica.o main.o -o programa
+	g++ ICollectible.o ICollection.o IDictionary.o IIterator.o IKey.o OrderedKey.o Integer.o String.o List.o ListIterator.o ListNode.o OrderedDictionary.o OrderedDictionaryEntry.o DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtDatos.o DtInfo.o DtDatosApartamento.o DtDatosCasa.o DtInmobiliaria.o DtChat.o Includes.o Mensaje.o Chat.o Usuario.o Interesado.o Inmobiliaria.o Administrador.o Propiedad.o Apartamento.o Casa.o Edificio.o Zona.o Departamento.o ISistema.o Sistema.o SistemaFabrica.o main.o -o programa
 
 # INICIO COMPILACIÓN DE ICOLLECTION #
 
@@ -86,11 +86,14 @@ DtDatosCasa.o: DtDireccion.o
 DtInmobiliaria.o: DtDireccion.o
 	g++ -c ../Datatypes/DtInmobiliaria.cpp
 
+DtChat.o: InicioDatatypes
+	g++ -c ../Datatypes/DtChat.cpp
+
 # FIN COMPILACIÓN DE DATATYPES #
 
 # INICIO COMPILACIÓN CLASES #
 
-InicioClases: DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfo.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o DtInmobiliaria.o
+InicioClases: DtFecha.o DtHora.o DtEdificio.o DtDepartamento.o DtZona.o DtDireccion.o DtMensaje.o DtInfo.o DtDatos.o DtDatosApartamento.o DtDatosCasa.o DtInmobiliaria.o DtChat.o
 	clear
 	echo "Compilando clases..."
 

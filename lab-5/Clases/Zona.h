@@ -4,6 +4,7 @@
 #include "Edificio.h"
 #include "Usuario.h" 
 #include "Interesado.h" 
+#include "Casa.h"
 
 #include "../Datatypes/DtZona.h"
 #include "../Datatypes/DtInfo.h"
@@ -24,6 +25,7 @@ class Propiedad;
 class ICollectible;
 class IDictionary;
 class String;
+class Casa;
 struct DtMensaje;
 struct DtZona;
 struct DtInfo;
@@ -44,6 +46,9 @@ class Zona : public ICollectible {
   
   public:
     Zona(int, string);
+
+    void comprobarPropiedadActual();
+    void comprobarEdificioActual();
     
     // Getters
     int getCodigo();
@@ -66,14 +71,14 @@ class Zona : public ICollectible {
     void deseleccionarPropiedad();
 
     DtZona getInfo();
-    DtDatos detallesPropiedad(int);
+    DtDatos getDatosPropiedad();
+    DtInfo* detallesPropiedad(int, string);
 
     ICollection* getInfoPropiedades(string);
     ICollection* listarEdificios();
+    virtual ICollection* getMensajes();
 
-    void agregarDatosApt(DtDatosApartamento);
-    void agregarDatosCasa(DtDatosCasa);
-
+    bool isChatSeleccionado();
     void seleccionarPago(string, float);
     void seleccionarTipoPropiedad(string);
     void darAlta();
@@ -82,7 +87,16 @@ class Zona : public ICollectible {
     void addMensaje(DtMensaje);
     void seleccionarChat(string);
 
-    void deseleccionarTodo();
+    void deseleccionarTodo(bool);
+
+    ICollection* getUltimosMensajes(string);
+
+    // cu_AltaEdificio
+    void darDeAltaEdificio(DtEdificio, Usuario*);
+
+    // cu_AltaPropiedad
+    void agregarDatosApt(DtDatosApartamento, Usuario*);
+    void agregarDatosCasa(DtDatosCasa, Usuario*);
 
     // Destructor
     ~Zona();

@@ -33,10 +33,11 @@ class Departamento : public ICollectible {
     string nombre;
 
     Zona* getZonaActual();
-    void comprobarZonaActual();
+
   
   public:
     Departamento(char, string);
+    void darAltaZona(int, string);
     
     // Getters
     char getCodigo();
@@ -58,21 +59,32 @@ class Departamento : public ICollectible {
     void seleccionarTipoPropiedad(string);
     ICollection* listarEdificios();
     void seleccionarEdificio(string);
-    void agregarDatosApt(DtDatosApartamento);
-    void agregarDatosCasa(DtDatosCasa);
+    virtual ICollection* getMensajes();
     void seleccionarPago(string, float);
     void darAlta();
-    DtDatos detallesPropiedad(int);
+    DtInfo* detallesPropiedad(int, string);
+
+    DtDatos getDatosPropiedad();
 
     void seleccionarPropiedad(int);
 
     void seleccionarZona(int);
 
+    bool isChatSeleccionado();
     void seleccionarChat(string);
     void addMensaje(DtMensaje);
 
     void deseleccionarZonaActual();
-    void deseleccionarTodo();
+    void deseleccionarTodo(bool);
+  
+    // cu_AltaEdificio
+    void darDeAltaEdificio(DtEdificio, Usuario*);
+
+    // cu_AltaPropiedad
+    void agregarDatosApt(DtDatosApartamento, Usuario*);
+    void agregarDatosCasa(DtDatosCasa, Usuario*);
+
+    ICollection* getUltimosMensajes(string);
 
     // Destructor
     ~Departamento();

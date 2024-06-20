@@ -13,16 +13,16 @@ Departamento::Departamento(char codigo, string nombre)
   this->zonas = new OrderedDictionary();
 }
 
+void Departamento::darAltaZona(int codigo, string nombre)
+{
+  IKey* key = new Integer(codigo);
+  Zona* zona = new Zona(codigo, nombre);
+  this->zonas->add(key, zona);
+}
+
 Zona* Departamento::getZonaActual()
 {
   return this->zonaActual;
-}
-
-void Departamento::comprobarZonaActual()
-{
-  if (this->getZonaActual() == nullptr) {
-    throw "No hay zona seleccionada";
-  }
 }
 
 char Departamento::getCodigo()
@@ -47,7 +47,9 @@ void Departamento::setNombre(string nombre)
 
 void Departamento::addChat(Usuario* interesado)
 {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   this->getZonaActual()->addChat(interesado);
 }
 
@@ -73,19 +75,25 @@ ICollection* Departamento::getZonas()
 }
 
 ICollection* Departamento::getInfoPropiedades(string email) {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   return this->getZonaActual()->getInfoPropiedades(email);
 }
 
 void Departamento::seleccionarTipoPropiedad(string tipo)
 {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   this->getZonaActual()->seleccionarTipoPropiedad(tipo);
 }
 
 ICollection* Departamento::listarEdificios()
 {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   return this->getZonaActual()->listarEdificios();
 }
 
@@ -93,10 +101,10 @@ void Departamento::deseleccionarZonaActual() {
   this->zonaActual = nullptr;
 }
 
-void Departamento::deseleccionarTodo()
+void Departamento::deseleccionarTodo(bool borrarCasa = false)
 {
   if (this->getZonaActual() != nullptr) {
-    this->getZonaActual()->deseleccionarTodo();
+    this->getZonaActual()->deseleccionarTodo(borrarCasa);
   }
   this->deseleccionarZonaActual();
 }
@@ -104,37 +112,72 @@ void Departamento::deseleccionarTodo()
 
 void Departamento::seleccionarEdificio(string nombre)
 {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   this->getZonaActual()->seleccionarEdificio(nombre);
 }
 
-void Departamento::agregarDatosApt(DtDatosApartamento datos)
+void Departamento::agregarDatosApt(DtDatosApartamento datos, Usuario* inmobiliaria)
 {
-  this->comprobarZonaActual();
-  this->getZonaActual()->agregarDatosApt(datos);
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  this->getZonaActual()->agregarDatosApt(datos, inmobiliaria);
 }
 
-void Departamento::agregarDatosCasa(DtDatosCasa datos)
+DtDatos Departamento::getDatosPropiedad()
 {
-  this->comprobarZonaActual();
-  this->getZonaActual()->agregarDatosCasa(datos);
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  try {
+    return this->getZonaActual()->getDatosPropiedad();
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+ICollection* Departamento::getUltimosMensajes(string email) {
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  try {
+    return this->getZonaActual()->getUltimosMensajes(email);
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+void Departamento::agregarDatosCasa(DtDatosCasa datos, Usuario* inmobiliaria)
+{
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  this->getZonaActual()->agregarDatosCasa(datos, inmobiliaria);
 }
 
 void Departamento::seleccionarPago(string tipo, float precio)
 {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   this->getZonaActual()->seleccionarPago(tipo, precio);
 }
 
 void Departamento::darAlta()
 {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   this->getZonaActual()->darAlta();
 }
 
 void Departamento::seleccionarPropiedad(int codigo)
 {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   this->getZonaActual()->seleccionarPropiedad(codigo);
 }
 
@@ -149,23 +192,54 @@ void Departamento::seleccionarZona(int codigo)
   this->zonaActual = zona;
 }
 
+bool Departamento::isChatSeleccionado()
+{
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  return this->getZonaActual()->isChatSeleccionado();
+}
+
 void Departamento::seleccionarChat(string email)
 {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   this->zonaActual->seleccionarChat(email);
 }
 
 void Departamento::addMensaje(DtMensaje mensaje)
 {
-  this->comprobarZonaActual();
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
   this->zonaActual->addMensaje(mensaje);
 }
 
-DtDatos Departamento::detallesPropiedad(int codigo){
+DtInfo* Departamento::detallesPropiedad(int codigo, string email){
   if(zonaActual == nullptr){
     throw "No hay zona seleccionada";
   }
-  this->getZonaActual()->detallesPropiedad(codigo);
+  try {
+    return this->getZonaActual()->detallesPropiedad(codigo, email);
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+ICollection* Departamento::getMensajes()
+{
+  if (this->getZonaActual() == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  return this->getZonaActual()->getMensajes();
+}
+
+void Departamento::darDeAltaEdificio(DtEdificio edificio, Usuario* inmobiliaria){
+  if (this->zonaActual == nullptr) {
+    throw "No hay zona seleccionada";
+  }
+  this->getZonaActual()->darDeAltaEdificio(edificio, inmobiliaria);
 }
 
 

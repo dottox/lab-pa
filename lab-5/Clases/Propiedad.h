@@ -44,6 +44,7 @@ class Propiedad : public ICollectible {
     
 
   public:
+    Propiedad();
     Propiedad(int, int, int, int, bool, DtDireccion, float, float, string, float, Inmobiliaria*);
     
     // Getters
@@ -61,6 +62,7 @@ class Propiedad : public ICollectible {
     virtual Chat* getChatActual();
     virtual IDictionary* getChats();
     virtual Inmobiliaria* getInmobiliaria();
+    virtual ICollection* getMensajes();
 
     // Setters
     virtual void setCodigo(int);
@@ -74,15 +76,17 @@ class Propiedad : public ICollectible {
     virtual void setTipo(string);
     virtual void setPrecio(float);
     virtual void setInmobiliaria(Inmobiliaria*);
-    virtual void setDatos(DtDatos) = 0;
 
     // Otros
     virtual DtInfo getInfoPropiedad(string); // Este se utiliza para obtener info de la propiedad con los mensajes.
-    virtual DtDatos getInfo() = 0; // Este se utiliza para obtener los datos detallados de la propiedad junto a su inmobiliaria.
+    virtual DtDatos getDatos() = 0; // Este se utiliza para obtener los datos detallados de la propiedad junto a su inmobiliaria.
     virtual void seleccionarChat(string); 
+    virtual bool isChatSeleccionado();
     virtual void deseleccionarChat();
     virtual void addChat(Usuario*);
     virtual void addMensaje(DtMensaje);
+    virtual ICollection* getConversaciones(ICollection*);
+    virtual ICollection* getUltimosMensajes(string);
 
     virtual void deseleccionarTodo();
 

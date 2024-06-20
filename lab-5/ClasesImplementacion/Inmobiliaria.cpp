@@ -54,6 +54,20 @@ DtDireccion Inmobiliaria::getDireccion()
   return DtDireccion(this->direccion);
 }
 
+
+ICollection* Inmobiliaria::getConversaciones(){
+  IIterator* it = this->getPropiedades()->getIterator();
+  ICollection* conversaciones = new List();
+  
+  while (it->hasCurrent()){
+    Propiedad* propiedad = dynamic_cast<Propiedad*>(it->getCurrent());
+    propiedad->getConversaciones(conversaciones);
+    it->next();
+  }
+  delete it;
+  return conversaciones;
+}
+
 void Inmobiliaria::setDireccion(DtDireccion direccion)
 {
   this->direccion = direccion;

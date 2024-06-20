@@ -26,7 +26,7 @@ struct DtDatosApartamento;
 class Edificio : public ICollectible {
   private:
     IDictionary* apartamentos;
-    Apartamento* apartamentoActual = nullptr;
+    Propiedad* apartamentoActual = nullptr;
     Inmobiliaria* inmobiliaria;
 
     string nombre;
@@ -40,7 +40,7 @@ class Edificio : public ICollectible {
     string getNombre();
     int getCantPisos();
     float getGastosComunes();
-    Apartamento* getPropiedadActual();
+    Propiedad* getPropiedadActual();
 
     // Setters
     void setNombre(string);
@@ -51,18 +51,20 @@ class Edificio : public ICollectible {
     void seleccionarPropiedad(int);
     void deseleccionarPropiedad();
 
-    DtDatos getInfo();
+    DtDatos getDatosApartamento();
 
     DtEdificio getInfo();
 
+    DtInfo getInfoPropiedad(int, string);
+
     ICollection* getInfoPropiedades(string);
 
-    void agregarDatosApt(DtDatosApartamento);
+    void agregarDatosApt(DtDatosApartamento, Usuario*);
 
     void seleccionarPago(string, float);
-    void darAlta(int);
+    void darAlta();
 
-    void deseleccionarTodo();
+    void deseleccionarTodo(bool);
 
     // Destructor
     ~Edificio();

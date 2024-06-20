@@ -17,11 +17,25 @@ Edificio::Edificio(string nombre, int cantPisos, float gastosComunes, Inmobiliar
   this->apartamentos = new OrderedDictionary();
 }
 
-DtDatos getInfo(){
-  if(apartamentoActual == nullptr){
-    throw "No hay apartamento seleccionado";
+
+
+DtDatos Edificio::getDatosApartamento(){
+  if (this->getPropiedadActual() != nullptr) {
+    return this->getPropiedadActual()->getDatos();
+  } else {
+    throw "No existe apartamento seleccionado";
   }
-  return this->getPropiedadActual()->getInfo();
+}
+
+DtInfo Edificio::getInfoPropiedad(int codigo, string email)
+{
+  IKey* key = new Integer(codigo);
+  Propiedad* apt = dynamic_cast<Propiedad*>(this->apartamentos->find(key));
+  delete key;
+  if (apt == nullptr) {
+    throw "No existe apartamento";
+  }
+  return apt->getInfoPropiedad(email);
 }
 
 string Edificio::getNombre()
@@ -87,10 +101,12 @@ ICollection* Edificio::getInfoPropiedades(string email)
   return ret;
 }
 
-void Edificio::agregarDatosApt(DtDatosApartamento datos)
+void Edificio::agregarDatosApt(DtDatosApartamento datos, Usuario* inmobiliaria)
 {
   if (this->getPropiedadActual() != nullptr) {
-    this->getPropiedadActual()->setDatos(datos);
+    Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(inmobiliaria);
+    Propiedad* apt = new Apartamento(datos, inmo);
+    this->apartamentoActual = apt;
   } else {
     throw "No existe apartamento seleccionado";
   }
@@ -106,24 +122,27 @@ void Edificio::seleccionarPago(string tipo, float monto)
   }
 }
 
-void Edificio::darAlta(int codigo)
+void Edificio::darAlta()
 {
-  IKey* key = new Integer(codigo);
   if (this->getPropiedadActual() != nullptr) {
+    IKey* key = new Integer(getPropiedadActual()->getCodigo());
     this->apartamentos->add(key, this->getPropiedadActual());
   } else {
-    delete key;
     throw "No existe apartamento seleccionado";
   }
 }
 
-Apartamento* Edificio::getPropiedadActual() {
+Propiedad* Edificio::getPropiedadActual() {
   return this->apartamentoActual;
 }
 
-void Edificio::deseleccionarTodo() {
+void Edificio::deseleccionarTodo(bool borrarCasa = false) {
   if (this->getPropiedadActual() != nullptr) {
-    this->getPropiedadActual()->deseleccionarTodo();
+    if (borrarCasa) {
+      delete this->getPropiedadActual();
+    } else {
+      this->getPropiedadActual()->deseleccionarTodo();
+    }
   }
   this->deseleccionarPropiedad();
 }

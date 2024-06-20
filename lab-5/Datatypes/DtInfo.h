@@ -27,7 +27,7 @@ struct DtInfo : public ICollectible
     // Getters
     int getCodigo();
     int getCantMensajes();
-    int getTipo();
+    string getTipo();
     DtDireccion getDireccion();
 
     // Destructor

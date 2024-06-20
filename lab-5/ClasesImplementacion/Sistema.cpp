@@ -17,6 +17,69 @@ Sistema::Sistema() {
   Usuario* usuario = new Administrador("admin", "admin");
   IKey* key = new String((char*)usuario->getEmail().c_str());
   this->usuarios->add(key, usuario);
+  
+  this->darDeAltaInmobiliaria("Pedro", "pedrito", DtDireccion("Calle 1", "Ciudad 1", 1));
+  this->darDeAltaInmobiliaria("Juan", "juanito", DtDireccion("Calle 2", "Ciudad 2", 2));
+  this->darDeAltaInmobiliaria("Nicolas", "escobar", DtDireccion("Calle 3", "Ciudad 3", 3));
+  this->darDeAltaInmobiliaria("Artigas", "jose", DtDireccion("Calle 3", "Ciudad 3", 3));
+  this->darDeAltaInmobiliaria("goncho", "goncho", DtDireccion("Calle 4", "Ciudad 4", 4));
+  this->darDeAltaInteresado("Jose", "josecito", "Jose", "Perez", DtFecha(1, 1, 2000));
+  this->darDeAltaInteresado("Maria", "mariquita", "Maria", "Gomez", DtFecha(2, 2, 2000));
+  this->darDeAltaInteresado("Ana", "anita", "Ana", "Rodriguez", DtFecha(3, 3, 2000));
+  this->darDeAltaInteresado("Carlos", "carlitos", "Carlos", "Fernandez", DtFecha(4, 4, 2000));
+  
+  this->darAltaDepartamento('A', "Montevideo");
+  this->seleccionarDepartamentoActual('A');
+  this->darAltaZona(1, "Centro");
+  this->darAltaZona(2, "Cordon");
+  this->deseleccionarTodo(false);
+
+  this->darAltaDepartamento('B', "Canelones");
+  this->seleccionarDepartamentoActual('B');
+  this->darAltaZona(1, "Santa Lucia");
+  this->darAltaZona(2, "Las Piedras");
+  this->darAltaZona(2, "Progreso");
+  this->deseleccionarTodo(false);
+
+  // this->darAltaDepartamento('C', "Maldonado");
+  // this->seleccionarDepartamentoActual('C');
+  // this->darAltaZona(1, "Punta del Este");
+  // this->darAltaZona(2, "Piriapolis");
+
+  // this->darAltaDepartamento('D', "Rocha");
+  // this->seleccionarDepartamentoActual('D');
+  // this->darAltaZona(1, "La Paloma");
+  // this->darAltaZona(2, "Cabo Polonio");
+
+  // this->darAltaDepartamento('E', "Colonia");
+  // this->darAltaDepartamento('F', "San Jose");
+  // this->darAltaDepartamento('G', "Soriano");
+  // this->darAltaDepartamento('H', "Paysandu");
+  // this->darAltaDepartamento('I', "Rio Negro");
+  // this->darAltaDepartamento('J', "Artigas");
+
+
+  // this->deseleccionarTodo();
+}
+
+void Sistema::darAltaDepartamento(char codigo,string nombre){
+  char* c = new char(codigo);
+  IKey* key = new String(c);
+  delete c;
+  Departamento* departamento = new Departamento(codigo, nombre);
+  this->departamentos->add(key, departamento);
+}
+
+void Sistema::darAltaZona(int codigo, string nombre) {
+  if (this->departamentoActual == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  
+  try {
+    this->departamentoActual->darAltaZona(codigo, nombre);
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 Sistema* Sistema::getInstancia() {
@@ -67,8 +130,12 @@ ICollection* Sistema::listarPropiedades() {
     throw "No hay usuario seleccionado";
   }
   
-  string mailUsuario = this->usuarioActual->getEmail();
-  return this->departamentoActual->getInfoPropiedades(mailUsuario);
+  try {
+    string mailUsuario = this->usuarioActual->getEmail();
+    return this->departamentoActual->getInfoPropiedades(mailUsuario);
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 bool Sistema::verificarUsuario(string email) {
@@ -83,10 +150,14 @@ void Sistema::guardarMensaje(DtMensaje mensaje) {
     throw "No hay departamento seleccionado";
   }
   
-  this->getDepartamentoActual()->addMensaje(mensaje);
+  try {
+    this->getDepartamentoActual()->addMensaje(mensaje);
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
-void Sistema::seleccionarChat(string email) {
+void Sistema::seleccionarChat() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
@@ -94,7 +165,11 @@ void Sistema::seleccionarChat(string email) {
     throw "No hay usuario seleccionado";
   }
   
-  this->getDepartamentoActual()->seleccionarChat(this->getUsuarioActual()->getEmail());
+  try {
+    this->getDepartamentoActual()->seleccionarChat(this->getUsuarioActual()->getEmail());
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::crearConversacion() {
@@ -104,7 +179,11 @@ void Sistema::crearConversacion() {
     throw "No hay usuario seleccionado";
   }
   
-  this->getDepartamentoActual()->addChat(this->getUsuarioActual());
+  try {
+    this->getDepartamentoActual()->addChat(this->getUsuarioActual());
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::seleccionarPropiedad(int codigo) {
@@ -112,7 +191,11 @@ void Sistema::seleccionarPropiedad(int codigo) {
     throw "No hay departamento seleccionado";
   }
   
-  this->getDepartamentoActual()->seleccionarPropiedad(codigo);
+  try {
+    this->getDepartamentoActual()->seleccionarPropiedad(codigo);
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::darAlta() {
@@ -120,7 +203,11 @@ void Sistema::darAlta() {
     throw "No hay departamento seleccionado";
   }
   
-  this->getDepartamentoActual()->darAlta();
+  try {
+    this->getDepartamentoActual()->darAlta();
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::seleccionarPago(string metodo, float monto) {
@@ -128,23 +215,41 @@ void Sistema::seleccionarPago(string metodo, float monto) {
     throw "No hay departamento seleccionado";
   }
   
-  this->getDepartamentoActual()->seleccionarPago(metodo, monto);
+  try {
+    this->getDepartamentoActual()->seleccionarPago(metodo, monto);
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::datosCasa(DtDatosCasa datos) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
   
-  this->getDepartamentoActual()->agregarDatosCasa(datos);
+  try {
+    this->getDepartamentoActual()->agregarDatosCasa(datos, this->getUsuarioActual());
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::datosApt(DtDatosApartamento datos) {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
   
-  this->getDepartamentoActual()->agregarDatosApt(datos);
+  try {
+    this->getDepartamentoActual()->agregarDatosApt(datos, this->getUsuarioActual());
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::seleccionarEdificio(string nombre) {
@@ -152,7 +257,11 @@ void Sistema::seleccionarEdificio(string nombre) {
     throw "No hay departamento seleccionado";
   }
   
-  this->getDepartamentoActual()->seleccionarEdificio(nombre);
+  try {
+    this->getDepartamentoActual()->seleccionarEdificio(nombre);
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 ICollection* Sistema::listarEdificios() {
@@ -160,7 +269,11 @@ ICollection* Sistema::listarEdificios() {
     throw "No hay departamento seleccionado";
   }
   
-  return this->getDepartamentoActual()->listarEdificios();
+  try {
+    return this->getDepartamentoActual()->listarEdificios();
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::seleccionarTipoPropiedad(string tipo) {
@@ -168,7 +281,38 @@ void Sistema::seleccionarTipoPropiedad(string tipo) {
     throw "No hay departamento seleccionado";
   }
   
-  this->getDepartamentoActual()->seleccionarTipoPropiedad(tipo);
+  try {
+    this->getDepartamentoActual()->seleccionarTipoPropiedad(tipo);
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+ICollection* Sistema::getUltimosMensajesUsuarioActualPropiedadActual() {
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  } 
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+  try {
+    string email = this->getUsuarioActual()->getEmail();
+    return this->getDepartamentoActual()->getUltimosMensajes(email);
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+DtDatos Sistema::getDatosPropiedad() {
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  
+  try {
+    return this->getDepartamentoActual()->getDatosPropiedad();
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::seleccionarZona(int codigo) {
@@ -176,15 +320,22 @@ void Sistema::seleccionarZona(int codigo) {
     throw "No hay departamento seleccionado";
   }
   
-  this->getDepartamentoActual()->seleccionarZona(codigo);
+  try {
+    this->getDepartamentoActual()->seleccionarZona(codigo);
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 ICollection* Sistema::listarZonas() {
   if (this->getDepartamentoActual() == nullptr) {
     throw "No hay departamento seleccionado";
   }
-  
-  return this->getDepartamentoActual()->getZonas();
+  try {
+    return this->getDepartamentoActual()->getZonas();
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 void Sistema::seleccionarDepartamento(char codigo) {
@@ -213,10 +364,10 @@ ICollection* Sistema::listarDepartamentos() {
   return ret;
 }
 
-void Sistema::deseleccionarTodo() {
+void Sistema::deseleccionarTodo(bool borrarCasa = false) {
 
   if (this->getDepartamentoActual() != nullptr) {
-    this->getDepartamentoActual()->deseleccionarTodo();
+    this->getDepartamentoActual()->deseleccionarTodo(borrarCasa);
   }
   this->deseleccionarDepartamentoActual();
 }
@@ -247,6 +398,13 @@ void Sistema::cancelarInicio() {
 bool Sistema::registrarContrasenia(string contrasenia) {
   // ????
   return true;
+}
+
+bool Sistema::isChatSeleccionado() {
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  return this->getDepartamentoActual()->isChatSeleccionado();
 }
 
 bool Sistema::validarContrasenia(string contrasenia) {
@@ -298,39 +456,81 @@ ICollection* Sistema::listarInmobiliarias(){
   return ret;
 }
 
-DtDatos Sistema::detallesPropiedad(int codigo){
+DtInfo* Sistema::detallesPropiedad(int codigo){
   if(this->departamentoActual == nullptr){
     throw "No hay departamento seleccionado";
   }
-  this->getDepartamentoActual()->detallesPropiedad(codigo);
+  try {
+    if (this->getUsuarioActual() == nullptr) {
+      throw "No hay usuario seleccionado";
+    }
+    string email = this->getUsuarioActual()->getEmail();
+    return this->getDepartamentoActual()->detallesPropiedad(codigo, email);
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
+string Sistema::getEmailUsuarioActual(){
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+  return this->getUsuarioActual()->getEmail();
+}
 
 ICollection* Sistema::listarConversaciones(){
-  ICollection* ret = new List();
-  
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
   if (getUsuarioActual()->getTipoUsuario() != "Inmobiliaria") {
-    throw "El usuario no es una inmobiliaria"
+    throw "El usuario no es una inmobiliaria";
   }
-  IIterator* it = this->getUsuarioActual->getIterator();
-  while (it->hasCurrent()) {
-    Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(it->getCurrent());
-    ICollection* ret = new List();
-    IIterator* it = this->usuarios->getIterator();
-    inmo->getPropiedades()
-    if (inmo != nullptr) {
-      inmo->
-      DtInmobiliaria* info = new DtInmobiliaria(inmo->getEmail(), inmo->getDireccion());
-      ret->add(info); 
-    }
+  Inmobiliaria* inmo = dynamic_cast<Inmobiliaria*>(this->getUsuarioActual());
+  
+  try {
+    return inmo->getConversaciones();
+  } catch (const char* e) {
+    throw e;
+  }
+}
 
-    it->next();
+void Sistema::addChat(Usuario* usuario){
+  if(this->departamentoActual == nullptr){
+    throw "No hay departamento seleccionado";
   }
-  delete it;
-  return ret;
+  try {
+    this->getDepartamentoActual()->addChat(usuario);
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+ICollection* Sistema::getMensajes(){
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  }
+  try {
+    return this->getDepartamentoActual()->getMensajes();
+  } catch (const char* e) {
+    throw e;
+  }
+}
+
+void Sistema::darDeAltaEdificio(DtEdificio edificio){
+  if (this->getDepartamentoActual() == nullptr) {
+    throw "No hay departamento seleccionado";
+  } 
+  if (this->getUsuarioActual() == nullptr) {
+    throw "No hay usuario seleccionado";
+  }
+  try {
+    this->getDepartamentoActual()->darDeAltaEdificio(edificio, this->getUsuarioActual());
+  } catch (const char* e) {
+    throw e;
+  }
 }
 
 Sistema::~Sistema() {
   delete this->usuarios;
   delete this->departamentos;
-}
+  }

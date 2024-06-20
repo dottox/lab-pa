@@ -31,8 +31,10 @@ class Chat : public ICollectible {
     
     // Getters
     ICollection* getMensajes();
+    int getCantMensajes();
     Inmobiliaria* getInmobiliaria();
     Interesado* getInteresado();
+  
 
     // Setters
     void setInmobiliaria(Inmobiliaria*);
@@ -43,7 +45,7 @@ class Chat : public ICollectible {
     void deleteMensajes();
 
     // Funciones de los casos de uso
-    ICollection* seleccionarConversacion();
+    ICollection* getUltimosMensajes();
 
     // Destructor
     ~Chat();

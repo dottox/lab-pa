@@ -30,6 +30,7 @@ struct DtDepartamento;
 struct DtDatosCasa;
 struct DtDatosApartamento;
 struct DtInmobiliaria;
+struct DtEdificio;
 class ICollection;
 class ICollectible;
 class IDictionary;
@@ -45,8 +46,12 @@ class Sistema : public ISistema {
     static Sistema* instancia; // Aquí no se inicializa la variable, se debe hacer en el .cpp con "Sistema* Sistema::instancia = nullptr;"
 
     Sistema();
+    void darAltaDepartamento(char, string);
+    void darAltaZona(int, string);
+
 
   public:
+
     // Getters
     static Sistema* getInstancia();
     Usuario* getUsuarioActual();
@@ -61,31 +66,36 @@ class Sistema : public ISistema {
 
     // Otros
     ICollection* listarPropiedades();
-    bool verificarUsuario(string);
+    ICollection* listarConversaciones();
+    ICollection* listarDepartamentos();
+    ICollection* listarEdificios();
+    ICollection* listarZonas();
+    ICollection* getMensajes();
+
     void guardarMensaje(DtMensaje);
-    void seleccionarChat(string);
     void crearConversacion();
-    void seleccionarPropiedad(int);
     void darAlta();
-    void seleccionarPago(string, float);
     void datosCasa(DtDatosCasa);
     void datosApt(DtDatosApartamento);
+
+    void seleccionarPago(string, float);
     void seleccionarEdificio(string);
-    ICollection* listarEdificios();
     void seleccionarTipoPropiedad(string);
-    void seleccionarZona(int);
-    ICollection* listarZonas();
-    void seleccionarDepartamento(char);
-    ICollection* listarInmobiliarias();
-    ICollection* listarDepartamentos();
+    void seleccionarChat();
+    
+    bool verificarUsuario(string);
     void cancelarInicio();
     void iniciarSesion(string, string);
     bool registrarContrasenia(string);
-    bool validarContrasenia(string);
     void cerrarSesion();
     bool isLogueado();
-    void deseleccionarTodo();
-    DtDatos detallesPropiedad(int);
+    bool isChatSeleccionado();
+    void addChat(Usuario*);
+
+    bool validarContrasenia(string);
+    
+    string getEmailUsuarioActual();
+    DtDatos getDatosPropiedad();
 
     // cu: Alta Inmobiliaria
     void darDeAltaInmobiliaria(string, string, DtDireccion);
@@ -93,6 +103,24 @@ class Sistema : public ISistema {
     // cu: Alta Interesado
     void darDeAltaInteresado(string, string, string, string, DtFecha);
 
+    // cu: Obtener Reporte Inmobiliarias
+    ICollection* listarInmobiliarias();
+
+    // cu: Consultar propiedad
+    void seleccionarDepartamento(char);
+    void seleccionarZona(int);
+    void seleccionarPropiedad(int);
+    DtInfo* detallesPropiedad(int);
+    void deseleccionarTodo(bool);
+
+    // cu: Enviar Mensaje Interesado
+    // seleccionarDepartamento
+    // seleccionarZona
+    // seleccionarPropiedad
+    ICollection* getUltimosMensajesUsuarioActualPropiedadActual();
+   
+    // cu: Alta Edificio
+    void darDeAltaEdificio(DtEdificio);
 
     // Destructor
     ~Sistema();

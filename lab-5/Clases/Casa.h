@@ -19,10 +19,9 @@ class Casa : public Propiedad {
     float getMtsCuadradosVerdes();
 
     // Setters
-    void setDatos(DtDatosCasa);
 
     //Otros
-    DtDatos getInfo();
+    DtDatos getDatos();
 
     // Destructor
     ~Casa();
